@@ -12,9 +12,7 @@ const PreviewTemplateFive = ({ images, image }) => {
 
     const { user: userState, template, master } = useSelector((state) => state);
     const { logo, salutations, greeting, sender, url } = master;
-    const { mainText } = template || {};
-
-    console.log(template);
+    const { mainText, impactStat } = template || {};
 
     if (userState === undefined || template === undefined || master === undefined) {
         return <Loader />
@@ -32,7 +30,13 @@ const PreviewTemplateFive = ({ images, image }) => {
                             <Text>Just like this 👇
                             </Text>
                             <Text>
-                                <PreviewText data={template?.impactStat} placeholder={'[Insert impact statistics]'} />
+                                <ul style={{ marginLeft: '20px', marginTop: '10px' }}>
+                                    {
+                                        impactStat?.length > 0
+                                            ? impactStat.map(el => <li style={{ marginBottom: '5px' }}> {el.text}</li>)
+                                            : <li>[Insert impact statistics]</li>
+                                    }
+                                </ul>
                             </Text>
                             <Text>YOUR part of it – I’m really grateful to have you on board. And, together, we can make an even bigger impact.</Text>
                             <Text>By donating just 16p a day (that’s £5 a month) we can {" "}

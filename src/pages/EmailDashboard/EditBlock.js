@@ -7,7 +7,7 @@ import { useGetTemplateQuery } from "../../features/template/templateApi";
 import {
     setBeneficiaryAfter,
     setBeneficiaryBefore,
-    setBeneficiaryDesc, setBeneficiaryHelped, setBeneficiaryName, setDonationDoes, setDonationFor, setDonationGoesFor, setImpactStat, setMainGoalSummary, setMainText, setPreview,
+    setBeneficiaryDesc, setBeneficiaryHelped, setBeneficiaryName, setDonationDoes, setDonationFor, setDonationGoesFor, setMainGoalSummary, setMainText, setPreview,
     setServiceDesc, setSocial, setSubjectLine
 } from "../../features/template/templateSlice";
 import { Text20, Text30 } from "../../theme/text";
@@ -53,9 +53,7 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
     const handleDonationFor = (e) => {
         dispatch(setDonationFor(e));
     }
-    const handleImpactStat = (e) => {
-        dispatch(setImpactStat(e));
-    }
+   
     const handleDonationDoes = (e) => {
         dispatch(setDonationDoes(e));
     }

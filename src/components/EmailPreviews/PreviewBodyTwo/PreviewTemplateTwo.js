@@ -13,8 +13,6 @@ const PreviewTemplateTwo = ({ images, image }) => {
     const { logo, salutations, greeting, sender, url } = master;
     const { mainText, impactStat, donationFor, donationGoesFor } = template || {};
 
-    console.log(impactStat);
-
     return (
         <>
             <PreviewHead logo={logo} image={image} images={images} />
