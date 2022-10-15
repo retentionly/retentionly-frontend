@@ -1,0 +1,17 @@
+[
+    {
+        "template_v1": {
+            "name": "template_one",
+            "logo": "",
+            "image": "",
+            "subject_line": "",
+            "preview": "",
+            "service_desc": "",
+            "beneficiary_desc": "",
+            "main_text": "",
+            "sender_name": "",
+            "sender_designation": "",
+            "slug": "temp_one_v1"
+        }
+    }
+]

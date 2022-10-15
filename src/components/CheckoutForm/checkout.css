@@ -1,0 +1,9 @@
+.StripeElement {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.StripeElement--invalid {
+    border: 2px solid rgb(247, 130, 130);
+}
