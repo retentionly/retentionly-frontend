@@ -9,6 +9,7 @@ const EditingBlockRight = () => {
     const { greeting, salutations, sender, url } = master;
 
     const handleGreetings = (e) => {
+        console.log(e)
         dispatch(setGreeting(e));
     }
     const handleSalutation = (e) => {
@@ -18,6 +19,7 @@ const EditingBlockRight = () => {
         dispatch(setSender(e));
     }
     const handleUrl = (e) => {
+
         dispatch(setUrl(e));
     }
 

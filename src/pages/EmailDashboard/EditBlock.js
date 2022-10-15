@@ -76,7 +76,7 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
             instagramLink: e.target.value
         }))
     }
-    
+
     const handleMainText = (e) => {
         dispatch(setMainText(e));
     }
@@ -131,12 +131,12 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
                             text={`List down why we should follow you
                         social media pages.`}
                             placeholder={`
-E.g. ‘1. It’s a great way to keep 
+E.g. ‘It’s a great way to keep 
 up to date with
- your donation.
-2. It’s free!”`}
+ your donation.”`}
                             mb="30px"
                             data={socialMediaBenefit}
+                            social={true}
                         />
                     </Box>
                 }
@@ -154,7 +154,7 @@ up to date with
                         <RegularTextbox title="Instagram" handleChange={handleInstagramLink} placeholder="Insert Instagram Link" />
                     </Box>
                 }
-                
+
                 {
                     serviceDesc
                     &&
@@ -174,18 +174,29 @@ up to date with
                     impactStat
                     &&
                     <Box className="impact-statistic">
-                        <EditBlock
+                        <ListEditor
                             title="Insert impact statistics:"
                             text={`List out the impact your charity has made to build credibility with the recipients.`}
-                            inputPlaceholder={
-                                `E.g. " 1. Feed 1,000 people 
-2. Sponsored 500 orphans 
-3. Installed 500 water pumps".`}
+                            placeholder={
+                                `E.g. "Feed 1,000 people`}
                             mb="30px"
-                            onChange={handleImpactStat}
-                            value={impactStat || []}
+                            data={impactStat}
+                            impact={true}
                         />
                     </Box>
+                    //                     <Box className="impact-statistic">
+                    //                         <EditBlock
+                    //                             title="Insert impact statistics:"
+                    //                             text={`List out the impact your charity has made to build credibility with the recipients.`}
+                    //                             inputPlaceholder={
+                    //                                 `E.g. " 1. Feed 1,000 people 
+                    // 2. Sponsored 500 orphans 
+                    // 3. Installed 500 water pumps".`}
+                    //                             mb="30px"
+                    //                             onChange={handleImpactStat}
+                    //                             value={impactStat || []}
+                    //                         />
+                    //                     </Box>
                 }
 
                 {

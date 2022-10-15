@@ -43,6 +43,8 @@ const Master = () => {
     const { master: masterState } = useSelector((state) => state);
     const { logo, greeting, salutations, sender, url } = masterState;
 
+    console.log('from master',greeting)
+
     // DRAG AND DROP FUNCTION
 
     const [images, setImages] = useState([]);

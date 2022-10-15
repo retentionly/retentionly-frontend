@@ -24,7 +24,7 @@ const Dashboard = () => {
         <PageWrapper>
             <Container>
                 <SectionTitle title="Users List 👥" text="Your Dashboard where you can find everything your looking for." mb="80px" />
-                <Box maxW="400px" mx="auto">
+                <Box maxW="600px" mx="auto">
                     {
                         data?.map((e) => {
                             if (e.email === user?.email) {

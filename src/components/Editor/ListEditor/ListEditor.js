@@ -2,10 +2,9 @@ import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSocialMediaBenefit } from '../../../features/template/templateSlice';
+import { setImpactStat, setSocialMediaBenefit } from '../../../features/template/templateSlice';
 import { Text20, Text30 } from '../../../theme/text';
 import { FormStyled } from '../style';
-
 
 const RemoveButton = styled(Button)`
 background: none;
@@ -49,13 +48,18 @@ const AddTaskForm = ({ addTask, placeholder }) => {
     );
 }
 
-const ListEditor = ({ title, text, placeholder, data, ...rest }) => {
+const ListEditor = ({ title, text, placeholder, data, social, impact, ...rest }) => {
     const dispatch = useDispatch()
     const [tasks, setTasks] = useState([...data]);
 
     const addTask = text => {
         setTasks([...tasks, { text: text }])
-        dispatch(setSocialMediaBenefit([...tasks, { text: text }]))
+        if(social){
+            dispatch(setSocialMediaBenefit([...tasks, { text: text }]))
+        }
+        if(impact){
+            dispatch(setImpactStat([...tasks, { text: text }]))
+        }
     };
 
     const toggleTask = index => {
@@ -68,7 +72,12 @@ const ListEditor = ({ title, text, placeholder, data, ...rest }) => {
         const newTasks = [...tasks];
         newTasks.splice(index, 1);
         setTasks(newTasks);
-        dispatch(setSocialMediaBenefit(newTasks))
+        if(social){
+            dispatch(setSocialMediaBenefit(newTasks))
+        }
+        if(impact){
+            dispatch(setImpactStat(newTasks))
+        }
     };
 
     return (

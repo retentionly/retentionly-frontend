@@ -21,7 +21,7 @@ const initialState = {
   socialMediaBenefit: [],
   donationDoes: initialValue,
   mainGoalSummary: initialValue,
-  impactStat: initialValue,
+  impactStat: [],
   mainText: initialValue,
   social: {},
   slug: "",
