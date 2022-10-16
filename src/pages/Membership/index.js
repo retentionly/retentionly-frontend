@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import PaymentModal from '../../components/PaymentModal/PaymentModal';
 import auth from '../../firebase.init';
 import usePayment from '../../hooks/usePayment';
-import Header from '../../layout/Header';
 import Loader from '../../ui/Loaders/Loading';
 import { PageWrapper } from '../../ui/PageWrapper';
 import SectionTitle from '../../ui/SectionTitle';
@@ -52,7 +51,6 @@ const Membership = () => {
 
   return (
     <>
-    <Header />
       <PageWrapper>
         <Container>
 

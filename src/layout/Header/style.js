@@ -1,11 +1,19 @@
+import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 export const HeaderStyled = styled.header`
-    background:#000;
+background: #F6C5C5;
+    display:flex;
+    // align-items:center;
+    // justify-content:space-between;
+`
+
+export const HeaderContent = styled(Box)`
+    width: 100%;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:10px 60px;
+    padding: 0 26px;
 `
 
 export const Menu = styled.ul`
@@ -15,12 +23,15 @@ export const Menu = styled.ul`
 `
 Menu.Item = styled.li`
     margin:0;
-    color:#fff;
+    color:#000;
+    
     a{
+        
         padding:0 15px;
-        color:inherit;
+        color:#000;
     }
 `
+
 export const HeraderButtonGroup = styled.div`
     --x: ${props => props.spacingX ?? 0};
     --y:${props => props.spacingY ?? 0};
@@ -36,21 +47,21 @@ export const HeraderButtonGroup = styled.div`
         margin-bottom:var(--y);
     }
 `
+
 export const HeaderButton = styled.a`
-    --blue:#18A0FB;
-    padding-top:11px;
-    padding-bottom:11px;
-    padding-left:42px;
-    padding-right:42px;
+    --blue:#000;
+    padding-top:6px;
+    padding-bottom:6px;
+    padding-left:30px;
+    padding-right:30px;
     font-size:15px;
-    border-radius:6px;
-    height:100%;
-    ${props => props.blue &&`
+    
+    ${props => props.blue && `
         color:#FFF;
         background:var(--blue);
         border:1px solid var(--blue);
     `}
-    ${props => props.white &&`
+    ${props => props.white && `
         color:#18A0FB;
         background:#fff;
         border:1px solid var(--blue);
