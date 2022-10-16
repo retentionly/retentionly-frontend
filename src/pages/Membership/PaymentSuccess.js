@@ -45,7 +45,7 @@ const PaymentSuccess = () => {
                     </Text>
                     <Flex justifyContent="center" alignItems="center">
                         <Text {...Text20} mb="10px">
-                            Payment authenticated and secured by <b>CerealBox</b>
+                            Payment authenticated and secured by <b>Retentionly</b>
                         </Text>
                         <Box maxW="100px" ml="10px">
                             <img src={logo} alt="" />
