@@ -10,6 +10,7 @@ import { useGetUserQuery } from "./features/user/userApi";
 import { setTemplateLength, setUser } from "./features/user/userSlice";
 import auth from "./firebase.init";
 import Layout from "./layout";
+import Header from "./layout/Header";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserDetail from "./pages/Admin/UserDetail";
 import UserMaster from "./pages/Admin/UserMaster";
@@ -47,7 +48,7 @@ function App() {
   useEffect(() => {
     hotjar.initialize(3199799, 6)
   }, [])
-  
+
   // Check if Hotjar has been initialized before calling its methods
   if (hotjar.initialized()) {
     hotjar.identify('USER_ID', { userProperty: 'value' });
@@ -83,6 +84,8 @@ function App() {
   }
 
   return (
+   <>
+    <Header />
     <Routes>
       <Route element={<RequireAuth />}>
 
@@ -132,6 +135,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>
+   </>
   );
 }
 
