@@ -1,6 +1,9 @@
+import { Box } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../assets/png/logo3.png";
 import LogoutBtn from "../../components/LogoutBtn";
 import { revertAllAdmin } from "../../features/admin/adminSlice";
 import { revertAllAuth } from "../../features/auth/authSlice";
@@ -9,10 +12,11 @@ import { revertAllPayment } from "../../features/payment/paymentSlice";
 import { revertAllTemplate } from "../../features/template/templateSlice";
 import { revertAllUser } from "../../features/user/userSlice";
 import auth from "../../firebase.init";
-import { HeaderButton, HeaderStyled, HeraderButtonGroup, Menu } from "./style";
+import { HeaderButton, HeaderContent, HeaderStyled, Menu } from "./style";
 
 export default function Header() {
-    const location = useLocation()
+    const [user, loading, error] = useAuthState(auth);
+    const { pathname } = useLocation()
     const dispatch = useDispatch()
 
     const logOut = () => {
@@ -24,31 +28,57 @@ export default function Header() {
         dispatch(revertAllTemplate())
         dispatch(revertAllUser())
     }
-    
+
     return (
         <HeaderStyled>
-            <Menu>
-                <Menu.Item><Link to="/">Features</Link></Menu.Item>
-                <Menu.Item><Link to="/">Pricing</Link></Menu.Item>
-                <Menu.Item><Link to="/">Community</Link></Menu.Item>
-                <Menu.Item><Link to="/">Support</Link></Menu.Item>
-                <Menu.Item><Link to="/master">Master</Link></Menu.Item>
-                <Menu.Item><Link to="/emails">Dashboard</Link></Menu.Item>
-            </Menu>
-            {false && <HeraderButtonGroup spacingX="10px">
+            <Box>
+                <img src={logo} alt="" />
+            </Box>
+            <HeaderContent>
+                <Menu>
+                    {pathname !== "/register" && <Menu.Item><Link to="/emails">Dashboard</Link></Menu.Item>}
+                    {pathname !== "/login" && <Menu.Item><Link to="/">Pricing</Link></Menu.Item>}
+                    {pathname !== "/register" && <Menu.Item><Link to="/master">Master</Link></Menu.Item>}
+                    <Menu.Item><Link to="/">Home</Link></Menu.Item>
+                </Menu>
+                {
+                    (pathname === "/login" && !user) &&
+                    <Link to="/register">
+                        <HeaderButton blue as={"span"}>
+                        Create An Account
+                    </HeaderButton>
+                    </Link>
+                }
+                {
+                    (pathname === "/register" && !user) &&
+                    <Link to="/login">
+                    <HeaderButton blue as={"span"}>
+                        Login
+                    </HeaderButton>
+                    </Link>
+                }
+                {
+                    user &&
+                    <LogoutBtn path={pathname}>
+                        <HeaderButton blue as={"div"}>
+                            Logout
+                        </HeaderButton>
+                    </LogoutBtn>
+                }
+            </HeaderContent>
+            {/* <HeraderButtonGroup spacingX="10px">
                 <HeaderButton blue as={"span"}>
                     Log in
                 </HeaderButton>
                 <HeaderButton white as={"span"}>
                     Register
                 </HeaderButton >
-            </HeraderButtonGroup>}
-            {true && <LogoutBtn path={location?.pathname}>
+            </HeraderButtonGroup>
+            <LogoutBtn path={pathname}>
                 <HeaderButton blue as={"div"}>
                     Sign out
                 </HeaderButton>
-            </LogoutBtn>}
-
+            </LogoutBtn> */}
         </HeaderStyled>
     )
 }

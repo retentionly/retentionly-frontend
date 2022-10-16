@@ -2,7 +2,7 @@ import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import cuid from "cuid";
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Common/Button';
 import Loader from '../../ui/Loaders/Loading';
@@ -22,6 +22,7 @@ transition: opacity 0.4s ease-in-out;
 
 const EmailDashboard = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { pathname } = useLocation()
     const { id } = useParams();
     const [user, loading] = useAuthState(auth)
@@ -66,12 +67,10 @@ const EmailDashboard = () => {
     useEffect(() => {
         setImages({})
         setSizeError("")
-
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         })
-
     }, [pathname, uniqueId]);
 
     useEffect(() => {
@@ -133,7 +132,7 @@ const EmailDashboard = () => {
     // TEMPLATE EDIT HANDLER
     const handleSubmit = () => {
         setTempLoading(true)
-
+        
         if (images.src) {
             const file = images.src;
             const data = new FormData()
@@ -199,9 +198,9 @@ const EmailDashboard = () => {
     }
 
     if (isTemplateLoading || userLoading || loading || uniqueId === undefined) {
+        
         return <Loader />
     }
-
 
     return (
         <PageWrapper>
@@ -220,7 +219,7 @@ const EmailDashboard = () => {
                         <PreviewBlock id={uniqueId} images={images} image={image} setImages={setImages} />
                     </Box>
                     <Box flex='1' maxW="420px">
-                        <DashboardEditBlock name={name} id={uniqueId} onDrop={onDrop} images={images} image={image} sizeError={sizeError} />
+                        <DashboardEditBlock name={name} id={uniqueId} onDrop={onDrop} images={images} image={image} sizeError={sizeError} tempLoading={tempLoading}/>
                         <Flex mx="-15px">
                             {/* <Box px="15px" width="100%">
                                 <Option onClick={handleSubmit} btnProps={{ width: "100%" }} cursor="pointer">

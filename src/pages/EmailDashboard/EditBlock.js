@@ -1,4 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import ListEditor from "../../components/Editor/ListEditor/ListEditor";
 import EditBlock from "../../components/EditorBlock";
@@ -7,17 +8,28 @@ import { useGetTemplateQuery } from "../../features/template/templateApi";
 import {
     setBeneficiaryAfter,
     setBeneficiaryBefore,
-    setBeneficiaryDesc, setBeneficiaryHelped, setBeneficiaryName, setDonationDoes, setDonationFor, setDonationGoesFor, setMainGoalSummary, setMainText, setPreview,
+    setBeneficiaryDesc, setBeneficiaryHelped, setBeneficiaryName, setDonationDoes, setDonationFor, setDonationGoesFor, setImpactStat, setMainGoalSummary, setMainText, setPreview,
     setServiceDesc, setSocial, setSubjectLine
 } from "../../features/template/templateSlice";
 import { Text20, Text30 } from "../../theme/text";
 import RegularTextbox from "../../ui/RegularTextbox/RegularTextbox";
 import { EditBlockStyled, MainTextBoxStyle } from "./style";
 
-const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
+const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError, tempLoading }) => {
     const dispatch = useDispatch();
-
-    const { data, isLoading, isError } = useGetTemplateQuery(id, {
+    const [subjectLineValue, setSubjectLineValue] = useState([
+        {
+            type: "paragaph",
+            children: [{ text: "" }]
+        }
+    ]);
+    const [previewValue, setPreviewValue] = useState([
+        {
+            type: "paragaph",
+            children: [{ text: "" }]
+        }
+    ]);
+    const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
     });
 
@@ -53,21 +65,21 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
     const handleDonationFor = (e) => {
         dispatch(setDonationFor(e));
     }
-   
+    const handleImpactStat = (e) => {
+        dispatch(setImpactStat(e));
+    }
     const handleDonationDoes = (e) => {
         dispatch(setDonationDoes(e));
     }
     const handleMainGoalSummary = (e) => {
         dispatch(setMainGoalSummary(e));
     }
-
     const handleFacebookLink = (e) => {
         dispatch(setSocial({
             facebookLink: e.target.value,
             instagramLink: social?.instagramLink
         }))
     }
-
     const handleInstagramLink = (e) => {
         dispatch(setSocial({
             facebookLink: social?.facebookLink,
@@ -81,6 +93,18 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
 
     const className = name.toLowerCase().replace(" ", "-");
 
+    // useEffect(() => {
+    //     setSubjectLineValue(subjectLine)
+    //     setPreviewValue(preview)
+    //     console.log(subjectLine)
+    // }, [subjectLine, preview, id])
+
+    // console.log("subjectLine", subjectLine)
+    // console.log("preview", preview)
+
+    if(tempLoading){
+        console.log('loading')
+    }
 
     return (
         <>
@@ -97,29 +121,47 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError }) => {
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} images={images} image={image} />
                 </Box>
-                <Box className="subject-line">
-                    <EditBlock
-                        title={"Subject Line:"}
-                        text={`Tell donors your main campaign message. 
-                        E.g. "Your gift could change a child’s life".`}
-                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                        mb="30px"
-                        onChange={handleSubjectLine}
-                        value={subjectLine || []}
-                    />
-                </Box>
 
-                <Box className="preview">
-                    <EditBlock
-                        title={"Preview:"}
-                        text={`Tell donors your main campaign message. 
+                {
+                    !tempLoading &&
+                    <Box className="subject-line">
+                        <EditBlock
+                            title={"Subject Line:"}
+                            text={`Tell donors your main campaign message. 
+                        E.g. "Your gift could change a child’s life".`}
+                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                            mb="30px"
+                            onChange={handleSubjectLine}
+                            value={[
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
+                        />
+                    </Box>
+                }
+
+                {
+                    !tempLoading &&
+                    <Box className="preview">
+                        <EditBlock
+                            title={"Preview:"}
+                            text={`Tell donors your main campaign message. 
                     E.g. "Your gift could change a child’s life".`}
-                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                        mb="30px"
-                        onChange={handlePreview}
-                        value={preview || []}
-                    />
-                </Box>
+                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                            mb="30px"
+                            onChange={handlePreview}
+                            value={[
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
+                        />
+                    </Box>
+                }
+
                 {
                     socialMediaBenefit &&
                     <Box>
