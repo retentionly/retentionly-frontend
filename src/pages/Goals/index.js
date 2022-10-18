@@ -76,6 +76,7 @@ const Goals = () => {
                     </Button>
                 </Box>
             </Container>
+            
         </PageWrapper>
     )
 }

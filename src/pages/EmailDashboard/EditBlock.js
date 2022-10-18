@@ -93,19 +93,6 @@ const DashboardEditBlock = ({ onDrop, id, images, image, name, sizeError, tempLo
 
     const className = name.toLowerCase().replace(" ", "-");
 
-    // useEffect(() => {
-    //     setSubjectLineValue(subjectLine)
-    //     setPreviewValue(preview)
-    //     console.log(subjectLine)
-    // }, [subjectLine, preview, id])
-
-    // console.log("subjectLine", subjectLine)
-    // console.log("preview", preview)
-
-    if(tempLoading){
-        console.log('loading')
-    }
-
     return (
         <>
             <EditBlockStyled direction={"column"} className={className}>

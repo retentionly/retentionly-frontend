@@ -27,7 +27,7 @@ const EditingBlockRight = () => {
         <>
 
             <EditBlock
-                textArea={true}
+                textarea={true}
                 title={"Greeting:"}
                 text="Choose how you would like to great your donors."
                 inputPlaceholder={`E.g. "Hello, Hi, Asalamu Alaykum, Dear, Hiya, etc.” `}

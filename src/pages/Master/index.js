@@ -1,14 +1,16 @@
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import cuid from 'cuid';
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useUploadFile } from 'react-firebase-hooks/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import UploadImageSingle from "../../components/UploadImage/UploadImageSingle";
 import { useEditMasterMutation, useGetMasterQuery } from '../../features/master/masterApi';
 import { setLogo } from '../../features/master/masterSlice';
-import auth from '../../firebase.init';
+import auth, { app } from '../../firebase.init';
 import { Text30 } from '../../theme/text';
 import Loader from '../../ui/Loaders/Loading';
 import Option from '../../ui/OptionButton';
@@ -22,17 +24,25 @@ ${({ visibility }) => visibility ? 'pointer-events: visible; opacity: 1' : 'poin
 transition: opacity 0.4s ease-in-out;
 `
 
+const storage = getStorage(app);
+
 const Master = () => {
     const { pathname } = useLocation();
-
+    const [user] = useAuthState(auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [loader, setLoader] = useState(true)
+    const [selectedFile, setSelectedFile] = useState("");
     const [tempLoading, setTempLoading] = useState(false);
     const [sizeError, setSizeError] = useState("")
+    const { master: masterState, template } = useSelector((state) => state);
 
-    const [user] = useAuthState(auth);
+    const [uploadFile, uploading, snapshot, error] = useUploadFile();
+    const storageRef = ref(storage, `${user.email}/master.jpg`);
+    const metadata = {
+        contentType: 'image/jpeg',
+    };
     // const { data: userData, isLoading: isUserLoading, isError: isUserError } = useGetUserQuery(user?.email)
     const { data: master, isLoading: isMasterLoading, isError: isMasterError, refetch } = useGetMasterQuery(user?.email, {
         refetchOnMountOrArgChange: true,
@@ -40,24 +50,17 @@ const Master = () => {
 
     const [editMaster, { data: editMasterData, isLoading: editMasterLoading, isError: editMasterError, isSuccess: editMasterSuccess }] = useEditMasterMutation();
 
-    const { master: masterState } = useSelector((state) => state);
     const { logo, greeting, salutations, sender, url } = masterState;
-
-    console.log('from master',greeting)
 
     // DRAG AND DROP FUNCTION
 
-    const [images, setImages] = useState([]);
     const [image, setImage] = useState({});
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
 
         acceptedFiles.map((file) => {
+            setSelectedFile(file)
             const reader = new FileReader();
             reader.onload = function (e) {
-                setImages((prevState) => [
-                    ...prevState,
-                    { id: cuid(), src: e.target.result },
-                ]);
                 setImage({ id: cuid(), src: e.target.result })
             };
             reader.readAsDataURL(file);
@@ -98,35 +101,25 @@ const Master = () => {
     }, [editMasterSuccess])
 
     // UPLOAD IMAGE AND GET URL FUNCTION
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setTempLoading(true)
-        if (image.src) {
-            const data = new FormData()
-            data.append("file", image.src)
-            data.append("upload_preset", "tymtravellr_preset")
-            data.append("cloud_name", "thetymtravellr")
-            fetch("https://api.cloudinary.com/v1_1/thetymtravellr/image/upload", {
-                method: "post",
-                body: data
-            })
-                .then(resp => resp.json())
-                .then(data => {
-                    if (data.url) {
-                        dispatch(setLogo(data.url))
-                        editMaster({
-                            email: user?.email,
-                            data: {
-                                logo: data.url,
-                                greeting,
-                                salutations,
-                                sender,
-                                url
-                            }
-                        })
-                        setLoading(false)
+        if (selectedFile) {
+            const result = await uploadFile(storageRef, selectedFile, metadata);
+            const url = await getDownloadURL(result.ref);
+            if (url) {
+                dispatch(setLogo(url))
+                editMaster({
+                    email: user?.email,
+                    data: {
+                        logo: url,
+                        greeting,
+                        salutations,
+                        sender,
+                        url
                     }
                 })
-                .catch(err => console.log(err))
+                setLoading(false)
+            }
         } else {
             editMaster({
                 email: user?.email,
@@ -141,6 +134,49 @@ const Master = () => {
             setLoading(false)
         }
     }
+    // const handleSubmit = () => {
+    //     setTempLoading(true)
+    //     if (image.src) {
+    //         const data = new FormData()
+    //         data.append("file", image.src)
+    //         data.append("upload_preset", "tymtravellr_preset")
+    //         data.append("cloud_name", "thetymtravellr")
+    //         fetch("https://api.cloudinary.com/v1_1/thetymtravellr/image/upload", {
+    //             method: "post",
+    //             body: data
+    //         })
+    //             .then(resp => resp.json())
+    //             .then(data => {
+    //                 if (data.url) {
+    //                     dispatch(setLogo(data.url))
+    //                     editMaster({
+    //                         email: user?.email,
+    //                         data: {
+    //                             logo: data.url,
+    //                             greeting,
+    //                             salutations,
+    //                             sender,
+    //                             url
+    //                         }
+    //                     })
+    //                     setLoading(false)
+    //                 }
+    //             })
+    //             .catch(err => console.log(err))
+    //     } else {
+    //         editMaster({
+    //             email: user?.email,
+    //             data: {
+    //                 logo,
+    //                 greeting,
+    //                 salutations,
+    //                 sender,
+    //                 url
+    //             }
+    //         })
+    //         setLoading(false)
+    //     }
+    // }
 
     if (editMasterData?.success) {
         navigate('/emails')

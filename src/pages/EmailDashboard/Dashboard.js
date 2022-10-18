@@ -1,15 +1,16 @@
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 import cuid from "cuid";
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useUploadFile } from 'react-firebase-hooks/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Common/Button';
-import Loader from '../../ui/Loaders/Loading';
-
-import styled from '@emotion/styled';
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../features/template/templateApi';
-import auth from '../../firebase.init';
+import auth, { app } from '../../firebase.init';
+import Loader from '../../ui/Loaders/Loading';
 import { PageWrapper } from '../../ui/PageWrapper';
 import SectionTitle from '../../ui/SectionTitle';
 import DashboardEditBlock from './EditBlock';
@@ -20,16 +21,21 @@ ${({ visibility }) => visibility ? 'pointer-events: visible; opacity: 1' : 'poin
 transition: opacity 0.4s ease-in-out;
 `
 
+const storage = getStorage(app);
+
 const EmailDashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { pathname } = useLocation()
     const { id } = useParams();
     const [user, loading] = useAuthState(auth)
+    const [selectedFile, setSelectedFile] = useState("");
     const [sizeError, setSizeError] = useState("")
     const [tempLoading, setTempLoading] = useState(false);
     const [images, setImages] = useState({});
     const { template } = useSelector(state => state);
+    const [uploadFile, uploading, snapshot, error] = useUploadFile();
+    const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
 
     const { data, isLoading: userLoading, isError } = useGetTemplatesQuery(user?.email);
     const [editTemplate, { data: editTemplateData, isLoading: editTemplateLoading, isError: editTemplateError, isSuccess: editTemplateSuccess }] = useEditTemplateMutation();
@@ -43,6 +49,10 @@ const EmailDashboard = () => {
     const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
         refetchOnMountOrArgChange: true,
     });
+
+    const metadata = {
+        contentType: 'image/jpeg',
+    };
 
     // Destructure Template Values From Template State
     const {
@@ -74,12 +84,6 @@ const EmailDashboard = () => {
     }, [pathname, uniqueId]);
 
     useEffect(() => {
-        if (editTemplateLoading) {
-            setTempLoading(true)
-        }
-    }, [editTemplateLoading])
-
-    useEffect(() => {
         if (editTemplateSuccess) {
             if (data?.templates[data?.templates.length - 1].emailId == id) {
                 navigate(`/email-final`)
@@ -90,18 +94,18 @@ const EmailDashboard = () => {
                 setTempLoading(false)
             }, 2000)
         }
-    }, [editTemplateSuccess])
+        if (editTemplateLoading) {
+            setTempLoading(true)
+        }
+    }, [editTemplateSuccess, editTemplateLoading])
 
     // DRAG AND DROP FUNCTION
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
 
         acceptedFiles.map((file) => {
+            setSelectedFile(file)
             const reader = new FileReader();
             reader.onload = function (e) {
-                // setImages((prevState) => [
-                //     ...prevState,
-                //     { id: cuid(), src: e.target.result },
-                // ]);
                 setImages({ id: cuid(), src: e.target.result })
             };
             reader.readAsDataURL(file);
@@ -130,47 +134,103 @@ const EmailDashboard = () => {
     }, [sizeError])
 
     // TEMPLATE EDIT HANDLER
-    const handleSubmit = () => {
+    // const handleSubmit = () => {
+    //     setTempLoading(true)
+
+    //     if (images.src) {
+    //         const file = images.src;
+    //         const data = new FormData()
+    //         data.append("file", file)
+    //         data.append("upload_preset", "tymtravellr_preset")
+    //         data.append("cloud_name", "thetymtravellr")
+    //         console.log(data)
+    //         fetch("https://api.cloudinary.com/v1_1/thetymtravellr/image/upload", {
+    //             method: "POST",
+    //             body: data
+    //         })
+    //             .then(resp => resp.json())
+    //             .then(data => {
+    //                 if (data.url) {
+    //                     editTemplate({
+    //                         id: uniqueId,
+    //                         data: {
+    //                             image: data.url,
+    //                             name,
+    //                             subjectLine,
+    //                             preview,
+    //                             serviceDesc,
+    //                             beneficiaryName,
+    //                             beneficiaryHelped,
+    //                             beneficiaryAfter,
+    //                             beneficiaryBefore,
+    //                             beneficiaryDesc,
+    //                             donationGoesFor,
+    //                             donationFor,
+    //                             donationDoes,
+    //                             socialMediaBenefit,
+    //                             impactStat,
+    //                             mainText
+    //                         }
+    //                     })
+    //                     refetch()
+    //                 }
+    //             })
+    //             .catch(err => console.log(err))
+    //     } else {
+    //         editTemplate({
+    //             id: uniqueId,
+    //             data: {
+    //                 image,
+    //                 name,
+    //                 subjectLine,
+    //                 preview,
+    //                 serviceDesc,
+    //                 beneficiaryName,
+    //                 beneficiaryHelped,
+    //                 beneficiaryAfter,
+    //                 beneficiaryBefore,
+    //                 beneficiaryDesc,
+    //                 donationGoesFor,
+    //                 donationFor,
+    //                 donationDoes,
+    //                 socialMediaBenefit,
+    //                 impactStat,
+    //                 mainText
+    //             }
+    //         })
+    //         refetch()
+    //     }
+    // }
+
+    const handleSubmit = async () => {
         setTempLoading(true)
-        
-        if (images.src) {
-            const file = images.src;
-            const data = new FormData()
-            data.append("file", file)
-            data.append("upload_preset", "tymtravellr_preset")
-            data.append("cloud_name", "thetymtravellr")
-            fetch("https://api.cloudinary.com/v1_1/thetymtravellr/image/upload", {
-                method: "POST",
-                body: data
-            })
-                .then(resp => resp.json())
-                .then(data => {
-                    if (data.url) {
-                        editTemplate({
-                            id: uniqueId,
-                            data: {
-                                image: data.url,
-                                name,
-                                subjectLine,
-                                preview,
-                                serviceDesc,
-                                beneficiaryName,
-                                beneficiaryHelped,
-                                beneficiaryAfter,
-                                beneficiaryBefore,
-                                beneficiaryDesc,
-                                donationGoesFor,
-                                donationFor,
-                                donationDoes,
-                                socialMediaBenefit,
-                                impactStat,
-                                mainText
-                            }
-                        })
-                        refetch()
+        if (selectedFile) {
+            const result = await uploadFile(storageRef, selectedFile, metadata);
+            const url = await getDownloadURL(result.ref);
+            if (url) {
+                editTemplate({
+                    id: uniqueId,
+                    data: {
+                        image: url,
+                        name,
+                        subjectLine,
+                        preview,
+                        serviceDesc,
+                        beneficiaryName,
+                        beneficiaryHelped,
+                        beneficiaryAfter,
+                        beneficiaryBefore,
+                        beneficiaryDesc,
+                        donationGoesFor,
+                        donationFor,
+                        donationDoes,
+                        socialMediaBenefit,
+                        impactStat,
+                        mainText
                     }
                 })
-                .catch(err => console.log(err))
+                refetch()
+            }
         } else {
             editTemplate({
                 id: uniqueId,
@@ -197,8 +257,8 @@ const EmailDashboard = () => {
         }
     }
 
-    if (isTemplateLoading || userLoading || loading || uniqueId === undefined) {
-        
+    if (isTemplateLoading || userLoading || uniqueId === undefined) {
+        // console.log('rendered')
         return <Loader />
     }
 
@@ -209,9 +269,6 @@ const EmailDashboard = () => {
                 <Loader height={'100px'} />
             </LoaderBox>
             <Container>
-                {/* <Box>
-                    <Navigation templateLength={userState?.templateLength} id={id} name={name} next={nextTemplateName} navigate={navigate} setTempLoading={setTempLoading} />
-                </Box> */}
                 <SectionTitle title={`Edit ${name} 📧`} text={emailSubject} mb="80px" maxW="730px" mx="auto" />
                 <Flex color='white' justifyContent={"space-between"}>
 
@@ -219,13 +276,8 @@ const EmailDashboard = () => {
                         <PreviewBlock id={uniqueId} images={images} image={image} setImages={setImages} />
                     </Box>
                     <Box flex='1' maxW="420px">
-                        <DashboardEditBlock name={name} id={uniqueId} onDrop={onDrop} images={images} image={image} sizeError={sizeError} tempLoading={tempLoading}/>
+                        <DashboardEditBlock name={name} id={uniqueId} onDrop={onDrop} images={images} image={image} sizeError={sizeError} tempLoading={tempLoading} />
                         <Flex mx="-15px">
-                            {/* <Box px="15px" width="100%">
-                                <Option onClick={handleSubmit} btnProps={{ width: "100%" }} cursor="pointer">
-                                    Save Changes
-                                </Option>
-                            </Box> */}
                             {
                                 data?.templates?.length == id
                                     ? <Box px="15px" width="100%" cursor="pointer">
@@ -241,7 +293,6 @@ const EmailDashboard = () => {
                     </Box>
                 </Flex>
             </Container>
-            {/* <EmailUpdatedModal showModal={showModal} setShowModal={setShowModal} loader={loader} setUpdated={setUpdated} updated={updated} setLoader={setLoader} item={'Email'} /> */}
         </PageWrapper>
     )
 }
