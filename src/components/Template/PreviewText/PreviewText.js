@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 const PreviewTextStyled = styled(Text)`
-font-weight: 500;
+// font-weight: 500;
 `
 
 const PreviewText = ({ data, tag, placeholder, mainTag }) => {
@@ -18,6 +18,7 @@ const PreviewText = ({ data, tag, placeholder, mainTag }) => {
             return (<>
                 {data.map((item, key) => {
                     return (<span className="slate-text" key={key}>{item.children.map(({ text, bold, underline, italic }) => {
+
                         return <PreviewTextStyled color="#000" key={key + 'fjd'} as="span" fontWeight={bold && "bold"} textDecor={underline && "underline"} style={{ fontStyle: `${italic ? 'italic' : 'normal'}`, display: 'inline', fontFamily: "inherit" }}>
                             {" "}{text || placeholder}
                         </PreviewTextStyled>

@@ -45,3 +45,13 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'Avenir LT Std';
+    src: url('AvenirLTStd-Bold.woff2') format('woff2'),
+        url('AvenirLTStd-Bold.woff') format('woff'),
+        url('AvenirLTStd-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
