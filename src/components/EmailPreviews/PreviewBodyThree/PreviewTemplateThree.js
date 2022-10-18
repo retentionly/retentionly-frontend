@@ -53,7 +53,7 @@ const PreviewTemplateThree = ({ images, image }) => {
                 <Text>
                     We thank you from the bottom of our hearts,
                 </Text>
-                {sender ? <Sender data={sender} salutations={salutations} /> : <Text color="#000">Jamal - CEO</Text>}
+                <Sender data={sender} salutations={salutations} name={userState?.name}/>
                 <PreviewFooter />
             </PreviewBody>
         </>

@@ -28,7 +28,7 @@ const PreviewTemplateOne = ({ images, image }) => {
                         :
                         <PreviewText data={mainText} />
                 }
-                {sender ? <Sender data={sender} salutations={salutations} /> : <Text color="#000">Jamal - CEO</Text>}
+                <Sender data={sender} salutations={salutations} name={userState?.name}/>
                 <PreviewFooter />
             </PreviewBody>
         </>

@@ -52,7 +52,7 @@ const PreviewTemplateFive = ({ images, image }) => {
                         :
                         <PreviewText data={template?.mainText} />
                 }
-                {sender ? <Sender data={sender} salutations={salutations} /> : <Text color="#000">Jamal - CEO</Text>}
+                <Sender data={sender} salutations={salutations} name={userState?.name}/>
                 <PreviewFooter />
             </PreviewBody>
         </>
