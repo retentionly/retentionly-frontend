@@ -1,1 +1,1 @@
-export {default} from "./PreviewTemplateFive"
+export { default } from "./PreviewTemplateFive";

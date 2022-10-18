@@ -12,7 +12,7 @@ const PreviewTemplateTwo = ({ images, image }) => {
     const { user: userState, template, master } = useSelector((state) => state);
     const { logo, salutations, greeting, sender, url } = master;
     const { mainText, impactStat, donationFor, donationGoesFor } = template || {};
-
+   
     return (
         <>
             <PreviewHead logo={logo} image={image} images={images} />

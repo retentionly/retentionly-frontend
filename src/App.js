@@ -17,7 +17,7 @@ import UserMaster from "./pages/Admin/UserMaster";
 import UserTemplates from "./pages/Admin/UserTemplates";
 import Preview from "./pages/Admin/UserTemplates/Preview";
 import Appointment from "./pages/Appointment";
-import EmailDashboard from "./pages/EmailDashboard";
+import EmailDashboard from "./pages/EmailDashboard/Dashboard";
 import EmailFinal from "./pages/EmailFinal";
 import Emails from "./pages/Emails/Emails";
 import EventConfirmedDashboard from "./pages/EventConfirmedDashboard";
@@ -84,58 +84,58 @@ function App() {
   }
 
   return (
-   <>
-    <Header />
-    <Routes>
-      <Route element={<RequireAuth />}>
+    <>
+      <Header />
+      <Routes>
+        <Route element={<RequireAuth />}>
 
-        {/* Routes For New User Who Isnt completed their template confirmation and event scheduling */}
-        <Route element={<NewUserRoute />}>
-          <Route path="/" element={<Layout />}>
-            <Route element={<RequirePayment />}>
-              <Route index element={<Goals />} />
-              <Route path="dashboard" element={<UserDashboard />} />
-              <Route path="email/:id" element={<EmailDashboard />} />
-              <Route path="master" element={<Master />} />
-              <Route path="emails" element={<Emails />} />
-              <Route path="email-final" element={<EmailFinal />} />
-              <Route path="success" element={<PaymentSuccess />} />
-              <Route path="appointment" element={<Appointment />} />
+          {/* Routes For New User Who Isnt completed their template confirmation and event scheduling */}
+          <Route element={<NewUserRoute />}>
+            <Route path="/" element={<Layout />}>
+              <Route element={<RequirePayment />}>
+                <Route index element={<Goals />} />
+                <Route path="dashboard" element={<UserDashboard />} />
+                <Route path="email/:id" element={<EmailDashboard />} />
+                <Route path="master" element={<Master />} />
+                <Route path="emails" element={<Emails />} />
+                <Route path="email-final" element={<EmailFinal />} />
+                <Route path="success" element={<PaymentSuccess />} />
+                <Route path="appointment" element={<Appointment />} />
+              </Route>
+            </Route>
+            <Route path="/membership" element={<Membership />} />
+          </Route>
+
+          {/* Routes For Old user who has confirmed their template and scheduled event */}
+          <Route element={<OldUserRoute />}>
+            <Route path="/final" element={<FinalConfirmation />} />
+            <Route path="/user" element={<Layout />}>
+              <Route element={<RequireConfirmedUser />}>
+                <Route index element={<EventConfirmedDashboard />} />
+              </Route>
             </Route>
           </Route>
-          <Route path="/membership" element={<Membership />} />
-        </Route>
 
-        {/* Routes For Old user who has confirmed their template and scheduled event */}
-        <Route element={<OldUserRoute />}>
-          <Route path="/final" element={<FinalConfirmation />} />
-          <Route path="/user" element={<Layout />}>
-            <Route element={<RequireConfirmedUser />}>
-              <Route index element={<EventConfirmedDashboard />} />
+          {/* Admin Routes */}
+          <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<Layout />}>
+              <Route element={<RequireAdmin />}>
+                <Route index element={<Dashboard />} />
+                <Route path="/admin/user/:email" element={<UserDetail />} />
+                <Route path="/admin/master/:email" element={<UserMaster />} />
+                <Route path="/admin/templates/:email" element={<UserTemplates />} />
+                <Route path="/admin/template/:id" element={<Preview />} />
+              </Route>
             </Route>
           </Route>
+
         </Route>
 
-        {/* Admin Routes */}
-        <Route element={<AdminRoute />}>
-          <Route path="/admin" element={<Layout />}>
-            <Route element={<RequireAdmin />}>
-              <Route index element={<Dashboard />} />
-              <Route path="/admin/user/:email" element={<UserDetail />} />
-              <Route path="/admin/master/:email" element={<UserMaster />} />
-              <Route path="/admin/templates/:email" element={<UserTemplates />} />
-              <Route path="/admin/template/:id" element={<Preview />} />
-            </Route>
-          </Route>
-        </Route>
-
-      </Route>
-
-      <Route path="*" element={<NotFound />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
-   </>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </>
   );
 }
 

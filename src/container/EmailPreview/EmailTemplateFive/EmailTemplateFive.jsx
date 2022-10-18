@@ -1,29 +1,28 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
-import PreviewTemplateOne from '../../../components/EmailPreviews/PreviewBodyOne'
+import PreviewTemplateFive from '../../../components/EmailPreviews/PreviewBodyFive/PreviewTemplateFive'
 import { Text30 } from '../../../theme/text'
 import SectionTitle from '../../../ui/SectionTitle'
 import { PreviewFrame } from '../style'
-import EditBlockOne from './EditBlockOne'
+import EditBlockFive from './EditBlockFive'
 
-const EmailTemplateOne = ({ id, onDrop, images, image, tempLoading }) => {
-
+const EmailTemplateFive = ({ id, onDrop, images, image, tempLoading }) => {
     return (
         <Box>
-            <SectionTitle title={`Edit Email 1 📧`} text={'Edit your first email to get started.'} mb="80px" maxW="730px" mx="auto" />
+            <SectionTitle title={`Edit Email 5 📧`} text={'The last one! You’re one step away from getting monthly donors.'} mb="80px" maxW="730px" mx="auto" />
             <Flex color='white' justifyContent={"space-between"}>
                 <Box flex='1' maxW="550px">
                     <PreviewFrame>
                         <Text py="30px" textAlign={"center"} color="#000" {...Text30}>Preview</Text>
-                        <PreviewTemplateOne images={images} image={image}/>
+                        <PreviewTemplateFive images={images} image={image}/>
                     </PreviewFrame>
                 </Box>
                 <Box flex='1' maxW="420px">
-                    <EditBlockOne id={id} onDrop={onDrop} images={images} tempLoading={tempLoading}/>
+                    <EditBlockFive id={id} onDrop={onDrop} tempLoading={tempLoading}/>
                 </Box>
             </Flex>
         </Box>
     )
 }
 
-export default EmailTemplateOne
+export default EmailTemplateFive

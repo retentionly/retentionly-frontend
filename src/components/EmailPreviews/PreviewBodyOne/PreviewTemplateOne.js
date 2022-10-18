@@ -14,7 +14,7 @@ const PreviewTemplateOne = ({ images, image }) => {
 
     return (
         <>
-            <PreviewHead logo={logo} image={image} images={images} />
+            <PreviewHead logo={logo} images={images} image={image}/>
             <PreviewBody>
                 <Greeting data={greeting} name={userState?.name} />
                 {

@@ -7,14 +7,16 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useUploadFile } from 'react-firebase-hooks/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import Button from '../../components/Common/Button';
+import Button from "../../components/Common/Button";
+import EmailTemplateFive from '../../container/EmailPreview/EmailTemplateFive';
+import EmailTemplateFour from '../../container/EmailPreview/EmailTemplateFour';
+import EmailTemplateOne from '../../container/EmailPreview/EmailTemplateOne';
+import EmailTemplateThree from '../../container/EmailPreview/EmailTemplateThree';
+import EmailTemplateTwo from '../../container/EmailPreview/EmailTemplateTwo';
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../features/template/templateApi';
 import auth, { app } from '../../firebase.init';
 import Loader from '../../ui/Loaders/Loading';
 import { PageWrapper } from '../../ui/PageWrapper';
-import SectionTitle from '../../ui/SectionTitle';
-import DashboardEditBlock from './EditBlock';
-import PreviewBlock from './PreviewBlock';
 
 const LoaderBox = styled(Box)`
 ${({ visibility }) => visibility ? 'pointer-events: visible; opacity: 1' : 'pointer-events: none; opacity: 0'};
@@ -45,7 +47,7 @@ const EmailDashboard = () => {
     const currentIndex = data?.templates.indexOf(findTemplate);
     const nextIndex = currentIndex + 1;
     const nextTemplate = data?.templates[nextIndex]?.emailId
-
+    console.log(findTemplate);
     const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
         refetchOnMountOrArgChange: true,
     });
@@ -101,7 +103,6 @@ const EmailDashboard = () => {
 
     // DRAG AND DROP FUNCTION
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
-
         acceptedFiles.map((file) => {
             setSelectedFile(file)
             const reader = new FileReader();
@@ -125,6 +126,8 @@ const EmailDashboard = () => {
 
     }, []);
 
+    console.log(images)
+
     useEffect(() => {
         if (sizeError) {
             setTimeout(() => {
@@ -132,75 +135,6 @@ const EmailDashboard = () => {
             }, 3000)
         }
     }, [sizeError])
-
-    // TEMPLATE EDIT HANDLER
-    // const handleSubmit = () => {
-    //     setTempLoading(true)
-
-    //     if (images.src) {
-    //         const file = images.src;
-    //         const data = new FormData()
-    //         data.append("file", file)
-    //         data.append("upload_preset", "tymtravellr_preset")
-    //         data.append("cloud_name", "thetymtravellr")
-    //         console.log(data)
-    //         fetch("https://api.cloudinary.com/v1_1/thetymtravellr/image/upload", {
-    //             method: "POST",
-    //             body: data
-    //         })
-    //             .then(resp => resp.json())
-    //             .then(data => {
-    //                 if (data.url) {
-    //                     editTemplate({
-    //                         id: uniqueId,
-    //                         data: {
-    //                             image: data.url,
-    //                             name,
-    //                             subjectLine,
-    //                             preview,
-    //                             serviceDesc,
-    //                             beneficiaryName,
-    //                             beneficiaryHelped,
-    //                             beneficiaryAfter,
-    //                             beneficiaryBefore,
-    //                             beneficiaryDesc,
-    //                             donationGoesFor,
-    //                             donationFor,
-    //                             donationDoes,
-    //                             socialMediaBenefit,
-    //                             impactStat,
-    //                             mainText
-    //                         }
-    //                     })
-    //                     refetch()
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     } else {
-    //         editTemplate({
-    //             id: uniqueId,
-    //             data: {
-    //                 image,
-    //                 name,
-    //                 subjectLine,
-    //                 preview,
-    //                 serviceDesc,
-    //                 beneficiaryName,
-    //                 beneficiaryHelped,
-    //                 beneficiaryAfter,
-    //                 beneficiaryBefore,
-    //                 beneficiaryDesc,
-    //                 donationGoesFor,
-    //                 donationFor,
-    //                 donationDoes,
-    //                 socialMediaBenefit,
-    //                 impactStat,
-    //                 mainText
-    //             }
-    //         })
-    //         refetch()
-    //     }
-    // }
 
     const handleSubmit = async () => {
         setTempLoading(true)
@@ -258,7 +192,6 @@ const EmailDashboard = () => {
     }
 
     if (isTemplateLoading || userLoading || uniqueId === undefined) {
-        // console.log('rendered')
         return <Loader />
     }
 
@@ -269,8 +202,8 @@ const EmailDashboard = () => {
                 <Loader height={'100px'} />
             </LoaderBox>
             <Container>
-                <SectionTitle title={`Edit ${name} 📧`} text={emailSubject} mb="80px" maxW="730px" mx="auto" />
-                <Flex color='white' justifyContent={"space-between"}>
+
+                {/* <Flex color='white' justifyContent={"space-between"}>
 
                     <Box flex='1' maxW="550px">
                         <PreviewBlock id={uniqueId} images={images} image={image} setImages={setImages} />
@@ -291,7 +224,42 @@ const EmailDashboard = () => {
                             }
                         </Flex>
                     </Box>
-                </Flex>
+                </Flex> */}
+                <Box width="100%">
+                    {
+                        findTemplate?.emailId == 1 &&
+                        <EmailTemplateOne id={uniqueId} onDrop={onDrop} images={images} image={image} tempLoading={tempLoading} />
+                    }
+                    {
+                        findTemplate?.emailId == 2 &&
+                        <EmailTemplateTwo id={uniqueId} onDrop={onDrop} images={images} image={image} tempLoading={tempLoading} />
+                    }
+                    {
+                        findTemplate?.emailId == 3 &&
+                        <EmailTemplateThree id={uniqueId} onDrop={onDrop} images={images} image={image} tempLoading={tempLoading} />
+                    }
+                    {
+                        findTemplate?.emailId == 4 &&
+                        <EmailTemplateFour id={uniqueId} onDrop={onDrop} images={images} image={image} tempLoading={tempLoading} />
+                    }
+                    {
+                        findTemplate?.emailId == 5 &&
+                        <EmailTemplateFive id={uniqueId} onDrop={onDrop} images={images} image={image} tempLoading={tempLoading} />
+                    }
+                    <Flex width="100%" justifyContent="flex-end">
+                        {
+                            data?.templates?.length == id
+                                ? <Box px="15px" mr="-23px" width="50%" cursor="pointer">
+                                    <Button as={Link} onClick={handleSubmit} btnProps={{ width: "100%" }}>Finish</Button>
+                                </Box>
+                                : <Box px="15px" mr="-23px" width="50%" cursor="pointer">
+                                    <Button as={Link} onClick={handleSubmit} btnProps={{ width: "100%" }}>
+                                        Edit Next Email
+                                    </Button>
+                                </Box>
+                        }
+                    </Flex>
+                </Box>
             </Container>
         </PageWrapper>
     )

@@ -27,7 +27,6 @@ const PreviewTemplateThree = ({ images, image }) => {
                                 <PreviewText data={beneficiaryName} placeholder={'[Beneficiary name]'} /> by {" "}
                                 <PreviewText data={beneficiaryHelped} placeholder={'[Describe how they were helped]'} />
                             </Text>
-
                             <Text>
                                 {beneficiaryBefore
                                     ? <PreviewText data={beneficiaryBefore} placeholder={'[Describe beneficairy story before you supported them]'} />
