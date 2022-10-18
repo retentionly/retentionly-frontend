@@ -43,8 +43,7 @@ const PreviewTemplateThree = ({ images, image }) => {
                         <PreviewText data={mainText} />
                 }
                 <Box style={{
-                    transform: "translateX(-15px)",
-                    margin: "60px 0"
+                    margin: "60px -15px"
                 }}>
                     <ImagePreview images={images} templateImage={image} />
                 </Box>

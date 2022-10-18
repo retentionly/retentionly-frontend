@@ -13,7 +13,7 @@ const PreviewText = ({ data, tag, placeholder, mainTag }) => {
             return (<>
                 {data.map((item, key) => {
                     return (<span className="slate-text" key={key}>{item.children.map(({ text, bold, underline, italic }) => {
-                        return <Text color="#000" key={key + 'fjd'} as="span" fontWeight={bold && "bold"} textDecor={underline && "underline"} style={{ fontStyle: `${italic ? 'italic' : 'normal'}`, display: 'inline' }}>
+                        return <Text color="#000" key={key + 'fjd'} as="span" fontWeight={bold && "bold"} textDecor={underline && "underline"} style={{ fontStyle: `${italic ? 'italic' : 'normal'}`, display: 'inline', fontFamily: "inherit" }}>
                             {" "}{text || placeholder}
                         </Text>
                     })}</span>)

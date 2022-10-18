@@ -6,7 +6,7 @@ const Greeting = ({ data, name }) => {
 
     return (
         <>
-            <Text color="#000">{greetingText.replace(/[,.]/g, ' ') || 'Assalamualaikum'} {name || 'Donor'},</Text>
+            <Text color="#000">{greetingText.replace(/[,.]/g, ' ') || 'Hi'} {name || 'Donor'},</Text>
         </>
     )
 }

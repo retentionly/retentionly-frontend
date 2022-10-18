@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import logo from "../../assets/png/logo2.jpg"
+import logo from "../../assets/png/brand.png"
 import Button from '../../components/Common/Button'
 import { useGetPaymentStatusQuery } from '../../features/auth/authApi'
 import { setAmount, setCategory, setEmail, setShipping, setTransactionId } from '../../features/payment/paymentSlice'
@@ -47,7 +47,7 @@ const PaymentSuccess = () => {
                         <Text {...Text20} mb="10px">
                             Payment authenticated and secured by <b>Retentionly</b>
                         </Text>
-                        <Box maxW="100px" ml="10px">
+                        <Box maxW="60px" ml="10px">
                             <img src={logo} alt="" />
                         </Box>
                     </Flex>

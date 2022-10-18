@@ -7,7 +7,7 @@ const Sender = ({ data, salutations }) => {
     return (
         <Text>
             {salutationsText.replace(/[,.]/g, '') || 'Best Regards'}, <br />
-            {senderText.replace(/[,.]/g, ' ') || 'Jamal - CEO'}
+            {senderText.replace(/[,.]/g, ' ') || '[Firstname] - CEO'}
         </Text>
     )
 }
