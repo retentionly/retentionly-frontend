@@ -6,6 +6,11 @@ import './App.css';
 // import PublicRoutes from "./components/PrivateRoutes";
 import { useCallback } from "react";
 import { hotjar } from 'react-hotjar';
+import EmailTemplateFive from "./container/EmailPreview/EmailTemplateFive";
+import EmailTemplateFour from "./container/EmailPreview/EmailTemplateFour";
+import EmailTemplateOne from "./container/EmailPreview/EmailTemplateOne";
+import EmailTemplateThree from "./container/EmailPreview/EmailTemplateThree";
+import EmailTemplateTwo from "./container/EmailPreview/EmailTemplateTwo";
 import { useGetUserQuery } from "./features/user/userApi";
 import { setTemplateLength, setUser } from "./features/user/userSlice";
 import auth from "./firebase.init";
@@ -17,7 +22,6 @@ import UserMaster from "./pages/Admin/UserMaster";
 import UserTemplates from "./pages/Admin/UserTemplates";
 import Preview from "./pages/Admin/UserTemplates/Preview";
 import Appointment from "./pages/Appointment";
-import EmailDashboard from "./pages/EmailDashboard/Dashboard";
 import EmailFinal from "./pages/EmailFinal";
 import Emails from "./pages/Emails/Emails";
 import EventConfirmedDashboard from "./pages/EventConfirmedDashboard";
@@ -95,9 +99,17 @@ function App() {
               <Route element={<RequirePayment />}>
                 <Route index element={<Goals />} />
                 <Route path="dashboard" element={<UserDashboard />} />
-                <Route path="email/:id" element={<EmailDashboard />} />
+                {/* <Route path="email/:id" element={<EmailDashboard />} /> */}
                 <Route path="master" element={<Master />} />
-                <Route path="emails" element={<Emails />} />
+                {/* <Route path="emails" element={<Emails />} /> */}
+                <Route path="email">
+                  <Route index element={<Emails/>}/>
+                  <Route path="1" element={<EmailTemplateOne />} />
+                  <Route path="2" element={<EmailTemplateTwo />} />
+                  <Route path="3" element={<EmailTemplateThree />} />
+                  <Route path="4" element={<EmailTemplateFour />} />
+                  <Route path="5" element={<EmailTemplateFive />} />
+                </Route>
                 <Route path="email-final" element={<EmailFinal />} />
                 <Route path="success" element={<PaymentSuccess />} />
                 <Route path="appointment" element={<Appointment />} />

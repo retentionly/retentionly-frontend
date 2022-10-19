@@ -7,6 +7,7 @@ const initialState = {
     paymentStatus: undefined,
     eventConfirmed: undefined,
     role: '',
+    templates: [],
     templateLength: 0,
     uniqueID: '',
     status: undefined,
@@ -32,6 +33,9 @@ const userSlice = createSlice({
         setUniqueID: (state, action) => {
             state.uniqueID = action.payload;
         },
+        setTemplates: (state, action) => {
+            state.templates = action.payload;
+        },
         setTemplateLength: (state, action) => {
             state.templateLength = action.payload;
         },
@@ -53,6 +57,7 @@ const userSlice = createSlice({
             state.paymentStatus = action.payload.paymentStatus;
             state.uniqueID = action.payload.uniqueID;
             state.eventConfirmed = action.payload.eventConfirmed;
+            state.templates = action.payload.templates;
             state.role = action.payload.role;
             state.status = action.payload.userStatus.status;
             state.path = action.payload.userStatus.path;
@@ -60,5 +65,5 @@ const userSlice = createSlice({
     },
 })
 
-export const { setName, setUser, setEmail, setPaymentStatus, setUniqueID, setTemplateLength, setEventConfirmed,setUserPath,setUserStatus,setRole } = userSlice.actions;
+export const { setName, setUser, setEmail, setPaymentStatus, setTemplates, setUniqueID, setTemplateLength, setEventConfirmed, setUserPath, setUserStatus, setRole } = userSlice.actions;
 export default userSlice.reducer;

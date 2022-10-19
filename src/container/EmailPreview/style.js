@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 
@@ -41,4 +41,9 @@ export const EditBlockStyled = styled(Flex)`
         }
     }
     
+`
+
+export const LoaderBox = styled(Box)`
+${({ visibility }) => visibility ? 'pointer-events: visible; opacity: 1' : 'pointer-events: none; opacity: 0'};
+transition: opacity 0.4s ease-in-out;
 `

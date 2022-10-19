@@ -1,16 +1,9 @@
 import { Box } from "@chakra-ui/react";
-import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/png/logo3.png";
 import LogoutBtn from "../../components/LogoutBtn";
-import { revertAllAdmin } from "../../features/admin/adminSlice";
-import { revertAllAuth } from "../../features/auth/authSlice";
-import { revertAllMaster } from "../../features/master/masterSlice";
-import { revertAllPayment } from "../../features/payment/paymentSlice";
-import { revertAllTemplate } from "../../features/template/templateSlice";
-import { revertAllUser } from "../../features/user/userSlice";
 import auth from "../../firebase.init";
 import { HeaderButton, HeaderContent, HeaderStyled, Menu } from "./style";
 
@@ -36,7 +29,7 @@ export default function Header() {
             </Box>
             <HeaderContent>
                 <Menu>
-                    {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/emails" >Dashboard</Link></Menu.Item>}
+                    {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/email" >Dashboard</Link></Menu.Item>}
                     {pathname !== "/login" && <Menu.Item className={!user && 'disabled'}><Link to="/">Pricing</Link></Menu.Item>}
                     {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>}
                     <Menu.Item className={!user && 'disabled'}><Link to="/">Home</Link></Menu.Item>

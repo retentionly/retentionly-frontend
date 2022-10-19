@@ -125,9 +125,6 @@ const EmailDashboard = () => {
 
     }, []);
 
-    console.log('dashboard',images)
-
-
     useEffect(() => {
         if (sizeError) {
             setTimeout(() => {
