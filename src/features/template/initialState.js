@@ -23,7 +23,10 @@ const initialState = {
   mainGoalSummary: initialValue,
   impactStat: [],
   mainText: initialValue,
-  social: {},
+  social: {
+    facebookLink: "",
+    instagramLink: "",
+  },
   slug: "",
   ref: "",
   uniqueID: "",

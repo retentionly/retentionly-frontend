@@ -12,7 +12,7 @@ const PreviewText = ({ data, tag, placeholder, mainTag }) => {
         if (data?.length < 1 && !tag) {
             return <>{previewText}</>
         } else if (data.length < 1) {
-            return <p>{previewText}</p>
+            return <span style={{ display: 'block'}}>{previewText}</span>
         } else {
             return (<>
                 {data.map((item, key) => {
@@ -26,7 +26,7 @@ const PreviewText = ({ data, tag, placeholder, mainTag }) => {
             </>)
         }
     } else {
-        return <p>{placeholder}</p>
+        return <span style={{ display: 'block'}}>{placeholder}</span>
     }
 }
 

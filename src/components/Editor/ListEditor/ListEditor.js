@@ -88,7 +88,7 @@ const ListEditor = ({ title, text, placeholder, data, social, impact, ...rest })
             </Text>
             <ul style={{ marginLeft: '20px', marginBottom: '10px' }}>
                 {tasks.map((task, index) => (
-                    <li className="todo" style={{ color: "#000", marginBottom: "10px" }}>
+                    <li key={index * .0014} className="todo" style={{ color: "#000", marginBottom: "10px" }}>
                         <span onClick={() => toggleTask(index)} className={task.isCompleted ? "todo-text todo-completed" : "todo-text"}>
                             {task.text}
                         </span>

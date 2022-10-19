@@ -54,7 +54,7 @@ const templateSlice = createSlice({
             state.socialMediaBenefit = action.payload;
         },
         setSocial: (state, action) => {
-            state.social = action.payload
+            state.social = action.payload;
         },
         setMainGoalSummary: (state, action) => {
             state.mainGoalSummary = action.payload

@@ -23,16 +23,15 @@ const PreviewTemplateTwo = ({ images, image }) => {
                         <>
                             <Text>Your donation is on its way to making a difference.</Text>
                             <Text>This is the difference you're making.</Text>
-                            <Text>
-                                <ul style={{ marginLeft: '20px', marginTop: '10px' }}>
+                            <Box>
+                                <ul style={{ margin: '10px 0 10px 20px', color: "#000" }}>
                                     {
                                         impactStat?.length > 0
-                                            ? impactStat.map(el => <li style={{ marginBottom: '5px' }}> {el.text}</li>)
-                                            : <li>[Insert impact statistics]</li>
+                                            ? impactStat.map((el,i) => <li key={i*.001}><Text style={{marginBottom: '5px'}}>{el.text}</Text></li>)
+                                            : <li><Text>[Insert impact statistics]</Text></li>
                                     }
                                 </ul>
-                                {/* <PreviewText data={template?.impactStat} placeholder={'[Insert impact statistics]'}/> */}
-                            </Text>
+                            </Box>
                             <Text>But we still need your help <PreviewText data={template?.donationFor} placeholder={'[Describe what you need donations for]'} />.</Text>
                             <Text>So how can you help?</Text>
                             <Text>Simple - set up a monthly donation of just £5</Text>

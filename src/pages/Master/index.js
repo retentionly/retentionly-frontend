@@ -105,13 +105,13 @@ const Master = () => {
         setTempLoading(true)
         if (selectedFile) {
             const result = await uploadFile(storageRef, selectedFile, metadata);
-            const url = await getDownloadURL(result.ref);
-            if (url) {
-                dispatch(setLogo(url))
+            const logoUrl = await getDownloadURL(result.ref);
+            if (logoUrl) {
+                dispatch(setLogo(logoUrl))
                 editMaster({
                     email: user?.email,
                     data: {
-                        logo: url,
+                        logo: logoUrl,
                         greeting,
                         salutations,
                         sender,

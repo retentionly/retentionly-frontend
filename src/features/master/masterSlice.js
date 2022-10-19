@@ -1,7 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import initialState from "./initialState";
 
-
 export const revertAllMaster = createAction('REVERT_ALL')
 const masterSlice = createSlice({
     name: 'master',

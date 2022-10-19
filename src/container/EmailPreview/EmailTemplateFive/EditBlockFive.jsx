@@ -58,10 +58,16 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleSubjectLine}
-                            value={subjectLine}
+                            value={subjectLine || [
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
                         />
                     </Box>
                 }
+
                 {
                     !tempLoading &&
                     <Box className="preview">
@@ -71,61 +77,80 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handlePreview}
-                            value={preview} />
-                    </Box>
-                }
-                {
-                    serviceDesc &&
-                    <Box className="serviceDesc">
-                        <EditBlock
-                            title={"Insert description of services provided:"}
-                            text={`Tell donors what there donation is doing`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handleServiceDesc}
-                            value={serviceDesc}
-                        />
-                    </Box>
-                }
-                {impactStat &&
-                    <Box className="impact-statistic">
-                        <ListEditor
-                            title="Insert impact statistics:"
-                            text={`List out the impact your charity has made to build credibility with the recipients.`}
-                            placeholder={
-                                `E.g. "Feed 1,000 people`}
-                            mb="30px"
-                            data={impactStat}
-                            impact={true}
-                        />
-                    </Box>
-                }
-                {
-                    donationDoes &&
-                    <Box className="donation-does">
-                        <EditBlock title={"Explain what their donation does:"}
-                            text={`Tell your donors what you need funds for.`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handleDonationDoes}
-                            value={donationDoes} />
-                    </Box>
-                }
-                {
-                    mainGoalSummary &&
-                    <Box className="main-goal-summary">
-                        <EditBlock
-                            title={"Describe summary of your main goals:"}
-                            text={`Tell supporters what you will do with their donations.`}
-                            inputPlaceholder={`E.g. "buy cereal, fruits, oats, milk, bowls and spoons
-so we can give every child a breakfast".`}
-                            mb="30px"
-                            onChange={handleMainGoalSummary}
-                            value={mainGoalSummary} />
+                            value={preview || [
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]} />
                     </Box>
                 }
 
+
+                <Box className="serviceDesc">
+                    <EditBlock
+                        title={"Insert description of services provided:"}
+                        text={`Tell donors what there donation is doing`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleServiceDesc}
+                        value={serviceDesc || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                    />
+                </Box>
+
+
+                <Box className="impact-statistic">
+                    <ListEditor
+                        title="Insert impact statistics:"
+                        text={`List out the impact your charity has made to build credibility with the recipients.`}
+                        placeholder={
+                            `E.g. "Feed 1,000 people`}
+                        mb="30px"
+                        data={impactStat || []}
+                        impact={true}
+                    />
+                </Box>
+
+
+                <Box className="donation-does">
+                    <EditBlock title={"Explain what their donation does:"}
+                        text={`Tell your donors what you need funds for.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleDonationDoes}
+                        value={donationDoes || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]} />
+                </Box>
+
+
+                <Box className="main-goal-summary">
+                    <EditBlock
+                        title={"Describe summary of your main goals:"}
+                        text={`Tell supporters what you will do with their donations.`}
+                        inputPlaceholder={`E.g. "buy cereal, fruits, oats, milk, bowls and spoons
+so we can give every child a breakfast".`}
+                        mb="30px"
+                        onChange={handleMainGoalSummary}
+                        value={mainGoalSummary || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]} />
+                </Box>
+
+
             </EditBlockStyled>
+
             <MainTextBoxStyle className="main-text">
                 <EditBlock
                     title={"Main Text:"}
@@ -133,9 +158,15 @@ so we can give every child a breakfast".`}
                     inputPlaceholder={`E.g. "provide breakfast to all children".`}
                     mb="30px"
                     onChange={handleMainText}
-                    value={mainText}
+                    value={mainText || [
+                        {
+                            type: "paragaph",
+                            children: [{ text: "" }]
+                        }
+                    ]}
                 />
             </MainTextBoxStyle>
+
         </>
     )
 }

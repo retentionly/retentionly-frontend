@@ -7,7 +7,7 @@ import { PreviewFrame } from '../style'
 import EditBlockTwo from './EditBlockTwo'
 
 const EmailTemplateTwo = ({ id,onDrop, images, image, tempLoading }) => {
-  console.log(images)
+  
   return (
     <Box>
        <SectionTitle title={`Edit Email 2📧`} text={'Edit your second email to get started.'} mb="80px" maxW="730px" mx="auto" />

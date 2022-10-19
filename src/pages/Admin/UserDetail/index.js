@@ -8,6 +8,7 @@ import { useGetUserAdminQuery } from '../../../features/user/userApi'
 import { Text25 } from '../../../theme/text'
 import Option from '../../../ui/OptionButton'
 import { PageWrapper } from '../../../ui/PageWrapper'
+import { useGetMasterQuery } from '../../../features/master/masterApi'
 
 const btnStyle = {
     w: "100%",
@@ -27,9 +28,7 @@ const UserDetail = () => {
     const { email } = useParams();
     const [active, setActive] = useState(false);
     const { data, isLoading, isError } = useGetUserAdminQuery(email)
-
-    const navigate = useNavigate();
-    const [selected, setSelected] = useState(false)
+    const { data: master, isLoading: masterLoading, isError: masterError } = useGetMasterQuery(email);
 
     const options = [
         // {

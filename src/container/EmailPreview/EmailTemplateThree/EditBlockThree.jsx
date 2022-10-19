@@ -38,7 +38,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const handleMainText = (e) => {
         dispatch(setMainText(e));
     }
-    
+
     return (
         <>
             <EditBlockStyled direction={"column"}>
@@ -57,46 +57,58 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                 {
                     !tempLoading &&
                     <Box className="subject-line">
-                    <EditBlock
-                        title={"Subject Line:"}
-                        text={`Tell donors your main campaign message.`}
-                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                        mb="30px"
-                        onChange={handleSubjectLine}
-                        value={subjectLine}
-                    />
-                </Box>
-
+                        <EditBlock
+                            title={"Subject Line:"}
+                            text={`Tell donors your main campaign message.`}
+                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                            mb="30px"
+                            onChange={handleSubjectLine}
+                            value={subjectLine || [
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
+                        />
+                    </Box>
                 }
                 {
                     !tempLoading &&
                     <Box className="preview">
-                    <EditBlock
-                        title={"Preview:"}
-                        text={`Tell donors your main campaign message.`}
-                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                        mb="30px"
-                        onChange={handlePreview}
-                        value={preview}
-                    />
-                </Box>
+                        <EditBlock
+                            title={"Preview:"}
+                            text={`Tell donors your main campaign message.`}
+                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                            mb="30px"
+                            onChange={handlePreview}
+                            value={preview || [
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
+                        />
+                    </Box>
                 }
-                {
-                    beneficiaryName &&
-                    <Box className="beneficiary-name">
+
+                <Box className="beneficiary-name">
                     <EditBlock
                         title={"Beneficiary Name:"}
                         text={`Introduce your donors to the people/person they have helped.`}
                         inputPlaceholder={`E.g. ‘Jamal’`}
                         mb="30px"
                         onChange={handleBeneficiaryName}
-                        value={beneficiaryName}
+                        value={beneficiaryName || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
                     />
                 </Box>
-                }
-                {
-                    beneficiaryHelped &&
-                    <Box className="beneficiary-helped">
+
+
+                <Box className="beneficiary-helped">
                     <EditBlock
                         title={"Describe how they were helped:"}
                         text={`Tell your donors how beneficiary benefited from donations. `}
@@ -104,13 +116,17 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
 everyday before school".`}
                         mb="30px"
                         onChange={handleBeneficiaryHelped}
-                        value={beneficiaryHelped}
+                        value={beneficiaryHelped || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
                     />
                 </Box>
-                }
-                {
-                    beneficiaryBefore &&
-                    <Box className="beneficiary-before">
+
+
+                <Box className="beneficiary-before">
                     <EditBlock
                         title={"Describe beneficairy story before you supported them"}
                         text={`Explain the beneficairy’s situation before
@@ -120,26 +136,36 @@ No breakfeast. No fuel for a busy school day. This had
 a dramatic effect on his grades".`}
                         mb="30px"
                         onChange={handleBeneficiaryBefore}
-                        value={beneficiaryBefore}
+                        value={beneficiaryBefore || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
                     />
                 </Box>
-                }
-                {
-                    beneficiaryAfter &&
-                    <Box className="beneficiary-after">
+
+
+                <Box className="beneficiary-after">
                     <EditBlock
-                        title={"Describe beneficairy story before you supported them"}
+                        title={"Describe beneficairy story after you supported them"}
                         text={`Explain the beneficairy’s situation after you supported them.`}
                         inputPlaceholder={`E.g. "Thanks to donors like you we were able to 
 provide Jamal healthy breakfast everyday before 
 school. Fuelled properly, his grades started to improve. `}
                         mb="30px"
                         onChange={handleBeneficiaryAfter}
-                        value={beneficiaryAfter}
+                        value={beneficiaryAfter || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
                     />
                 </Box>
-                }
+
             </EditBlockStyled>
+
             <MainTextBoxStyle className="main-text">
                 <EditBlock
                     title={"Main Text:"}
@@ -147,9 +173,15 @@ school. Fuelled properly, his grades started to improve. `}
                     inputPlaceholder={`E.g. "provide breakfast to all children".`}
                     mb="30px"
                     onChange={handleMainText}
-                    value={mainText || []}
+                    value={mainText || [
+                        {
+                            type: "paragaph",
+                            children: [{ text: "" }]
+                        }
+                    ]}
                 />
             </MainTextBoxStyle>
+
         </>
     )
 }

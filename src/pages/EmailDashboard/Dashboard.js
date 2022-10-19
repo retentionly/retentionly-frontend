@@ -27,7 +27,6 @@ const storage = getStorage(app);
 
 const EmailDashboard = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { pathname } = useLocation()
     const { id } = useParams();
     const [user, loading] = useAuthState(auth)
@@ -47,7 +46,7 @@ const EmailDashboard = () => {
     const currentIndex = data?.templates.indexOf(findTemplate);
     const nextIndex = currentIndex + 1;
     const nextTemplate = data?.templates[nextIndex]?.emailId
-    console.log(findTemplate);
+
     const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
         refetchOnMountOrArgChange: true,
     });
@@ -72,9 +71,9 @@ const EmailDashboard = () => {
         donationFor,
         donationDoes,
         socialMediaBenefit,
+        social,
         impactStat,
-        mainText,
-        emailSubject } = template;
+        mainText } = template;
 
     useEffect(() => {
         setImages({})
@@ -126,7 +125,6 @@ const EmailDashboard = () => {
 
     }, []);
 
-    console.log(images)
 
     useEffect(() => {
         if (sizeError) {
@@ -159,6 +157,7 @@ const EmailDashboard = () => {
                         donationFor,
                         donationDoes,
                         socialMediaBenefit,
+                        social,
                         impactStat,
                         mainText
                     }
@@ -183,6 +182,7 @@ const EmailDashboard = () => {
                     donationFor,
                     donationDoes,
                     socialMediaBenefit,
+                    social,
                     impactStat,
                     mainText
                 }

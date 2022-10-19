@@ -27,17 +27,16 @@ const PreviewTemplateFive = ({ images, image }) => {
                     mainText?.length <= 1 && !mainText[0]?.children[0]?.text ?
                         <>
                             <Text>It’s been a while so I just wanted to remind you what your donation means to us. Your support helps us <PreviewText data={template?.serviceDesc} placeholder={'[Insert description of services provided]'} /></Text>
-                            <Text>Just like this 👇
-                            </Text>
-                            <Text>
-                                <ul style={{ marginLeft: '20px', marginTop: '10px' }}>
+                            <Text style={{marginBottom: '5px'}}>Just like this 👇</Text>
+                            <Box>
+                                <ul style={{ margin: '10px 0 10px 20px', color: "#000" }}>
                                     {
                                         impactStat?.length > 0
-                                            ? impactStat.map(el => <li style={{ marginBottom: '5px' }}> {el.text}</li>)
-                                            : <li>[Insert impact statistics]</li>
+                                            ? impactStat.map((el,i) => <li key={i*.001}><Text style={{marginBottom: '5px'}}>{el.text}</Text></li>)
+                                            : <li><Text>[Insert impact statistics]</Text></li>
                                     }
                                 </ul>
-                            </Text>
+                            </Box>
                             <Text>YOUR part of it – I’m really grateful to have you on board. And, together, we can make an even bigger impact.</Text>
                             <Text>By donating just 16p a day (that’s £5 a month) we can {" "}
                                 <PreviewText data={template?.donationDoes} placeholder={'[Explain what their donation does]'} />. It’s these regular monthly donations that have a long-term effect on the world around us. </Text>

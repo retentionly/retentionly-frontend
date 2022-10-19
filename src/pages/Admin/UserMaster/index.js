@@ -39,7 +39,7 @@ const UserMaster = () => {
 
     const { data, isLoading, isError } = useGetMasterQuery(email);
     const { logo, greeting, salutations, sender, url } = data?.master || {}
-
+    
     if (isLoading) {
         return <Loader />
     }

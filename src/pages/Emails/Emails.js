@@ -43,7 +43,7 @@ const Emails = () => {
                 <Box maxW="550px" mx="auto">
                     {
                         data?.templates?.map((e, i) => <Box key={e.uniqueID}>
-                            <Option editiconProps={editiconStyle} editicon={true} deleteicon={true} deleteid={e.uniqueID} to={`/email/${e.emailId}`} mb="30px">
+                            <Option editiconProps={editiconStyle} editicon="true" deleteicon="true" deleteid={e.uniqueID} to={`/email/${e.emailId}`} mb="30px">
                                 {e.name}
                             </Option>
                         </Box>)

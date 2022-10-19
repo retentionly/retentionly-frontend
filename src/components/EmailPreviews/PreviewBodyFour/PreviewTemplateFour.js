@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import PreviewFooter from '../PreviewFooter';
 import PreviewHead from '../PreviewHead';
 import { PreviewBody } from '../style';
 
-const SocialButton = styled(Button)`
+const SocialButton = styled.a`
 width: fit-content;
 background: none;
 &:hover {
@@ -27,6 +27,9 @@ const PreviewTemplateFour = ({ images, image }) => {
     const { logo, salutations, greeting, sender } = master;
     const { socialMediaBenefit, social, mainText } = template;
 
+    const instaLink = social?.instagramLink?.includes("https://") ? social?.instagramLink : `https://${social?.instagramLink}`;
+    const fbLink = social?.facebookLink?.includes("https://") ? social?.facebookLink : `https://${social?.facebookLink}`;
+
     return (
         <>
             <PreviewHead logo={logo} images={images} image={image} />
@@ -37,28 +40,31 @@ const PreviewTemplateFour = ({ images, image }) => {
                         <>
                             <Text>We are big on transparency. We believe you should know the impact your support has. So to keep you up to date with our latest work please follow us on social media. </Text>
                             <Text>
-                                It’s a great free way for you to: <br />
-                                <ul style={{ marginLeft: '20px', marginTop: '10px' }}>
+                                It’s a great free way for you to:
+                            </Text>
+                            <Box>
+                                <ul style={{ marginLeft: '20px', marginTop: '10px', color: "#000" }}>
                                     {
                                         socialMediaBenefit?.length > 0
                                             ? socialMediaBenefit.map(el => <li style={{ marginBottom: '5px' }}> {el.text}</li>)
                                             : <li>[Inset benefits of following your social media account]</li>
                                     }
                                 </ul>
-                            </Text>
+
+                            </Box>
                             <Flex justifyContent="center" alignItems="center" my="50px">
-                                <SocialButton as={'a'} href={`${social?.instagramLink}`} style={{ padding: '0px'}}>
-                                    <img src={instagramLogo} />
+                                <SocialButton href={instaLink} style={{ padding: '0px' }}>
+                                    <img src={instagramLogo} alt="" />
                                 </SocialButton>
-                                <SocialButton as={'a'} href={`${social?.facebookLink}`} style={{ padding: '0px'}}>
-                                    <img src={facebookLogo} />
+                                <SocialButton href={fbLink} style={{ padding: '0px' }}>
+                                    <img src={facebookLogo} alt="" />
                                 </SocialButton>
                             </Flex>
                         </>
                         :
                         <PreviewText data={mainText} />
                 }
-                <Sender data={sender} salutations={salutations} name={userState?.name}/>
+                <Sender data={sender} salutations={salutations} name={userState?.name} />
                 <PreviewFooter />
             </PreviewBody>
         </>

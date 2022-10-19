@@ -13,8 +13,6 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { template } = useSelector(state => state);
     const { preview, subjectLine, mainText, impactStat, donationFor, donationGoesFor } = template || {};
 
-    console.log('impact', impactStat)
-
     const handleSubjectLine = (e) => {
         dispatch(setSubjectLine(e));
     }
@@ -47,7 +45,8 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
                 </Box>
-                {!tempLoading &&
+                {
+                    !tempLoading &&
                     <Box className="subject-line">
                         <EditBlock
                             title={"Subject Line:"}
@@ -55,60 +54,83 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleSubjectLine}
-                            value={subjectLine}
-                        />
-                    </Box>
-                }
-                {!tempLoading && <Box className="preview">
-                    <EditBlock
-                        title={"Preview:"}
-                        text={`Tell donors your main campaign message.`}
-                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                        mb="30px"
-                        onChange={handlePreview}
-                        value={preview}
-                    />
-                </Box>}
-                {impactStat &&
-                    <Box className="impact-statistic">
-                        <ListEditor
-                            title="Insert impact statistics:"
-                            text={`List out the impact your charity has made to build credibility with the recipients.`}
-                            placeholder={
-                                `E.g. "Feed 1,000 people`}
-                            mb="30px"
-                            data={impactStat}
-                            impact={true}
-                        />
-                    </Box>
-                }
-                {donationFor &&
-                    <Box className="donation-for">
-                        <EditBlock
-                            title={"Describe what you need donations for:"}
-                            text={`Tell your donors what you need funds for.`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handleDonationFor}
-                            value={donationFor}
+                            value={subjectLine || [
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
                         />
                     </Box>
                 }
                 {
-                    donationGoesFor &&
-                    <Box className="donation-goes-for">
+                    !tempLoading &&
+                    <Box className="preview">
                         <EditBlock
-                            title={"Describe where your money goes:"}
-                            text={`Tell supporters what you will do with their donations.`}
-                            inputPlaceholder={`E.g. "buy cereal, fruits, oats, milk, bowls and spoons 
-so we can give every child a breakfast".`}
+                            title={"Preview:"}
+                            text={`Tell donors your main campaign message.`}
+                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
-                            onChange={handleDonationGoesFor}
-                            value={donationGoesFor}
+                            onChange={handlePreview}
+                            value={preview || [
+                                {
+                                    type: "paragaph",
+                                    children: [{ text: "" }]
+                                }
+                            ]}
                         />
                     </Box>
                 }
+
+                <Box className="impact-statistic">
+                    <ListEditor
+                        title="Insert impact statistics:"
+                        text={`List out the impact your charity has made to build credibility with the recipients.`}
+                        placeholder={
+                            `E.g. "Feed 1,000 people`}
+                        mb="30px"
+                        data={impactStat || []}
+                        impact={true}
+                    />
+                </Box>
+
+
+                <Box className="donation-for">
+                    <EditBlock
+                        title={"Describe what you need donations for:"}
+                        text={`Tell your donors what you need funds for.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleDonationFor}
+                        value={donationFor || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                    />
+                </Box>
+
+
+                <Box className="donation-goes-for">
+                    <EditBlock
+                        title={"Describe where your money goes:"}
+                        text={`Tell supporters what you will do with their donations.`}
+                        inputPlaceholder={`E.g. "buy cereal, fruits, oats, milk, bowls and spoons 
+so we can give every child a breakfast".`}
+                        mb="30px"
+                        onChange={handleDonationGoesFor}
+                        value={donationGoesFor || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                    />
+                </Box>
+
             </EditBlockStyled>
+
             <MainTextBoxStyle>
                 <Box className="main-text">
                     <EditBlock
@@ -118,10 +140,16 @@ so we can give every child a breakfast".`}
                         inputPlaceholder={`E.g. "provide breakfast to all children".`}
                         mb="30px"
                         onChange={handleMainText}
-                        value={mainText}
+                        value={mainText || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
                     />
                 </Box>
             </MainTextBoxStyle>
+
         </>
     )
 }

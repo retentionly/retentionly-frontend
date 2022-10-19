@@ -32,7 +32,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
     const handleMainText = (e) => {
         dispatch(setMainText(e));
     }
-    
+
     return (
         <>
             <EditBlockStyled direction={"column"}>
@@ -57,7 +57,12 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleSubjectLine}
-                            value={subjectLine}
+                            value={subjectLine || [
+                                {
+                                  type: "paragaph",
+                                  children: [{ text: "" }]
+                                }
+                              ]}
                         />
                     </Box>
                 }
@@ -70,12 +75,16 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handlePreview}
-                            value={preview}
+                            value={preview || [
+                                {
+                                  type: "paragaph",
+                                  children: [{ text: "" }]
+                                }
+                              ]}
                         />
                     </Box>
                 }
-                {
-                    serviceDesc &&
+     
                     <Box className="serviceDesc">
                         <EditBlock
                             title={"Insert description of services provided:"}
@@ -83,12 +92,15 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleServiceDesc}
-                            value={serviceDesc}
+                            value={serviceDesc || [
+                                {
+                                  type: "paragaph",
+                                  children: [{ text: "" }]
+                                }
+                              ]}
                         />
                     </Box>
-                }
-                {
-                    beneficiaryDesc &&
+            
                     <Box className="beneficiary-description">
                         <EditBlock
                             title="Insert description of 
@@ -97,21 +109,33 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleBeneficiaryDesc}
-                            value={beneficiaryDesc || []}
+                            value={beneficiaryDesc || [
+                                {
+                                  type: "paragaph",
+                                  children: [{ text: "" }]
+                                }
+                              ]}
                         />
                     </Box>
-                }
+                
             </EditBlockStyled>
-            <MainTextBoxStyle className="main-text">
-                <EditBlock
-                    title={"Main Text:"}
-                    text={`If you want to edit any of part of the email or rewrite it altogether here’s your chance.`}
-                    inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                    mb="30px"
-                    onChange={handleMainText}
-                    value={mainText || []}
-                />
-            </MainTextBoxStyle>
+          
+                <MainTextBoxStyle className="main-text">
+                    <EditBlock
+                        title={"Main Text:"}
+                        text={`If you want to edit any of part of the email or rewrite it altogether here’s your chance.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleMainText}
+                        value={mainText || [
+                            {
+                              type: "paragaph",
+                              children: [{ text: "" }]
+                            }
+                          ]}
+                    />
+                </MainTextBoxStyle>
+            
         </>
     )
 }
