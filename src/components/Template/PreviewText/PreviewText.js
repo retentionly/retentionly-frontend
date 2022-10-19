@@ -6,7 +6,6 @@ const PreviewTextStyled = styled(Text)`
 `
 
 const PreviewText = ({ data, tag, placeholder, mainTag }) => {
-
     if (data) {
         const previewText = data[0]?.children[0]?.text || [];
 

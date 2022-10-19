@@ -25,6 +25,14 @@ padding-bottom: 10px;
 
 `
 
+const TextTruncate = styled('div')`
+max-width: 100px;
+width: 100%;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+`
+
 const UserMaster = () => {
     const { email } = useParams();
     const navigate = useNavigate();
@@ -37,13 +45,12 @@ const UserMaster = () => {
     }
 
     const downloadImage = () => {
-        saveAs(logo, 'image.jpg')
+        saveAs(url, 'image.jpg')
     }
 
     const greetingText = getPlainText(greeting);
     const salutationsText = getPlainText(salutations);
     const senderText = getPlainText(sender);
-    const urlText = getPlainText(url);
 
     return (
         <PageWrapper>
@@ -90,7 +97,7 @@ const UserMaster = () => {
                                             </Box>
                                         </Td>
                                         <Td>
-                                            <Button onClick={downloadImage} disabled={!logo}>
+                                            <Button onClick={downloadImage} disabled={!logo} type="button">
                                                 download
                                             </Button>
                                         </Td>
@@ -141,10 +148,12 @@ const UserMaster = () => {
                                             </TextStyled>
                                         </Td>
                                         <Td>
-                                            <PreviewText data={url} placeholder={'Nothing Inserted'} />
+                                            <TextTruncate>
+                                                <span>{url || 'Nothing Inserted'}</span>
+                                            </TextTruncate>
                                         </Td>
                                         <Td>
-                                            <CopyText value={urlText} />
+                                            <CopyText value={url} />
                                         </Td>
                                     </Tr>
 
@@ -161,6 +170,7 @@ const UserMaster = () => {
 export default UserMaster
 
 const CopyText = ({ value }) => {
+    console.log(value)
     const { hasCopied, onCopy } = useClipboard(value);
 
     return (
@@ -169,104 +179,3 @@ const CopyText = ({ value }) => {
         </Button>
     )
 }
-/* 
-  {
-                                        Object.entries(data?.master)?.map(el => el[0] === 'logo' ? <Tr>
-                                            <Td>
-                                                <TextStyled>
-                                                    Logo
-                                                </TextStyled>
-                                            </Td>
-                                            <Td>
-                                                <Box maxW="50px">
-                                                    <img src={logo} alt="logo" />
-                                                </Box>
-                                            </Td>
-                                            <Td>
-                                                <Button onClick={downloadImage}>
-                                                    download
-                                                </Button>
-                                            </Td>
-                                        </Tr>
-                                            : <Tr>
-                                                <Td>
-                                                    <TextStyled>
-                                                        {`${el[0]}`}
-                                                    </TextStyled>
-                                                </Td>
-                                                <Td>
-                                                    <PreviewText data={el[1]} placeholder={'Nothing Inserted'} />
-                                                </Td>
-                                                <Td>
-                                                    <CopyText value={} />
-                                                </Td>
-                                            </Tr>)
-                                    }
-
-*/
-/* 
-<a href={logo}
-                                                    download
-                                                    onClick={e => download(e)}>
-                                                    Download
-                                                </a>
-*/
-
-/* 
- <Box maxW="50px">
-                                                <img src={logo || mainImage} alt="logo" />
-                                            </Box>
-*/
-
-
-/* 
-
- <Tr>
-                                        <Td>
-                                            <TextStyled>
-                                                Greeting
-                                            </TextStyled>
-                                        </Td>
-                                        <Td>
-                                            <PreviewText data={greeting} placeholder={'Nothing Inserted'} />
-                                        </Td>
-                                        <Td>
-                                            <Button onClick={() => {
-                                                setValue(greeting)
-                                                onCopy()
-                                            }} ml={2}>
-                                                {hasCopied ? 'Copied' : 'Copy'}
-                                            </Button>
-                                        </Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td>
-                                            <TextStyled>
-                                                Salutations
-                                            </TextStyled>
-                                        </Td>
-                                        <Td>
-                                            <PreviewText data={salutations} placeholder={'Nothing Inserted'} />
-                                        </Td>
-                                        <Td>
-                                            <Button>
-                                                Copy Value
-                                            </Button>
-                                        </Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td>
-                                            <TextStyled>
-                                                Sender
-                                            </TextStyled>
-                                        </Td>
-                                        <Td>
-                                            <PreviewText data={sender} placeholder={'Nothing Inserted'} />
-                                        </Td>
-                                        <Td>
-                                            <Button>
-                                                Copy Value
-                                            </Button>
-                                        </Td>
-                                    </Tr>
-*/
