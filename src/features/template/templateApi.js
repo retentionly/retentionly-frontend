@@ -39,4 +39,4 @@ export const templateApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetTemplatesQuery, useGetTemplateQuery, useEditTemplateMutation, useDeleteTemplateMutation } = templateApi;
+export const { useGetTemplatesQuery, useGetTemplateQuery  } = templateApi;

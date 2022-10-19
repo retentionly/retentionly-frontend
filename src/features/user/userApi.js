@@ -2,7 +2,7 @@ import { apiSlice } from "../../app/api/apiSlice";
 import { setEventConfirmed, setUser } from "./userSlice";
 
 export const userApi = apiSlice.injectEndpoints({
-    tagTypes: ['User'],
+    tagTypes: ['User', 'Template', 'Templates'],
     endpoints: (builder) => ({
         getUser: builder.query({
             query: (email) => `/user/${email}`,
@@ -42,7 +42,22 @@ export const userApi = apiSlice.injectEndpoints({
         getUserAdmin: builder.query({
             query: (email) => `/user/${email}`
         }),
+        editTemplate: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/template/${id}`,
+                method: 'PATCH',
+                body: data
+            }),
+            invalidatesTags: ['Template']
+        }),
+        deleteTemplate: builder.mutation({
+            query: (id) => ({
+                url: `/template/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['User']
+        }),
     }),
 });
 
-export const { useGetUserQuery, useGetUsersQuery, useGetUserAdminQuery, useUpdateUserStatusMutation } = userApi;
+export const { useGetUserQuery, useGetUsersQuery, useGetUserAdminQuery, useUpdateUserStatusMutation, useEditTemplateMutation, useDeleteTemplateMutation } = userApi;

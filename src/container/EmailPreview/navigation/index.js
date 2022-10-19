@@ -1,32 +1,35 @@
-import { Box, Flex } from '@chakra-ui/react'
-import React from 'react'
+import { Box } from '@chakra-ui/react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from '../../../components/Common/Button'
 
-const EmailNavigation = () => {
+const EmailNavigation = ({ handleSubmit, success }) => {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const { templates } = useSelector((state) => state.user)
     const id = pathname?.split('/')[2]
-    
-    const nextTemplate = templates[templates.length - 1] && templates[Number(id) + 1].id;
-    
+
+    // const template = templates[Number(id)]?.emailId;
+    const index = templates.findIndex((e) => e.emailId === Number(id))
+    const nextTemplate = templates[index + 1]?.emailId;
+
     console.log(nextTemplate);
 
-    return (
-        <Flex width="100%" justifyContent="flex-end">
-            {
-                1 == 1
-                    ? <Box px="15px" mr="-23px" width="50%" cursor="pointer">
-                        <Button as={Link} btnProps={{ width: "100%" }}>Finish</Button>
-                    </Box>
-                    : <Box px="15px" mr="-23px" width="50%" cursor="pointer">
-                        <Button as={Link} btnProps={{ width: "100%" }}>
-                            Edit Next Email
-                        </Button>
-                    </Box>
+    useEffect(() => {
+        if (success) {
+            if (nextTemplate) {
+                navigate(`/email/${nextTemplate}`)
+            } else {
+                navigate(`/email-final`)
             }
-        </Flex>
+        }
+    }, [success])
+
+    return (
+        <Box px="15px" mr="-23px" width="50%" cursor="pointer">
+            <Button as={Link} onClick={handleSubmit} btnProps={{ width: "100%" }}>{nextTemplate ? "Edit Next Email" : "Finish"}</Button>
+        </Box>
     )
 }
 

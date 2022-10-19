@@ -7,7 +7,8 @@ import { useUploadFile } from 'react-firebase-hooks/storage'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateOne from '../../../components/EmailPreviews/PreviewBodyOne'
-import { useEditTemplateMutation, useGetTemplatesQuery } from '../../../features/template/templateApi'
+import { useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/template/templateApi'
+import { useEditTemplateMutation } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
@@ -35,11 +36,11 @@ const EmailTemplateOne = () => {
     const [uploadFile, uploading, snapshot, error] = useUploadFile();
     const navigate = useNavigate();
 
-
-
     /* REDUX QUERY */
     const { data, isLoading: userLoading, isError } = useGetTemplatesQuery(user?.email);
     const [editTemplate, { data: editTemplateData, isLoading: editTemplateLoading, isError: editTemplateError, isSuccess: editTemplateSuccess }] = useEditTemplateMutation();
+
+  
 
     /* VARIABLES */
     const findTemplate = data?.templates.find(el => el.emailId == 1);
@@ -60,6 +61,10 @@ const EmailTemplateOne = () => {
 
     /* FUNCTIONS */
     const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
+
+    const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
+        refetchOnMountOrArgChange: true,
+    });
 
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
         acceptedFiles.map((file) => {
@@ -87,11 +92,6 @@ const EmailTemplateOne = () => {
 
     useEffect(() => {
         if (editTemplateSuccess) {
-            if (data?.templates[data?.templates.length - 1].emailId == 1) {
-                navigate(`/email-final`)
-            } else {
-                navigate(`/email/2`)
-            }
             setTimeout(() => {
                 setTempLoading(false)
             }, 2000)
@@ -131,6 +131,12 @@ const EmailTemplateOne = () => {
         }
     }
 
+    console.log(uniqueId);
+
+    if (isTemplateLoading || userLoading) {
+        return <Loader />
+    }
+
     return (
         <PageWrapper>
             <Container>
@@ -152,7 +158,7 @@ const EmailTemplateOne = () => {
                         </Box>
                     </Flex>
                 </Box>
-                <EmailNavigation />
+                <EmailNavigation success={editTemplateSuccess} handleSubmit={handleSubmit} />
             </Container>
         </PageWrapper>
     )

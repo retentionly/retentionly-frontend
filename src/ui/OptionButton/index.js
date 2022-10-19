@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import LinkIcon from "../../assets/png/edit-icon.png";
 import EmailDeleteModal from "../../components/Modals/EmailDeleteModal";
-import { useGetTemplatesQuery } from "../../features/template/templateApi";
+import { useGetUserQuery } from "../../features/user/userApi";
 import auth from "../../firebase.init";
 
 const btnStyle = {
@@ -39,7 +39,8 @@ const OptionInner = ({ children, to, ...rest }) => {
 
 export default function Option({ children, editicon, view, viewIcon, deleteicon, deleteid, btnProps,editiconProps, to, ...rest }) {
   const [user] = useAuthState(auth);
-  const { refetch } = useGetTemplatesQuery(user?.email);
+  const { refetch } = useGetUserQuery(user?.email);
+
   return (
     <>
       <Flex align="center" justify="space-between" {...rest}>

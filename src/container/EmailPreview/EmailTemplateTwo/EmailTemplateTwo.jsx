@@ -1,21 +1,21 @@
 import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import cuid from "cuid"
 import { getDownloadURL, getStorage, ref } from 'firebase/storage'
-import React, { useCallback, useState } from 'react'
-import { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import Button from '../../../components/Common/Button'
+import { useNavigate } from 'react-router-dom'
 import PreviewTemplateTwo from '../../../components/EmailPreviews/PreviewBodyTwo/PreviewTemplateTwo'
-import { useEditTemplateMutation, useGetTemplatesQuery } from '../../../features/template/templateApi'
+import { useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/template/templateApi'
+import { useEditTemplateMutation } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
+import Loader from '../../../ui/Loaders/Loading'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
 import EmailNavigation from '../navigation'
-import { PreviewFrame } from '../style'
+import { LoaderBox, PreviewFrame } from '../style'
 import EditBlockTwo from './EditBlockTwo'
 
 const storage = getStorage(app);
@@ -59,6 +59,10 @@ const EmailTemplateTwo = () => {
   /* FUNCTIONS */
   const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
 
+  const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
+    refetchOnMountOrArgChange: true,
+  });
+
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     acceptedFiles.map((file) => {
       setSelectedFile(file)
@@ -85,11 +89,11 @@ const EmailTemplateTwo = () => {
 
   useEffect(() => {
     if (editTemplateSuccess) {
-      if (data?.templates[data?.templates.length - 1].emailId == 2) {
-        navigate(`/email-final`)
-      } else {
-        navigate(`/email/3`)
-      }
+      // if (data?.templates[data?.templates.length - 1].emailId == 2) {
+      //   navigate(`/email-final`)
+      // } else {
+      //   navigate(`/email/3`)
+      // }
       setTimeout(() => {
         setTempLoading(false)
       }, 2000)
@@ -98,7 +102,6 @@ const EmailTemplateTwo = () => {
       setTempLoading(true)
     }
   }, [editTemplateSuccess, editTemplateLoading])
-
 
   /* HANDLERS */
   const handleSubmit = async () => {
@@ -129,9 +132,20 @@ const EmailTemplateTwo = () => {
       })
     }
   }
+
+  if (isTemplateLoading || userLoading) {
+    return <Loader />
+  }
+
   return (
     <PageWrapper>
       <Container>
+
+        <LoaderBox visibility={tempLoading} position="fixed" inset="0" display="flex" flexDirection="column" justifyContent="center" alignItems="center" minH="100vh" minW="100%" bg="#fff" zIndex="9999">
+          <Text>Saving...</Text>
+          <Loader height={'100px'} />
+        </LoaderBox>
+
         <Box>
           <SectionTitle title={`Edit Email 2📧`} text={'Edit your second email to get started.'} mb="80px" maxW="730px" mx="auto" />
           <Flex color='white' justifyContent={"space-between"}>
@@ -146,7 +160,7 @@ const EmailTemplateTwo = () => {
             </Box>
           </Flex>
         </Box>
-        <EmailNavigation />
+        <EmailNavigation handleSubmit={handleSubmit} success={editTemplateSuccess} />
       </Container>
     </PageWrapper>
   )

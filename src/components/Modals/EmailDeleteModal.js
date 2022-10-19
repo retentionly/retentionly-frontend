@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import trashIcon from "../../assets/png/trash.png";
-import { useDeleteTemplateMutation } from "../../features/template/templateApi";
+import { useDeleteTemplateMutation } from "../../features/user/userApi";
+
 import { Text20 } from "../../theme/text";
 
 const deleteBtnStyle = {
