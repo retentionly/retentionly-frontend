@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import placholderLogo from "../../../assets/png/logo.png";
+import placholderLogo from "../../../assets/png/brand.png";
 import ImagePreview from '../../UploadImage/ImagePreview';
 export default function PreviewHead({logo,style,images,image,preview=true}){
 
@@ -22,7 +22,7 @@ background:#fff;
 display:flex;
 justify-content:center;
 img{
-    width:100px;
+    height:70px;
 }
 
 `

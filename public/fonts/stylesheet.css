@@ -55,3 +55,13 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'Avenir LT Std';
+    src: url('Metropolis-Medium.woff2') format('woff2'),
+        url('Metropolis-Medium.woff') format('woff'),
+        url('Metropolis-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

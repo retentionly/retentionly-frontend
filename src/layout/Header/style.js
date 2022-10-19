@@ -2,10 +2,11 @@ import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 export const HeaderStyled = styled.header`
-background: #F6C5C5;
+    background: #F6C5C5;
     display:flex;
-    // align-items:center;
-    // justify-content:space-between;
+    img {
+        height: 60px;
+    }
 `
 
 export const HeaderContent = styled(Box)`
@@ -13,20 +14,25 @@ export const HeaderContent = styled(Box)`
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding: 0 26px;
+    padding: 10px 26px;
 `
 
 export const Menu = styled.ul`
     display:flex;
     align-items:center;
     list-style: none;
+    .disabled {
+        pointer-events: none;
+    }
 `
+
 Menu.Item = styled.li`
     margin:0;
     color:#000;
     
     a{
-        
+        font-size: 15px;
+        font-weight: 500;
         padding:0 15px;
         color:#000;
     }

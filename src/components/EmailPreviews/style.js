@@ -5,7 +5,6 @@ export const PreviewBody = styled.div`
     background:#fff;
     padding:15px;
     p{
-        font-family: 'Inter';
         font-style: normal;
         font-weight: 400;
         font-size: 18px;

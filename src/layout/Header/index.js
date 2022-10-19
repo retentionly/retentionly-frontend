@@ -19,15 +19,15 @@ export default function Header() {
     const { pathname } = useLocation()
     const dispatch = useDispatch()
 
-    const logOut = () => {
-        signOut(auth);
-        dispatch(revertAllAdmin())
-        dispatch(revertAllAuth())
-        dispatch(revertAllMaster())
-        dispatch(revertAllPayment())
-        dispatch(revertAllTemplate())
-        dispatch(revertAllUser())
-    }
+    // const logOut = () => {
+    //     signOut(auth);
+    //     dispatch(revertAllAdmin())
+    //     dispatch(revertAllAuth())
+    //     dispatch(revertAllMaster())
+    //     dispatch(revertAllPayment())
+    //     dispatch(revertAllTemplate())
+    //     dispatch(revertAllUser())
+    // }
 
     return (
         <HeaderStyled>
@@ -36,25 +36,25 @@ export default function Header() {
             </Box>
             <HeaderContent>
                 <Menu>
-                    {pathname !== "/register" && <Menu.Item><Link to="/emails">Dashboard</Link></Menu.Item>}
-                    {pathname !== "/login" && <Menu.Item><Link to="/">Pricing</Link></Menu.Item>}
-                    {pathname !== "/register" && <Menu.Item><Link to="/master">Master</Link></Menu.Item>}
-                    <Menu.Item><Link to="/">Home</Link></Menu.Item>
+                    {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/emails" >Dashboard</Link></Menu.Item>}
+                    {pathname !== "/login" && <Menu.Item className={!user && 'disabled'}><Link to="/">Pricing</Link></Menu.Item>}
+                    {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>}
+                    <Menu.Item className={!user && 'disabled'}><Link to="/">Home</Link></Menu.Item>
                 </Menu>
                 {
                     (pathname === "/login" && !user) &&
-                    <Link to="/register">
+                    <Link to="/register" >
                         <HeaderButton blue as={"span"}>
-                        Create An Account
-                    </HeaderButton>
+                            Create An Account
+                        </HeaderButton>
                     </Link>
                 }
                 {
                     (pathname === "/register" && !user) &&
                     <Link to="/login">
-                    <HeaderButton blue as={"span"}>
-                        Login
-                    </HeaderButton>
+                        <HeaderButton blue as={"span"}>
+                            Login
+                        </HeaderButton>
                     </Link>
                 }
                 {

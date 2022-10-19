@@ -5,7 +5,7 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useUploadFile } from 'react-firebase-hooks/storage';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from "../../components/Common/Button";
 import EmailTemplateFive from '../../container/EmailPreview/EmailTemplateFive';
@@ -124,6 +124,8 @@ const EmailDashboard = () => {
         });
 
     }, []);
+
+    console.log('dashboard',images)
 
 
     useEffect(() => {

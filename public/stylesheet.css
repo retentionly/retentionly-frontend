@@ -1,9 +1,9 @@
 @font-face {
-    font-family: 'Avenir Next LT Pro';
-    src: url('AvenirNextLTPro-Bold.woff2') format('woff2'),
-        url('AvenirNextLTPro-Bold.woff') format('woff'),
-        url('AvenirNextLTPro-Bold.ttf') format('truetype');
-    font-weight: bold;
+    font-family: 'Metropolis';
+    src: url('Metropolis-Medium.woff2') format('woff2'),
+        url('Metropolis-Medium.woff') format('woff'),
+        url('Metropolis-Medium.ttf') format('truetype');
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
