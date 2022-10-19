@@ -4,11 +4,11 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateFive from '../../../components/EmailPreviews/PreviewBodyFive/PreviewTemplateFive'
-import { useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/template/templateApi'
-import { useEditTemplateMutation } from '../../../features/user/userApi'
+import { setImage, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
+import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
@@ -22,6 +22,23 @@ const storage = getStorage(app);
 
 const EmailTemplateFive = () => {
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setSubjectLine([
+            {
+                type: "paragaph",
+                children: [{ text: "" }]
+            }
+        ]));
+        dispatch(setPreview([
+            {
+                type: "paragaph",
+                children: [{ text: "" }]
+            }
+        ]));
+        dispatch(setImage(''))
+    }, [])
+
     /* LOCAL STATES */
     const [tempLoading, setTempLoading] = useState(false);
     const [images, setImages] = useState('');
@@ -30,6 +47,7 @@ const EmailTemplateFive = () => {
 
     /* REDUX STATES */
     const { template } = useSelector(state => state);
+    const { template5 } = useSelector(state => state.templates)
 
     /* HOOKS */
     const [user, loading] = useAuthState(auth)
@@ -49,15 +67,8 @@ const EmailTemplateFive = () => {
     }
 
     const {
-        image,
-        preview,
-        subjectLine,
-        serviceDesc,
-        impactStat,
-        mainGoalSummary,
-        donationDoes,
-        mainText
-    } = template;
+        image
+    } = template5;
 
     /* FUNCTIONS */
     const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
@@ -110,27 +121,18 @@ const EmailTemplateFive = () => {
             if (url) {
                 editTemplate({
                     id: uniqueId,
-                    image: url,
-                    preview,
-                    subjectLine,
-                    serviceDesc,
-                    impactStat,
-                    mainGoalSummary,
-                    donationDoes,
-                    mainText
+                    data: {
+                        image: url,
+                        ...template5
+                    }
                 })
             }
         } else {
             editTemplate({
                 id: uniqueId,
-                image,
-                preview,
-                subjectLine,
-                serviceDesc,
-                impactStat,
-                mainGoalSummary,
-                donationDoes,
-                mainText
+                data: {
+                    ...template5
+                }
             })
         }
     }

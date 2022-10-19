@@ -4,30 +4,66 @@ import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from "../../../components/Editor/ListEditor";
 import EditBlock from '../../../components/EditorBlock';
 import UploadImage from '../../../components/UploadImage/UploadImage';
-import { setDonationFor, setDonationGoesFor, setMainText, setPreview, setSubjectLine } from '../../../features/template/templateSlice';
+import { setTemplate2 } from '../../../features/templates/templatesSlice';
 import { Text30 } from '../../../theme/text';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
 
 const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
+
     const dispatch = useDispatch();
-    const { template } = useSelector(state => state);
-    const { preview, subjectLine, mainText, impactStat, donationFor, donationGoesFor } = template || {};
+    const { template2 } = useSelector(state => state.templates);
+    const { preview, subjectLine, mainText, impactStat, donationFor, donationGoesFor } = template2 || {};
+    // const { addTask, toggleTask, removeTask, item } = useTodo(impactStat);
+
+    const handleAddImpact = (e) => {
+    
+        // addTask(e);
+        dispatch(setTemplate2({
+            ...template2,
+            impactStat: e
+        }))
+    }
+
+    // const handleAddImpact = (e) => {
+    //     addTask(e);
+    //     // dispatch(setTemplate2({
+    //     //     ...template2,
+    //     //     impactStat: [...item, { text: e} ]
+    //     // }))
+    // }
+    // ([...tasks, { text: text }]
 
     const handleSubjectLine = (e) => {
-        dispatch(setSubjectLine(e));
-    }
-    const handlePreview = (e) => {
-        dispatch(setPreview(e));
-    }
-    const handleMainText = (e) => {
-        dispatch(setMainText(e));
+        dispatch(setTemplate2({
+            ...template2,
+            subjectLine: e
+        }))
     }
 
+    const handlePreview = (e) => {
+        dispatch(setTemplate2({
+            ...template2,
+            preview: e
+        }))
+    }
+
+    const handleMainText = (e) => {
+        dispatch(setTemplate2({
+            ...template2,
+            mainText: e
+        }))
+    }
     const handleDonationFor = (e) => {
-        dispatch(setDonationFor(e));
+        dispatch(setTemplate2({
+            ...template2,
+            donationFor: e
+        }))
     }
     const handleDonationGoesFor = (e) => {
-        dispatch(setDonationGoesFor(e));
+        dispatch(setTemplate2({
+            ...template2,
+            donationGoesFor: e
+        }))
     }
 
     return (
@@ -45,42 +81,28 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
                 </Box>
-                {
-                    !tempLoading &&
-                    <Box className="subject-line">
-                        <EditBlock
-                            title={"Subject Line:"}
-                            text={`Tell donors your main campaign message.`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handleSubjectLine}
-                            value={subjectLine || [
-                                {
-                                    type: "paragaph",
-                                    children: [{ text: "" }]
-                                }
-                            ]}
-                        />
-                    </Box>
-                }
-                {
-                    !tempLoading &&
-                    <Box className="preview">
-                        <EditBlock
-                            title={"Preview:"}
-                            text={`Tell donors your main campaign message.`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handlePreview}
-                            value={preview || [
-                                {
-                                    type: "paragaph",
-                                    children: [{ text: "" }]
-                                }
-                            ]}
-                        />
-                    </Box>
-                }
+
+                <Box className="subject-line">
+                    <EditBlock
+                        title={"Subject Line:"}
+                        text={`Tell donors your main campaign message.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleSubjectLine}
+                        value={subjectLine}
+                    />
+                </Box>
+
+                <Box className="preview">
+                    <EditBlock
+                        title={"Preview:"}
+                        text={`Tell donors your main campaign message.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handlePreview}
+                        value={preview}
+                    />
+                </Box>
 
                 <Box className="impact-statistic">
                     <ListEditor
@@ -89,11 +111,14 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         placeholder={
                             `E.g. "Feed 1,000 people`}
                         mb="30px"
-                        data={impactStat || []}
-                        impact={true}
+                        // data={impactStat || []}
+                        // impact={true}
+                        handleAddImpact={handleAddImpact}
+                        // toggleTask={toggleTask}
+                        // removeTask={removeTask}
+                        item={impactStat}
                     />
                 </Box>
-
 
                 <Box className="donation-for">
                     <EditBlock
@@ -102,12 +127,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         inputPlaceholder={`E.g. "provide breakfast to all children".`}
                         mb="30px"
                         onChange={handleDonationFor}
-                        value={donationFor || [
-                            {
-                                type: "paragaph",
-                                children: [{ text: "" }]
-                            }
-                        ]}
+                        value={donationFor}
                     />
                 </Box>
 
@@ -120,12 +140,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
 so we can give every child a breakfast".`}
                         mb="30px"
                         onChange={handleDonationGoesFor}
-                        value={donationGoesFor || [
-                            {
-                                type: "paragaph",
-                                children: [{ text: "" }]
-                            }
-                        ]}
+                        value={donationGoesFor}
                     />
                 </Box>
 
@@ -140,12 +155,7 @@ so we can give every child a breakfast".`}
                         inputPlaceholder={`E.g. "provide breakfast to all children".`}
                         mb="30px"
                         onChange={handleMainText}
-                        value={mainText || [
-                            {
-                                type: "paragaph",
-                                children: [{ text: "" }]
-                            }
-                        ]}
+                        value={mainText}
                     />
                 </Box>
             </MainTextBoxStyle>

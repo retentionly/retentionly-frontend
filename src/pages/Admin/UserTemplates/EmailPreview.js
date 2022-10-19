@@ -2,12 +2,12 @@ import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Loader from '../../../ui/Loaders/Loading'
-import { useGetTemplateQuery } from '../../../features/template/templateApi'
 import { Text45 } from '../../../theme/text'
 import NavigationButton from '../../../ui/NavigationButton'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import CardPreview from './CardPreview'
 import Preview from './Preview'
+import { useGetTemplateQuery } from '../../../features/user/userApi'
 
 const EmailPreview = () => {
 

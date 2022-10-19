@@ -2,7 +2,6 @@
 import { Box, Container } from '@chakra-ui/react';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import Option from '../../ui/OptionButton';
 import { PageWrapper } from '../../ui/PageWrapper';
 import SectionTitle from '../../ui/SectionTitle';
@@ -14,10 +13,7 @@ const editiconStyle = {
 
 const Emails = () => {
 
-    const { pathname } = useLocation();
     const { templates } = useSelector((state) => state.user)
-
-    console.log('from email', pathname);
 
     // if (isLoading || loading) {
     //     return <Loader />

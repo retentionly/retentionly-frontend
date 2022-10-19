@@ -11,7 +11,8 @@ const PreviewTemplateTwo = ({ images, image }) => {
 
     const { user: userState, template, master } = useSelector((state) => state);
     const { logo, salutations, greeting, sender, url } = master;
-    const { mainText, impactStat, donationFor, donationGoesFor } = template || {};
+    const { template2 } = useSelector(state => state.templates);
+    const { mainText, impactStat, donationFor, donationGoesFor } = template2 || {};
    
     return (
         <>

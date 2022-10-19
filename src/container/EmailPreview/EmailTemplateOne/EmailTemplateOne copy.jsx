@@ -47,7 +47,6 @@ const EmailTemplateOne = () => {
 
     /* REDUX STATES */
     const { template } = useSelector(state => state);
-    const { template1 } = useSelector(state => state.templates);
 
     /* HOOKS */
     const [user, loading] = useAuthState(auth)
@@ -67,7 +66,14 @@ const EmailTemplateOne = () => {
         contentType: 'image/jpeg',
     }
 
-    const { image } = template1;
+    const {
+        image,
+        subjectLine,
+        preview,
+        beneficiaryDesc,
+        mainText,
+        serviceDesc
+    } = template;
 
     /* FUNCTIONS */
     const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
@@ -122,7 +128,11 @@ const EmailTemplateOne = () => {
                     id: uniqueId,
                     data: {
                         image: url,
-                        ...template1
+                        subjectLine,
+                        preview,
+                        beneficiaryDesc,
+                        mainText,
+                        serviceDesc
                     }
                 })
             }
@@ -130,7 +140,12 @@ const EmailTemplateOne = () => {
             editTemplate({
                 id: uniqueId,
                 data: {
-                    ...template1
+                    image,
+                    subjectLine,
+                    preview,
+                    beneficiaryDesc,
+                    mainText,
+                    serviceDesc
                 }
             })
         }

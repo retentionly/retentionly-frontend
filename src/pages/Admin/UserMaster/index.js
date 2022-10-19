@@ -44,8 +44,11 @@ const UserMaster = () => {
         return <Loader />
     }
 
+    const urlText = url[0]?.children[0]?.text;
+    const link = urlText && (urlText?.includes("https://") ? urlText : `https://${urlText}`)
+
     const downloadImage = () => {
-        saveAs(url, 'image.jpg')
+        saveAs(logo, 'image.jpg')
     }
 
     const greetingText = getPlainText(greeting);
@@ -149,11 +152,11 @@ const UserMaster = () => {
                                         </Td>
                                         <Td>
                                             <TextTruncate>
-                                                <span>{url || 'Nothing Inserted'}</span>
+                                                <span>{link || 'Nothing Inserted'}</span>
                                             </TextTruncate>
                                         </Td>
                                         <Td>
-                                            <CopyText value={url} />
+                                            <CopyText value={link} />
                                         </Td>
                                     </Tr>
 
@@ -170,7 +173,7 @@ const UserMaster = () => {
 export default UserMaster
 
 const CopyText = ({ value }) => {
-    console.log(value)
+
     const { hasCopied, onCopy } = useClipboard(value);
 
     return (

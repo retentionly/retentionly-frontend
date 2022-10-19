@@ -95,7 +95,7 @@ const Master = () => {
 
     useEffect(() => {
         if (editMasterSuccess) {
-            navigate('/emails')
+            navigate('/email')
             setTempLoading(false)
         }
     }, [editMasterSuccess])
@@ -134,52 +134,9 @@ const Master = () => {
             setLoading(false)
         }
     }
-    // const handleSubmit = () => {
-    //     setTempLoading(true)
-    //     if (image.src) {
-    //         const data = new FormData()
-    //         data.append("file", image.src)
-    //         data.append("upload_preset", "tymtravellr_preset")
-    //         data.append("cloud_name", "thetymtravellr")
-    //         fetch("https://api.cloudinary.com/v1_1/thetymtravellr/image/upload", {
-    //             method: "post",
-    //             body: data
-    //         })
-    //             .then(resp => resp.json())
-    //             .then(data => {
-    //                 if (data.url) {
-    //                     dispatch(setLogo(data.url))
-    //                     editMaster({
-    //                         email: user?.email,
-    //                         data: {
-    //                             logo: data.url,
-    //                             greeting,
-    //                             salutations,
-    //                             sender,
-    //                             url
-    //                         }
-    //                     })
-    //                     setLoading(false)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     } else {
-    //         editMaster({
-    //             email: user?.email,
-    //             data: {
-    //                 logo,
-    //                 greeting,
-    //                 salutations,
-    //                 sender,
-    //                 url
-    //             }
-    //         })
-    //         setLoading(false)
-    //     }
-    // }
-
+  
     if (editMasterData?.success) {
-        navigate('/emails')
+        navigate('/email')
     }
 
     if (loading || isMasterLoading) {
@@ -223,7 +180,6 @@ So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                         </Flex>
                     </Box>
                 </Flex>
-                {/* <EmailUpdatedModal showModal={showModal} setShowModal={setShowModal} loading={loading} setUpdated={setUpdated} updated={updated} setLoading={setLoading} item={'Master'} /> */}
             </Container>
         </PageWrapper>
     )

@@ -1,10 +1,10 @@
 import { Box, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import EditBlock from '../../../components/EditorBlock'
 import UploadImage from '../../../components/UploadImage/UploadImage'
-import { useGetTemplateQuery } from '../../../features/template/templateApi'
-import { setBeneficiaryAfter, setBeneficiaryBefore, setBeneficiaryHelped, setBeneficiaryName, setMainText, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
+import { setTemplate3 } from '../../../features/templates/templatesSlice'
+import { useGetTemplateQuery } from '../../../features/user/userApi'
 import { Text30 } from '../../../theme/text'
 import { EditBlockStyled, MainTextBoxStyle } from '../style'
 
@@ -13,30 +13,51 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
     });
-
+    const { template3 } = useSelector(state => state.templates);
     const { preview, subjectLine, beneficiaryName, beneficiaryHelped, beneficiaryBefore, beneficiaryAfter, mainText } = data || {};
 
     const handleSubjectLine = (e) => {
-        dispatch(setSubjectLine(e));
+        dispatch(setTemplate3({
+            ...template3,
+            subjectLine: e
+        }))
     }
     const handlePreview = (e) => {
-        dispatch(setPreview(e));
+        dispatch(setTemplate3({
+            ...template3,
+            preview: e
+        }))
     }
     const handleBeneficiaryName = (e) => {
-        dispatch(setBeneficiaryName(e));
+        dispatch(setTemplate3({
+            ...template3,
+            beneficiaryName: e
+        }))
     }
     const handleBeneficiaryHelped = (e) => {
-        dispatch(setBeneficiaryHelped(e));
+        dispatch(setTemplate3({
+            ...template3,
+            beneficiaryHelped: e
+        }))
     }
     const handleBeneficiaryBefore = (e) => {
-        dispatch(setBeneficiaryBefore(e));
+        dispatch(setTemplate3({
+            ...template3,
+            beneficiaryBefore: e
+        }))
     }
     const handleBeneficiaryAfter = (e) => {
-        dispatch(setBeneficiaryAfter(e));
+        dispatch(setTemplate3({
+            ...template3,
+            beneficiaryAfter: e
+        }))
     }
 
     const handleMainText = (e) => {
-        dispatch(setMainText(e));
+        dispatch(setTemplate3({
+            ...template3,
+            mainText: e
+        }))
     }
 
     return (
@@ -54,8 +75,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
                 </Box>
-                {
-                    !tempLoading &&
+           
                     <Box className="subject-line">
                         <EditBlock
                             title={"Subject Line:"}
@@ -63,7 +83,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleSubjectLine}
-                            value={subjectLine || [
+                            value={[
                                 {
                                     type: "paragaph",
                                     children: [{ text: "" }]
@@ -71,9 +91,8 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             ]}
                         />
                     </Box>
-                }
-                {
-                    !tempLoading &&
+           
+                
                     <Box className="preview">
                         <EditBlock
                             title={"Preview:"}
@@ -81,7 +100,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handlePreview}
-                            value={preview || [
+                            value={[
                                 {
                                     type: "paragaph",
                                     children: [{ text: "" }]
@@ -89,7 +108,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             ]}
                         />
                     </Box>
-                }
+                
 
                 <Box className="beneficiary-name">
                     <EditBlock

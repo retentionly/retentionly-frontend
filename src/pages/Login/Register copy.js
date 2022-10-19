@@ -86,9 +86,6 @@ const Register = () => {
         return <Loader />
     }
 
-    // const updateEmailField = (e) => {
-    //     console.log('');
-    // }
 
     return (
         <PageWrapper>

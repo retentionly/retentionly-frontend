@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom'
 import { PreviewBodyFive, PreviewBodyFour, PreviewBodyOne, PreviewBodyThree, PreviewBodyTwo } from '../../../components/EmailPreviews'
 import Loader from '../../../ui/Loaders/Loading'
 
-import { useGetTemplateQuery } from '../../../features/template/templateApi'
 import { Text30 } from '../../../theme/text'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
 import { PreviewFrame } from '../../EmailDashboard/PreviewBlock/style'
+import { useGetTemplateQuery } from '../../../features/user/userApi'
 
 const Preview = () => {
 

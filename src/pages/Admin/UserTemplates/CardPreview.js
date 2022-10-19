@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
+import { useGetTemplateQuery } from '../../../features/user/userApi';
 import EmailPreviewCard from '../../../ui/EmailPreviewCard';
-import { useGetTemplateQuery } from '../../../features/template/templateApi';
 import { getPlainText } from "../../../utils/getPlainText";
 import { EditBlockStyled } from '../../EmailDashboard/style';
 

@@ -1,11 +1,11 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from '../../../components/Editor/ListEditor';
 import EditBlock from '../../../components/EditorBlock';
 import UploadImage from '../../../components/UploadImage/UploadImage';
-import { useGetTemplateQuery } from '../../../features/template/templateApi';
-import { setDonationDoes, setMainGoalSummary, setMainText, setPreview, setServiceDesc, setSubjectLine } from '../../../features/template/templateSlice';
+import { setTemplate5 } from '../../../features/templates/templatesSlice';
+import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text30 } from '../../../theme/text';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
 
@@ -16,23 +16,60 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
     });
     const { preview, subjectLine, serviceDesc, impactStat, mainGoalSummary, donationDoes, mainText } = data || {};
 
+    const { template5 } = useSelector(state => state.templates);
+
+    const handleAddImpact = (e) => {
+
+        // addTask(e);
+        dispatch(setTemplate5({
+            ...template5,
+            impactStat: e
+        }))
+    }
+    
     const handlePreview = (e) => {
-        dispatch(setPreview(e));
+        dispatch(setTemplate5({
+            ...template5,
+            preview: e
+        }))
     }
+    // const handleSubjectLine = (e) => {
+    //     dispatch(setTemplate2({
+    //         ...template2,
+    //         subjectLine: e
+    //     }))
+    // }
+
     const handleSubjectLine = (e) => {
-        dispatch(setSubjectLine(e));
+        dispatch(setTemplate5({
+            ...template5,
+            subjectLine: e
+        }))
     }
+
     const handleServiceDesc = (e) => {
-        dispatch(setServiceDesc(e));
+        dispatch(setTemplate5({
+            ...template5,
+            serviceDesc: e
+        }));
     }
     const handleMainGoalSummary = (e) => {
-        dispatch(setMainGoalSummary(e));
+        dispatch(setTemplate5({
+            ...template5,
+            mainGoalSummary: e
+        }));
     }
     const handleDonationDoes = (e) => {
-        dispatch(setDonationDoes(e));
+        dispatch(setTemplate5({
+            ...template5,
+            donationDoes: e
+        }));
     }
     const handleMainText = (e) => {
-        dispatch(setMainText(e));
+        dispatch(setTemplate5({
+            ...template5,
+            mainText: e
+        }));
     }
 
     return (
@@ -58,7 +95,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleSubjectLine}
-                            value={subjectLine || [
+                            value={[
                                 {
                                     type: "paragaph",
                                     children: [{ text: "" }]
@@ -77,7 +114,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handlePreview}
-                            value={preview || [
+                            value={[
                                 {
                                     type: "paragaph",
                                     children: [{ text: "" }]
@@ -85,7 +122,6 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             ]} />
                     </Box>
                 }
-
 
                 <Box className="serviceDesc">
                     <EditBlock
@@ -103,7 +139,6 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                     />
                 </Box>
 
-
                 <Box className="impact-statistic">
                     <ListEditor
                         title="Insert impact statistics:"
@@ -111,8 +146,10 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         placeholder={
                             `E.g. "Feed 1,000 people`}
                         mb="30px"
-                        data={impactStat || []}
-                        impact={true}
+                        handleAddImpact={handleAddImpact}
+                        // toggleTask={toggleTask}
+                        // removeTask={removeTask}
+                        item={impactStat}
                     />
                 </Box>
 

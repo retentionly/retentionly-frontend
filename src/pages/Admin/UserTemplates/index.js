@@ -2,7 +2,7 @@ import { Box, Container } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import viewIcon from "../../../assets/png/view.png"
-import { useGetTemplatesQuery } from '../../../features/template/templateApi'
+import { useGetTemplatesQuery } from '../../../features/user/userApi'
 import Loader from '../../../ui/Loaders/Loading'
 import Option from '../../../ui/OptionButton'
 import { PageWrapper } from '../../../ui/PageWrapper'

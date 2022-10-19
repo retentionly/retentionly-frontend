@@ -4,13 +4,13 @@ import { useDispatch } from "react-redux";
 import ListEditor from "../../components/Editor/ListEditor/ListEditor";
 import EditBlock from "../../components/EditorBlock";
 import UploadImage from "../../components/UploadImage/UploadImage";
-import { useGetTemplateQuery } from "../../features/template/templateApi";
 import {
     setBeneficiaryAfter,
     setBeneficiaryBefore,
     setBeneficiaryDesc, setBeneficiaryHelped, setBeneficiaryName, setDonationDoes, setDonationFor, setDonationGoesFor, setImpactStat, setMainGoalSummary, setMainText, setPreview,
     setServiceDesc, setSocial, setSubjectLine
 } from "../../features/template/templateSlice";
+import { useGetTemplateQuery } from "../../features/user/userApi";
 import { Text20, Text30 } from "../../theme/text";
 import RegularTextbox from "../../ui/RegularTextbox/RegularTextbox";
 import { EditBlockStyled, MainTextBoxStyle } from "./style";

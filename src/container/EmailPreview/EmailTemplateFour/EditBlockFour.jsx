@@ -3,8 +3,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditBlock from '../../../components/EditorBlock';
 import UploadImage from '../../../components/UploadImage/UploadImage';
-import { useGetTemplateQuery } from '../../../features/template/templateApi';
-import { setMainText, setPreview, setSocial, setSocialMediaBenefit, setSubjectLine } from '../../../features/template/templateSlice';
+import { setSocialMediaBenefit } from '../../../features/template/templateSlice';
+import { setTemplate3 } from '../../../features/templates/templatesSlice';
+import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text20, Text30 } from '../../../theme/text';
 import RegularTextbox from '../../../ui/RegularTextbox/RegularTextbox';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
@@ -14,26 +15,50 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
     });
-    const { social: socialLinks } = useSelector((state) => state.template);
+    
     const { preview, subjectLine, socialMediaBenefit, social, mainText } = data || {};
+    const { template4 } = useSelector((state) => state.templates);
 
     const handleSubjectLine = (e) => {
-        dispatch(setSubjectLine(e));
+        dispatch(setTemplate3({
+            ...template4,
+            subjectLine: e
+        }));
     }
     const handlePreview = (e) => {
-        dispatch(setPreview(e));
+        dispatch(setTemplate3({
+            ...template4,
+            subjectLine: e
+        }))
     }
     const handleMainText = (e) => {
-        dispatch(setMainText(e));
+        dispatch(setTemplate3({
+            ...template4,
+            mainText: e
+
+        }));
     }
     const handleSocialMediaBenefit = (e) => {
         dispatch(setSocialMediaBenefit(e));
     }
+
     const handleFacebookLink = (e) => {
-        dispatch(setSocial({ ...socialLinks, facebookLink: e.target.value }));
+        dispatch(setTemplate3({
+            ...template4,
+            social: {
+                ...social,
+                facebookLink: e.target.value
+            }
+        }));
     }
     const handleInstagramLink = (e) => {
-        dispatch(setSocial({ ...socialLinks, instagramLink: e.target.value }));
+        dispatch(setTemplate3({
+            ...template4,
+            social: {
+                ...social,
+                instagramLink: e.target.value
+            }
+        }));
     }
 
     return (
@@ -51,44 +76,43 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
                 </Box>
-                {
-                    !tempLoading &&
-                    <Box className="subject-line">
-                        <EditBlock
 
-                            title={"Subject Line:"}
-                            text={`Tell donors your main campaign message,
+                <Box className="subject-line">
+                    <EditBlock
+
+                        title={"Subject Line:"}
+                        text={`Tell donors your main campaign message,
                         E.g. "Your gift could change a child’s life".`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handleSubjectLine}
-                            value={subjectLine || [
-                                {
-                                    type: "paragaph",
-                                    children: [{ text: "" }]
-                                }
-                            ]}
-                        />
-                    </Box>
-                }
-                {!tempLoading &&
-                    <Box className="preview">
-                        <EditBlock
-                            title={"Preview:"}
-                            text={`Tell donors your main campaign message. 
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleSubjectLine}
+                        value={[
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                    />
+                </Box>
+
+
+                <Box className="preview">
+                    <EditBlock
+                        title={"Preview:"}
+                        text={`Tell donors your main campaign message. 
                         E.g. "Your gift could change a child’s life".`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handlePreview}
-                            value={preview || [
-                                {
-                                    type: "paragaph",
-                                    children: [{ text: "" }]
-                                }
-                            ]}
-                        />
-                    </Box>
-                }
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handlePreview}
+                        value={[
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                    />
+                </Box>
+
                 <Box className="social-media-benefit">
                     <EditBlock
                         title={"Insert benefits of following your social media account"}

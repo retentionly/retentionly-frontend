@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { ReactComponent as HintIcon } from "../../assets/svg/hint-icon.svg"
 import Button from '../../components/Common/Button'
 import Error from '../../components/Error/Error'
-import { useGetTemplatesQuery } from '../../features/template/templateApi'
+import { useGetTemplatesQuery } from '../../features/user/userApi'
 import auth from '../../firebase.init'
 import Loader from '../../ui/Loaders/Loading'
 import Option from '../../ui/OptionButton'

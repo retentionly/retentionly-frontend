@@ -23,9 +23,11 @@ img{
 
 const PreviewTemplateFour = ({ images, image }) => {
     const navigate = useNavigate();
-    const { user: userState, template, master } = useSelector((state) => state);
+    const { user: userState, master } = useSelector((state) => state);
+    const { template4 } = useSelector((state) => state.templates);
     const { logo, salutations, greeting, sender } = master;
-    const { socialMediaBenefit, social, mainText } = template;
+    const { socialMediaBenefit, social, mainText } = template4;
+
 
     const instaLink = social?.instagramLink?.includes("https://") ? social?.instagramLink : `https://${social?.instagramLink}`;
     const fbLink = social?.facebookLink?.includes("https://") ? social?.facebookLink : `https://${social?.facebookLink}`;
@@ -44,10 +46,12 @@ const PreviewTemplateFour = ({ images, image }) => {
                             </Text>
                             <Box>
                                 <ul style={{ marginLeft: '20px', marginTop: '10px', color: "#000" }}>
+
                                     {
                                         socialMediaBenefit?.length > 0
                                             ? socialMediaBenefit.map(el => <li style={{ marginBottom: '5px' }}> {el.text}</li>)
-                                            : <li>[Inset benefits of following your social media account]</li>
+                                            :
+                                            <li>[Inset benefits of following your social media account]</li>
                                     }
                                 </ul>
 

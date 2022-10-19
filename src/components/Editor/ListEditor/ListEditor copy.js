@@ -46,28 +46,38 @@ const AddTaskForm = ({ addTask, placeholder }) => {
     );
 }
 
-const ListEditor = ({ title, text, placeholder, handleAddImpact, item, ...rest }) => {
+const ListEditor = ({ title, text, placeholder, addTask, toggleTask, removeTask, item, ...rest }) => {
 
     // const dispatch = useDispatch()
-    const [tasks, setTasks] = useState([...item]);
+    // const [tasks, setTasks] = useState([...data]);
 
-    const addTask = text => {
-        setTasks([...tasks, { text: text }])
-        // dispatch([...tasks, { text: text }])
-        handleAddImpact([...tasks, { text: text }])
-    };
+    // const addTask = text => {
+    //     setTasks([...tasks, { text: text }])
+    //     // if(social){
+    //     //     dispatch(setSocialMediaBenefit([...tasks, { text: text }]))
+    //     // }
+    //     // if(impact){
+    //     //     dispatch(setImpactStat([...tasks, { text: text }]))
+    //     // }
+    // };
 
-    const toggleTask = index => {
-        const newTasks = [...tasks];
-        newTasks[index].isCompleted = !newTasks[index].isCompleted;
-        setTasks(newTasks);
-    };
+    // const toggleTask = index => {
+    //     const newTasks = [...tasks];
+    //     newTasks[index].isCompleted = !newTasks[index].isCompleted;
+    //     setTasks(newTasks);
+    // };
 
-    const removeTask = index => {
-        const newTasks = [...tasks];
-        newTasks.splice(index, 1);
-        setTasks(newTasks);
-    };
+    // const removeTask = index => {
+    //     const newTasks = [...tasks];
+    //     newTasks.splice(index, 1);
+    //     setTasks(newTasks);
+    //     if(social){
+    //         dispatch(setSocialMediaBenefit(newTasks))
+    //     }
+    //     if(impact){
+    //         dispatch(setImpactStat(newTasks))
+    //     }
+    // };
 
     return (
         <Box {...rest}>

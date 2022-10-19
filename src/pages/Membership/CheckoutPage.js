@@ -11,8 +11,6 @@ const stripePromise = loadStripe(process.env.REACT_APP_stripeSecret);
 const CheckoutPage = () => {
     const { amount } = useParams();
 
-    console.log(process.env.REACT_APP_stripeSecret);
-
     return (
         <PageWrapper minH={"calc(100vh - 170px)"} center={true}>
             <Container>

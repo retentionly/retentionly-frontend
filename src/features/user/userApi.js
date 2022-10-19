@@ -1,4 +1,6 @@
 import { apiSlice } from "../../app/api/apiSlice";
+import { setTemplate } from "../template/templateSlice";
+import { setTemplates } from "../templates/templatesSlice";
 import { setEventConfirmed, setUser } from "./userSlice";
 
 export const userApi = apiSlice.injectEndpoints({
@@ -11,6 +13,7 @@ export const userApi = apiSlice.injectEndpoints({
                 try {
                     const result = await queryFulfilled;
                     dispatch(setUser(result?.data))
+                    dispatch(setTemplates(result?.data?.templates))
                 } catch (err) {
                     // do nothing
                 }
@@ -42,6 +45,23 @@ export const userApi = apiSlice.injectEndpoints({
         getUserAdmin: builder.query({
             query: (email) => `/user/${email}`
         }),
+        getTemplates: builder.query({
+            query: (email) => `/templates?email=${email}`,
+            providesTags: ['Templates'],
+        }),
+        getTemplate: builder.query({
+            query: (id) => `/template/${id}`,
+            keepUnusedDataFor: 1,
+            providesTags: ['Template'],
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(setTemplate(result?.data))
+                } catch (err) {
+                    // do nothing
+                }
+            },
+        }),
         editTemplate: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/template/${id}`,
@@ -60,4 +80,4 @@ export const userApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetUserQuery, useGetUsersQuery, useGetUserAdminQuery, useUpdateUserStatusMutation, useEditTemplateMutation, useDeleteTemplateMutation } = userApi;
+export const { useGetUserQuery, useGetUsersQuery, useGetUserAdminQuery, useUpdateUserStatusMutation, useEditTemplateMutation, useDeleteTemplateMutation,useGetTemplatesQuery, useGetTemplateQuery } = userApi;

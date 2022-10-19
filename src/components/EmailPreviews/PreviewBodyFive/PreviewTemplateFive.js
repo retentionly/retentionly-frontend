@@ -11,8 +11,9 @@ import { PreviewBody } from '../style';
 const PreviewTemplateFive = ({ images, image }) => {
 
     const { user: userState, template, master } = useSelector((state) => state);
+    const { template5 } = useSelector(state => state.templates)
     const { logo, salutations, greeting, sender, url } = master;
-    const { mainText, impactStat } = template || {};
+    const { mainText, impactStat } = template5 || {};
 
     if (userState === undefined || template === undefined || master === undefined) {
         return <Loader />

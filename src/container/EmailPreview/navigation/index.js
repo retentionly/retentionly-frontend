@@ -1,11 +1,13 @@
 import { Box } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from '../../../components/Common/Button'
+import { revertAllTemplate } from '../../../features/template/templateSlice'
 
 const EmailNavigation = ({ handleSubmit, success }) => {
     const { pathname } = useLocation();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { templates } = useSelector((state) => state.user)
     const id = pathname?.split('/')[2]
@@ -13,8 +15,6 @@ const EmailNavigation = ({ handleSubmit, success }) => {
     // const template = templates[Number(id)]?.emailId;
     const index = templates.findIndex((e) => e.emailId === Number(id))
     const nextTemplate = templates[index + 1]?.emailId;
-
-    console.log(nextTemplate);
 
     useEffect(() => {
         if (success) {

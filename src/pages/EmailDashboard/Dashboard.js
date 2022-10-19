@@ -13,7 +13,8 @@ import EmailTemplateFour from '../../container/EmailPreview/EmailTemplateFour';
 import EmailTemplateOne from '../../container/EmailPreview/EmailTemplateOne';
 import EmailTemplateThree from '../../container/EmailPreview/EmailTemplateThree';
 import EmailTemplateTwo from '../../container/EmailPreview/EmailTemplateTwo';
-import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../features/template/templateApi';
+import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../features/user/userApi';
+
 import auth, { app } from '../../firebase.init';
 import Loader from '../../ui/Loaders/Loading';
 import { PageWrapper } from '../../ui/PageWrapper';

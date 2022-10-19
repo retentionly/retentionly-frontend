@@ -10,7 +10,7 @@ export default function Navigation({ navigate, templateLength, id, windowScroll,
             {
                 id == 1
                     ? <NavigationButton onClick={() => {
-                        navigate('/emails')
+                        navigate('/email')
                         setTempLoading(true)
                     }} imageProps={{ w: "50px", mr: "10px" }}>Back</NavigationButton>
                     : <NavigationButton onClick={() => navigate(`/email/${Number(id) - 1}`)} imageProps={{ w: "50px", mr: "10px" }}>Back</NavigationButton>
