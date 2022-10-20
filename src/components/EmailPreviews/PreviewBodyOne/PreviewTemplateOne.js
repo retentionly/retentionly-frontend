@@ -6,12 +6,12 @@ import PreviewFooter from '../PreviewFooter';
 import PreviewHead from '../PreviewHead';
 import { PreviewBody } from '../style';
 
-const PreviewTemplateOne = ({ images, image }) => {
+const PreviewTemplateOne = ({ images }) => {
 
     const { user: userState, master } = useSelector((state) => state);
     const { logo, salutations, greeting, sender } = master;
     const { template1 } = useSelector(state => state.templates);
-    const { beneficiaryDesc, mainText, serviceDesc } = template1;
+    const { image, beneficiaryDesc, mainText, serviceDesc } = template1;
 
     return (
         <>

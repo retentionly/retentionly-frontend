@@ -14,19 +14,19 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
     });
-    const { preview, subjectLine, serviceDesc, impactStat, mainGoalSummary, donationDoes, mainText } = data || {};
-
     const { template5 } = useSelector(state => state.templates);
+    const { preview, subjectLine, serviceDesc, impactStat, mainGoalSummary, donationDoes, mainText } = template5;
+
 
     const handleAddImpact = (e) => {
 
-        // addTask(e);
         dispatch(setTemplate5({
             ...template5,
             impactStat: e
         }))
     }
-    
+
+
     const handlePreview = (e) => {
         dispatch(setTemplate5({
             ...template5,

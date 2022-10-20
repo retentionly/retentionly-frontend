@@ -14,8 +14,6 @@ const templatesSlice = createSlice({
     extraReducers: (builder) => builder.addCase(revertAllTemplates, () => initialState),
     reducers: {
         setTemplate1: (state, action) => {
-            // const index = state.findIndex((e) => e.emailId === 1);
-            // state[index] = action.payload;
             state.template1 = action.payload;
         },
         setTemplate2: (state, action) => {

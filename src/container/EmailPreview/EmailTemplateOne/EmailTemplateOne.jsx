@@ -7,7 +7,7 @@ import { useUploadFile } from 'react-firebase-hooks/storage'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateOne from '../../../components/EmailPreviews/PreviewBodyOne'
-import { setImage, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
+import { setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
@@ -36,7 +36,6 @@ const EmailTemplateOne = () => {
                 children: [{ text: "" }]
             }
         ]));
-        dispatch(setImage(''))
     }, [])
 
     /* LOCAL STATES */
@@ -67,7 +66,9 @@ const EmailTemplateOne = () => {
         contentType: 'image/jpeg',
     }
 
-    const { image } = template1;
+    const {
+        image
+    } = template1;
 
     /* FUNCTIONS */
     const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
@@ -114,6 +115,7 @@ const EmailTemplateOne = () => {
     /* HANDLERS */
     const handleSubmit = async () => {
         setTempLoading(true);
+
         if (selectedFile) {
             const result = await uploadFile(storageRef, selectedFile, metadata);
             const url = await getDownloadURL(result.ref);
@@ -121,8 +123,8 @@ const EmailTemplateOne = () => {
                 editTemplate({
                     id: uniqueId,
                     data: {
-                        image: url,
-                        ...template1
+                        ...template1,
+                        image: url
                     }
                 })
             }
@@ -130,7 +132,7 @@ const EmailTemplateOne = () => {
             editTemplate({
                 id: uniqueId,
                 data: {
-                    ...template1
+                    ...template1,
                 }
             })
         }

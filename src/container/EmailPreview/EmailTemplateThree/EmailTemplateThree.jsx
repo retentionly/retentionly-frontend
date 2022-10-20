@@ -120,15 +120,15 @@ const EmailTemplateThree = () => {
                 editTemplate({
                     id: uniqueId,
                     data: {
+                        ...template3,
                         image: url,
-                        ...template3
                     }
                 })
             }
         } else {
             editTemplate({
                 id: uniqueId,
-                data: {...template3}
+                data: { ...template3 }
             })
         }
     }

@@ -1,10 +1,10 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import ListEditor from '../../../components/Editor/ListEditor';
 import EditBlock from '../../../components/EditorBlock';
 import UploadImage from '../../../components/UploadImage/UploadImage';
-import { setSocialMediaBenefit } from '../../../features/template/templateSlice';
-import { setTemplate3 } from '../../../features/templates/templatesSlice';
+import { setTemplate3, setTemplate4 } from '../../../features/templates/templatesSlice';
 import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text20, Text30 } from '../../../theme/text';
 import RegularTextbox from '../../../ui/RegularTextbox/RegularTextbox';
@@ -15,9 +15,9 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
     });
-    
-    const { preview, subjectLine, socialMediaBenefit, social, mainText } = data || {};
+
     const { template4 } = useSelector((state) => state.templates);
+    const { preview, subjectLine, socialMediaBenefit, social, mainText } = template4;
 
     const handleSubjectLine = (e) => {
         dispatch(setTemplate3({
@@ -38,12 +38,16 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
 
         }));
     }
-    const handleSocialMediaBenefit = (e) => {
-        dispatch(setSocialMediaBenefit(e));
+
+    const handleAddBenefit = (e) => {
+        dispatch(setTemplate4({
+            ...template4,
+            socialMediaBenefit: e
+        }))
     }
 
     const handleFacebookLink = (e) => {
-        dispatch(setTemplate3({
+        dispatch(setTemplate4({
             ...template4,
             social: {
                 ...social,
@@ -51,8 +55,9 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
             }
         }));
     }
+
     const handleInstagramLink = (e) => {
-        dispatch(setTemplate3({
+        dispatch(setTemplate4({
             ...template4,
             social: {
                 ...social,
@@ -114,21 +119,18 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                 </Box>
 
                 <Box className="social-media-benefit">
-                    <EditBlock
-                        title={"Insert benefits of following your social media account"}
+                    <ListEditor
+                        title="Insert benefits of following 
+                        your social media account"
                         text={`List down why we should follow you
                         social media pages.`}
-                        inputPlaceholder={`E.g. ‘1. It’s a great way to keep up to 
-                        date with your donation.
-                        2. It’s free!”`}
+                        placeholder={`
+E.g. ‘It’s a great way to keep 
+up to date with
+ your donation.”`}
                         mb="30px"
-                        onChange={handleSocialMediaBenefit}
-                        value={socialMediaBenefit || [
-                            {
-                                type: "paragaph",
-                                children: [{ text: "" }]
-                            }
-                        ]}
+                        handleAddImpact={handleAddBenefit}
+                        item={socialMediaBenefit}
                     />
                 </Box>
 

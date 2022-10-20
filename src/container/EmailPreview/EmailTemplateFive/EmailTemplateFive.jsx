@@ -122,8 +122,8 @@ const EmailTemplateFive = () => {
                 editTemplate({
                     id: uniqueId,
                     data: {
+                        ...template5,
                         image: url,
-                        ...template5
                     }
                 })
             }
@@ -154,7 +154,7 @@ const EmailTemplateFive = () => {
                         <Box flex='1' maxW="550px">
                             <PreviewFrame>
                                 <Text py="30px" textAlign={"center"} color="#000" {...Text30}>Preview</Text>
-                                <PreviewTemplateFive images={images} image={image} />
+                                <PreviewTemplateFive images={images} />
                             </PreviewFrame>
                         </Box>
                         <Box flex='1' maxW="420px">

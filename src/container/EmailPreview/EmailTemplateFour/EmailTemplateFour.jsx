@@ -24,19 +24,19 @@ const EmailTemplateFour = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-      dispatch(setSubjectLine([
-          {
-              type: "paragaph",
-              children: [{ text: "" }]
-          }
-      ]));
-      dispatch(setPreview([
-          {
-              type: "paragaph",
-              children: [{ text: "" }]
-          }
-      ]));
-      dispatch(setImage(''))
+    dispatch(setSubjectLine([
+      {
+        type: "paragaph",
+        children: [{ text: "" }]
+      }
+    ]));
+    dispatch(setPreview([
+      {
+        type: "paragaph",
+        children: [{ text: "" }]
+      }
+    ]));
+    dispatch(setImage(''))
   }, [])
 
   /* LOCAL STATES */
@@ -122,8 +122,8 @@ const EmailTemplateFour = () => {
         editTemplate({
           id: uniqueId,
           data: {
+            ...template4,
             image: url,
-            ...template4
           }
         })
       }
@@ -131,7 +131,7 @@ const EmailTemplateFour = () => {
       editTemplate({
         id: uniqueId,
         data: {
-         ...template4
+          ...template4
         }
       })
     }

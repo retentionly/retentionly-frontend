@@ -8,10 +8,11 @@ import PreviewHead from '../PreviewHead';
 import { PreviewBody } from '../style';
 
 const PreviewTemplateThree = ({ images, image }) => {
-    const { user: userState, template, master } = useSelector((state) => state);
+    const { user: userState,  master } = useSelector((state) => state);
+    const { template3 } = useSelector((state) => state.templates);
     const { logo, salutations, greeting, sender } = master;
     const { beneficiaryName, mainText, beneficiaryHelped, beneficiaryAfter,
-        beneficiaryBefore } = template;
+        beneficiaryBefore } = template3;
 
     return (
         <>
@@ -52,7 +53,7 @@ const PreviewTemplateThree = ({ images, image }) => {
                 <Text>
                     We thank you from the bottom of our hearts,
                 </Text>
-                <Sender data={sender} salutations={salutations} name={userState?.name}/>
+                <Sender data={sender} salutations={salutations} name={userState?.name} />
                 <PreviewFooter />
             </PreviewBody>
         </>

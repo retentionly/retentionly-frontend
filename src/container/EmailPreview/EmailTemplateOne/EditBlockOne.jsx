@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { Box, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import EditBlock from '../../../components/EditorBlock'
@@ -139,9 +139,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                     value={template1?.mainText}
                 />
             </MainTextBoxStyle>
-            <Button onClick={handleTemplate}>
-                handle template
-            </Button>
+  
         </>
     )
 }

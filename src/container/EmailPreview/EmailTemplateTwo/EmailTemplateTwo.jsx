@@ -7,7 +7,7 @@ import { useUploadFile } from 'react-firebase-hooks/storage'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateTwo from '../../../components/EmailPreviews/PreviewBodyTwo/PreviewTemplateTwo'
-import { setImage, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
+import { setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
@@ -36,7 +36,6 @@ const EmailTemplateTwo = () => {
         children: [{ text: "" }]
       }
     ]));
-    dispatch(setImage(''))
   }, [])
 
   /* LOCAL STATES */
@@ -127,8 +126,8 @@ const EmailTemplateTwo = () => {
         editTemplate({
           id: uniqueId,
           data: {
-            image: url,
-            ...template2
+            ...template2,
+            image: url
           }
         })
       }
