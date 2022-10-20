@@ -23,20 +23,20 @@ const storage = getStorage(app);
 const EmailTemplateTwo = () => {
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setSubjectLine([
-      {
-        type: "paragaph",
-        children: [{ text: "" }]
-      }
-    ]));
-    dispatch(setPreview([
-      {
-        type: "paragaph",
-        children: [{ text: "" }]
-      }
-    ]));
-  }, [])
+  // useEffect(() => {
+  //   dispatch(setSubjectLine([
+  //     {
+  //       type: "paragaph",
+  //       children: [{ text: "" }]
+  //     }
+  //   ]));
+  //   dispatch(setPreview([
+  //     {
+  //       type: "paragaph",
+  //       children: [{ text: "" }]
+  //     }
+  //   ]));
+  // }, [])
 
   /* LOCAL STATES */
   const [tempLoading, setTempLoading] = useState(false);

@@ -2,10 +2,10 @@ import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useSelector } from 'react-redux';
-import uploadLogo from "../../assets/png/upload.png";
+import UploadIcon from './UploadIcon';
 
 const UploadImageSingle = ({ onDrop, open, image }) => {
-    const { master } = useSelector((state) => state);
+    const { master } = useSelector((state) => state.templates);
 
     const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
         useDropzone({
@@ -22,7 +22,7 @@ const UploadImageSingle = ({ onDrop, open, image }) => {
                 <input className="input-zone" {...getInputProps()} />
                 <div className="text-center">
                     <Box h="400px" w="400px" display="flex" justifyContent="center" alignItems="center" mb="20px">
-                        {image?.src !== undefined ? <img src={image.src} /> : <img src={master?.logo || uploadLogo} alt='' />}
+                        {image?.src !== undefined ? <img src={image.src} alt="" /> : (master?.logo ? <img src={master?.logo} alt='' /> : <UploadIcon />)}
                     </Box>
                     <button color='#000' type="button" onClick={open} className="btn">
                         {/* <ImagePreview images={image.src} master={master} /> */}

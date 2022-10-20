@@ -45,6 +45,12 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
             socialMediaBenefit: e
         }))
     }
+    const handleRemoveBenefit = (e) => {
+        dispatch(setTemplate4({
+            ...template4,
+            socialMediaBenefit: e
+        }))
+    }
 
     const handleFacebookLink = (e) => {
         dispatch(setTemplate4({
@@ -130,6 +136,7 @@ up to date with
  your donation.”`}
                         mb="30px"
                         handleAddImpact={handleAddBenefit}
+                        handleRemoveImpact={handleRemoveBenefit}
                         item={socialMediaBenefit}
                     />
                 </Box>

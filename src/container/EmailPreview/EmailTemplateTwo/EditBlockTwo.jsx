@@ -12,26 +12,22 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
 
     const dispatch = useDispatch();
     const { template2 } = useSelector(state => state.templates);
-    const { preview, subjectLine, mainText, impactStat, donationFor, donationGoesFor } = template2 || {};
-    // const { addTask, toggleTask, removeTask, item } = useTodo(impactStat);
+    const { preview, subjectLine, mainText, impactStat, donationFor, donationGoesFor } = template2;
 
     const handleAddImpact = (e) => {
-    
-        // addTask(e);
         dispatch(setTemplate2({
             ...template2,
             impactStat: e
         }))
     }
 
-    // const handleAddImpact = (e) => {
-    //     addTask(e);
-    //     // dispatch(setTemplate2({
-    //     //     ...template2,
-    //     //     impactStat: [...item, { text: e} ]
-    //     // }))
-    // }
-    // ([...tasks, { text: text }]
+    const handleRemoveImpact = (e) => {
+        dispatch(setTemplate2({
+            ...template2,
+            impactStat: e
+        }))
+    }
+
 
     const handleSubjectLine = (e) => {
         dispatch(setTemplate2({
@@ -114,6 +110,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         // data={impactStat || []}
                         // impact={true}
                         handleAddImpact={handleAddImpact}
+                        handleRemoveImpact={handleRemoveImpact}
                         // toggleTask={toggleTask}
                         // removeTask={removeTask}
                         item={impactStat}

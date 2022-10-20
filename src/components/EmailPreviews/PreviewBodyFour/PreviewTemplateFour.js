@@ -57,10 +57,10 @@ const PreviewTemplateFour = ({ images, image }) => {
 
                             </Box>
                             <Flex justifyContent="center" alignItems="center" my="50px">
-                                <SocialButton href={instaLink} style={{ padding: '0px' }}>
+                                <SocialButton href={instaLink} target="_blank" style={{ padding: '0px' }}>
                                     <img src={instagramLogo} alt="" />
                                 </SocialButton>
-                                <SocialButton href={fbLink} style={{ padding: '0px' }}>
+                                <SocialButton href={fbLink} target="_blank" style={{ padding: '0px' }}>
                                     <img src={facebookLogo} alt="" />
                                 </SocialButton>
                             </Flex>

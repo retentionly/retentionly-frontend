@@ -9,10 +9,10 @@ import { PreviewBody } from '../style';
 
 const PreviewTemplateTwo = ({ images, image }) => {
 
-    const { user: userState, template, master } = useSelector((state) => state);
+    const { user: userState, master } = useSelector((state) => state);
     const { logo, salutations, greeting, sender, url } = master;
     const { template2 } = useSelector(state => state.templates);
-    const { mainText, impactStat, donationFor, donationGoesFor } = template2 || {};
+    const { mainText, impactStat, donationFor, donationGoesFor } = template2;
    
     return (
         <>
@@ -33,7 +33,7 @@ const PreviewTemplateTwo = ({ images, image }) => {
                                     }
                                 </ul>
                             </Box>
-                            <Text>But we still need your help <PreviewText data={template?.donationFor} placeholder={'[Describe what you need donations for]'} />.</Text>
+                            <Text>But we still need your help <PreviewText data={donationFor} placeholder={'[Describe what you need donations for]'} />.</Text>
                             <Text>So how can you help?</Text>
                             <Text>Simple - set up a monthly donation of just £5</Text>
                             <Text>{`(🤫 that's just 16p a day btw)`}</Text>
@@ -41,7 +41,7 @@ const PreviewTemplateTwo = ({ images, image }) => {
                                 <DonateButton url={url} />
                             </Box>
                             <Text>
-                                Your money goes into a pot which we use to <PreviewText data={template?.donationGoesFor} placeholder={'[describe where your money goes]'} />.
+                                Your money goes into a pot which we use to <PreviewText data={donationGoesFor} placeholder={'[describe where your money goes]'} />.
                             </Text>
                         </>
                         :

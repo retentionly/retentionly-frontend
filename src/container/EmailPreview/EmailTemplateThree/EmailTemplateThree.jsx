@@ -22,21 +22,21 @@ const storage = getStorage(app);
 
 const EmailTemplateThree = () => {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(setSubjectLine([
-            {
-                type: "paragaph",
-                children: [{ text: "" }]
-            }
-        ]));
-        dispatch(setPreview([
-            {
-                type: "paragaph",
-                children: [{ text: "" }]
-            }
-        ]));
-        dispatch(setImage(''))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(setSubjectLine([
+    //         {
+    //             type: "paragaph",
+    //             children: [{ text: "" }]
+    //         }
+    //     ]));
+    //     dispatch(setPreview([
+    //         {
+    //             type: "paragaph",
+    //             children: [{ text: "" }]
+    //         }
+    //     ]));
+    //     dispatch(setImage(''))
+    // }, [])
     /* LOCAL STATES */
     const [tempLoading, setTempLoading] = useState(false);
     const [images, setImages] = useState('');

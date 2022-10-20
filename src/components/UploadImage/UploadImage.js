@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import uploadLogo from '../../assets/svg/upload.svg';
+import UploadIcon from './UploadIcon';
 
 const UploadImage = ({ onDrop, open, setSelectedFile }) => {
 
@@ -16,10 +16,11 @@ const UploadImage = ({ onDrop, open, setSelectedFile }) => {
   return (
     <div>
       <div {...getRootProps({ className: "dropzone" })}>
-        <input className="input-zone" {...getInputProps()}/>
+        <input className="input-zone" {...getInputProps()} />
         <div className="text-center">
           <button color='#000' type="button" onClick={open} className="btn">
-            <img src={uploadLogo} alt="" />
+            {/* <img src={uploadLogo} alt="" /> */}
+            <UploadIcon/>
           </button>
         </div>
       </div>

@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from '../../../components/Common/Button'
-import { revertAllTemplate } from '../../../features/template/templateSlice'
 
 const EmailNavigation = ({ handleSubmit, success }) => {
     const { pathname } = useLocation();
@@ -27,9 +26,11 @@ const EmailNavigation = ({ handleSubmit, success }) => {
     }, [success])
 
     return (
-        <Box px="15px" mr="-23px" width="50%" cursor="pointer">
-            <Button as={Link} onClick={handleSubmit} btnProps={{ width: "100%" }}>{nextTemplate ? "Edit Next Email" : "Finish"}</Button>
-        </Box>
+        <Flex justifyContent="flex-end">
+            <Box px="15px" mr="-23px" width="50%" cursor="pointer">
+                <Button as={Link} onClick={handleSubmit} btnProps={{ width: "100%" }}>{nextTemplate ? "Edit Next Email" : "Finish"}</Button>
+            </Box> 
+        </Flex>
     )
 }
 

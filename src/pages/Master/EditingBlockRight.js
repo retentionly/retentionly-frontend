@@ -1,24 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
 import EditBlock from "../../components/EditorBlock";
-import { setGreeting, setSalutations, setSender, setUrl } from "../../features/master/masterSlice";
+import { setMaster } from "../../features/templates/templatesSlice";
 
 const EditingBlockRight = () => {
     const dispatch = useDispatch();
 
-    const { master } = useSelector((state) => state);
+    const { master } = useSelector((state) => state.templates);
     const { greeting, salutations, sender, url } = master;
 
     const handleGreetings = (e) => {
-        dispatch(setGreeting(e));
+        dispatch(setMaster({
+            ...master,
+            greeting: e
+        }));
     }
     const handleSalutation = (e) => {
-        dispatch(setSalutations(e));
+        dispatch(setMaster({
+            ...master,
+            salutations: e
+        }));
     }
     const handleSender = (e) => {
-        dispatch(setSender(e));
+        dispatch(setMaster({
+            ...master,
+            sender: e
+        }));
     }
     const handleUrl = (e) => {
-        dispatch(setUrl(e));
+        dispatch(setMaster({
+            ...master,
+            url: e
+        }));
     }
 
     return (
@@ -29,7 +41,7 @@ const EditingBlockRight = () => {
                 <EditBlock
                     textarea={true}
                     title={"Greeting:"}
-                    text="Choose how you would like to great your donors."
+                    text="Choose how you would like to greet your donors."
                     inputPlaceholder={`E.g. "Hello, Hi, Asalamu Alaykum, Dear, Hiya, etc.” `}
                     mb="30px"
                     onChange={handleGreetings}

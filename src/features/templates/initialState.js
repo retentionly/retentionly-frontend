@@ -87,6 +87,7 @@ const inititalValue = [
 // ]
 
 const initialState = {
+    master: {},
     template1: {},
     template2: {},
     template3: {},

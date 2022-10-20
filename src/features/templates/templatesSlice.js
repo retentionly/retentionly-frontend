@@ -28,6 +28,9 @@ const templatesSlice = createSlice({
         setTemplate5: (state, action) => {
             state.template5 = action.payload
         },
+        setMaster: (state, action) => {
+            state.master = action.payload
+        },
         setTemplates: (state, action) => {
             const template1 = getTemplateObj(action.payload, 1);
             const template2 = getTemplateObj(action.payload, 2);
@@ -45,6 +48,7 @@ const templatesSlice = createSlice({
 })
 
 export const {
+    setMaster,
     setTemplate1,
     setTemplate2,
     setTemplate3,

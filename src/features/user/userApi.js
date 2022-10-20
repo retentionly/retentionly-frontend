@@ -1,6 +1,6 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import { setTemplate } from "../template/templateSlice";
-import { setTemplates } from "../templates/templatesSlice";
+import { setMaster, setTemplates } from "../templates/templatesSlice";
 import { setEventConfirmed, setUser } from "./userSlice";
 
 export const userApi = apiSlice.injectEndpoints({
@@ -14,6 +14,7 @@ export const userApi = apiSlice.injectEndpoints({
                     const result = await queryFulfilled;
                     dispatch(setUser(result?.data))
                     dispatch(setTemplates(result?.data?.templates))
+                    dispatch(setMaster(result?.data?.master))
                 } catch (err) {
                     // do nothing
                 }

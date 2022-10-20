@@ -53,16 +53,6 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
         }))
     }
 
-    const handleTemplate = (e) => {
-        // const value = {
-        //     name: "Email 1",
-        //     subjectLine: 'subjectLine',
-        //     preview: 'preview',
-        //     serviceDesc: 'serviceDesc',
-        //     beneficiaryDesc: 'beneficiaryDesc',
-        // }
-        // dispatch(setTemplate1(value));
-    }
 
     return (
         <>

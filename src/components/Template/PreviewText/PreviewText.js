@@ -6,27 +6,28 @@ const PreviewTextStyled = styled(Text)`
 `
 
 const PreviewText = ({ data, tag, placeholder, mainTag }) => {
+    console.log(data);
     if (data) {
         const previewText = data[0]?.children[0]?.text || [];
 
         if (data?.length < 1 && !tag) {
             return <>{previewText}</>
         } else if (data.length < 1) {
-            return <span style={{ display: 'block'}}>{previewText}</span>
+            return <span style={{ display: 'block' }}>{previewText}</span>
         } else {
             return (<>
                 {data.map((item, key) => {
                     return (<span className="slate-text" key={key}>{item.children.map(({ text, bold, underline, italic }) => {
 
                         return <PreviewTextStyled color="#000" key={key + 'fjd'} as="span" fontWeight={bold && "bold"} textDecor={underline && "underline"} style={{ fontStyle: `${italic ? 'italic' : 'normal'}`, display: 'inline', fontFamily: "inherit" }}>
-                            {" "}{text || placeholder}
+                            {" "}{text ? text : placeholder}
                         </PreviewTextStyled>
                     })}</span>)
                 })}
             </>)
         }
     } else {
-        return <span style={{ display: 'block'}}>{placeholder}</span>
+        return <span style={{ display: 'block' }}>{placeholder}</span>
     }
 }
 

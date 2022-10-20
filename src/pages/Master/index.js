@@ -36,7 +36,7 @@ const Master = () => {
     const [selectedFile, setSelectedFile] = useState("");
     const [tempLoading, setTempLoading] = useState(false);
     const [sizeError, setSizeError] = useState("")
-    const { master: masterState, template } = useSelector((state) => state);
+    const { template } = useSelector((state) => state);
 
     const [uploadFile, uploading, snapshot, error] = useUploadFile();
     const storageRef = ref(storage, `${user.email}/master.jpg`);
@@ -50,7 +50,10 @@ const Master = () => {
 
     const [editMaster, { data: editMasterData, isLoading: editMasterLoading, isError: editMasterError, isSuccess: editMasterSuccess }] = useEditMasterMutation();
 
-    const { logo, greeting, salutations, sender, url } = masterState;
+    
+    const { master: masterState } = useSelector((state) => state.templates);
+
+    const { logo } = masterState;
 
     // DRAG AND DROP FUNCTION
 
@@ -111,11 +114,8 @@ const Master = () => {
                 editMaster({
                     email: user?.email,
                     data: {
+                        ...masterState,
                         logo: logoUrl,
-                        greeting,
-                        salutations,
-                        sender,
-                        url
                     }
                 })
                 setLoading(false)
@@ -124,11 +124,7 @@ const Master = () => {
             editMaster({
                 email: user?.email,
                 data: {
-                    logo,
-                    greeting,
-                    salutations,
-                    sender,
-                    url
+                    ...masterState
                 }
             })
             setLoading(false)

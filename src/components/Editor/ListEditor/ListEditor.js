@@ -46,7 +46,7 @@ const AddTaskForm = ({ addTask, placeholder }) => {
     );
 }
 
-const ListEditor = ({ title, text, placeholder, handleAddImpact, item, ...rest }) => {
+const ListEditor = ({ title, text, placeholder, handleAddImpact,handleRemoveImpact, item, ...rest }) => {
 
     // const dispatch = useDispatch()
     const [tasks, setTasks] = useState([...item]);
@@ -67,6 +67,7 @@ const ListEditor = ({ title, text, placeholder, handleAddImpact, item, ...rest }
         const newTasks = [...tasks];
         newTasks.splice(index, 1);
         setTasks(newTasks);
+        handleRemoveImpact(newTasks)
     };
 
     return (
