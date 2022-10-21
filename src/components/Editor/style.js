@@ -8,7 +8,7 @@ justify-content: space-between;
 
 input {
     width: 100%;
-    min-height: 60px;
+    min-height: 75px;
     outline: none;
     padding: 10px 15px 15px;
     border: 2px solid black;

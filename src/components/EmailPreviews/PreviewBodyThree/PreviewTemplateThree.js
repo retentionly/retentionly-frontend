@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Greeting, PreviewText, Sender } from '../../Template';
@@ -7,6 +8,13 @@ import PreviewFooter from '../PreviewFooter';
 import PreviewHead from '../PreviewHead';
 import { PreviewBody } from '../style';
 
+
+
+const PreviewTextWrap = styled.span`
+    >.slate-text:first-of-type{
+        display:inline-block
+    }
+`
 const PreviewTemplateThree = ({ images, image }) => {
     const { user: userState,  master } = useSelector((state) => state);
     const { template3 } = useSelector((state) => state.templates);
@@ -25,8 +33,12 @@ const PreviewTemplateThree = ({ images, image }) => {
                         <>
                             <Text>
                                 People like you helped{" "}
-                                <PreviewText data={beneficiaryName} placeholder={'[Beneficiary name]'} /> by {" "}
+                                <PreviewTextWrap>
+                                <PreviewText data={beneficiaryName} placeholder={'[Beneficiary name]'} />
+                                </PreviewTextWrap> by {" "}
+                                <PreviewTextWrap>
                                 <PreviewText data={beneficiaryHelped} placeholder={'[Describe how they were helped]'} />
+                                </PreviewTextWrap>
                             </Text>
                             <Text>
                                 {beneficiaryBefore

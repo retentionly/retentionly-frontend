@@ -9,7 +9,10 @@ const SlateText = styled.span`
         display:block;
     }
 `
-const PreviewText = ({ data, tag, placeholder, mainTag }) => {
+const Span = styled.span`
+    display:${({display}) => display ? display :"inline"}
+`
+const PreviewText = ({ data, tag, placeholder, mainTag,display }) => {
     
     const previewText = data[0]?.children[0]?.text || [];
     if (previewText.length > 0) {
@@ -30,7 +33,7 @@ const PreviewText = ({ data, tag, placeholder, mainTag }) => {
             </>)
         }
     } else {
-        return <span style={{ display: 'block' }}>{placeholder}</span>
+        return <Span display={display}>{placeholder}</Span>
     }
 }
 
