@@ -83,7 +83,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handleSubjectLine}
-                            value={[
+                            value={subjectLine || [
                                 {
                                     type: "paragaph",
                                     children: [{ text: "" }]
@@ -100,7 +100,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                             inputPlaceholder={`E.g. "provide breakfast to all children".`}
                             mb="30px"
                             onChange={handlePreview}
-                            value={[
+                            value={preview || [
                                 {
                                     type: "paragaph",
                                     children: [{ text: "" }]
