@@ -3,7 +3,8 @@ import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import logo from "../../assets/png/brand.png"
+// import logo from "../../assets/png/brand.png"
+import logo from "../../assets/png/logo3.png";
 import Button from '../../components/Common/Button'
 import { useGetPaymentStatusQuery } from '../../features/auth/authApi'
 import { setAmount, setCategory, setEmail, setShipping, setTransactionId } from '../../features/payment/paymentSlice'
@@ -12,6 +13,7 @@ import { Text30 } from '../../theme/text'
 import Loader from '../../ui/Loaders/Loading'
 import { PageWrapper } from '../../ui/PageWrapper'
 import SectionTitle from '../../ui/SectionTitle'
+import { SecureText } from './style'
 
 const PaymentSuccess = () => {
     const navigate = useNavigate();
@@ -44,12 +46,12 @@ const PaymentSuccess = () => {
                         Your Transaction ID: <small>{data?.payment?.transactionId}</small>
                     </Text>
                     <Flex justifyContent="center" alignItems="center">
-                        <Text {...Text30} mb="10px">
-                            Payment authenticated and secured by <b>Retentionly</b>
-                        </Text>
-                        <Box maxW="60px" ml="10px">
+                        <SecureText {...Text30} mb="10px" >
+                            Payment authenticated and secured by <img src={logo} alt="" />
+                        </SecureText>
+                        {/* <Box maxW="60px" ml="10px">
                             <img src={logo} alt="" />
-                        </Box>
+                        </Box> */}
                     </Flex>
                     <Flex mx="-15px" justifyContent="center">
                         <Box px="15px" width="100%" cursor="pointer">
