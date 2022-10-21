@@ -138,7 +138,6 @@ const Master = () => {
     if (loading || isMasterLoading) {
         return <Loader />
     }
-
     return (
         <PageWrapper>
             <LoaderBox visibility={tempLoading} position="fixed" inset="0" display="flex" flexDirection="column" justifyContent="center" alignItems="center" minH="100vh" minW="100%" bg="#fff" zIndex="9999">

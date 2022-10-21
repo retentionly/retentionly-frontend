@@ -76,7 +76,7 @@ const EmailTemplateOne = () => {
     const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
         refetchOnMountOrArgChange: true,
     });
-
+    console.log(image)
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
         acceptedFiles.map((file) => {
             setSelectedFile(file)

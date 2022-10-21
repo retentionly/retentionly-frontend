@@ -67,7 +67,7 @@ const EmailTemplateThree = () => {
     const {
         image
     } = template3;
-
+    
     /* FUNCTIONS */
     const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
 

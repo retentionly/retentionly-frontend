@@ -147,8 +147,8 @@ everyday before school".`}
 
                 <Box className="beneficiary-before">
                     <EditBlock
-                        title={"Describe beneficairy story before you supported them"}
-                        text={`Explain the beneficairy’s situation before
+                        title={"Describe  story before you supported them"}
+                        text={`Explain the beneficiary’s situation before
                         you supported them. `}
                         inputPlaceholder={`E.g. "Jamal used to go to school on a empty stomach. 
 No breakfeast. No fuel for a busy school day. This had 
@@ -167,8 +167,8 @@ a dramatic effect on his grades".`}
 
                 <Box className="beneficiary-after">
                     <EditBlock
-                        title={"Describe beneficairy story after you supported them"}
-                        text={`Explain the beneficairy’s situation after you supported them.`}
+                        title={"Describe beneficiary story after you supported them"}
+                        text={`Explain the beneficiary’s situation after you supported them.`}
                         inputPlaceholder={`E.g. "Thanks to donors like you we were able to 
 provide Jamal healthy breakfast everyday before 
 school. Fuelled properly, his grades started to improve. `}

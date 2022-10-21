@@ -7,7 +7,7 @@ const UploadImage = ({ onDrop, open, setSelectedFile }) => {
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
       accept: {
-        'image/*': ['.jpeg', '.jpg', '.png'],
+        'image/*': ['.jpeg', '.jpg', '.png','.svg'],
       },
       onDrop,
       maxSize: 1000000

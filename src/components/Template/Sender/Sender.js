@@ -5,7 +5,6 @@ const Sender = ({ data, salutations, name }) => {
 
     const senderText = data[0]?.children[0]?.text;
     const salutationsText = salutations[0]?.children[0]?.text;
-    
     return (
         <Text>
             {salutationsText.replace(/[,.]/g, '') || 'Best Regards'}, <br />

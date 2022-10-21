@@ -13,7 +13,7 @@ const PreviewTemplateOne = ({ images }) => {
     const { template1 } = useSelector(state => state.templates);
     const { image, beneficiaryDesc, mainText, serviceDesc } = template1;
 
-    console.log(serviceDesc)
+
 
     return (
         <>
