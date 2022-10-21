@@ -27,23 +27,25 @@ export default function Header() {
             <Box className="header-logo">
                 <img src={logo} alt="" />
             </Box>
+            {user&&
             <HeaderContent>
-                <Menu>
+                {/* <Menu> */}
                     
-                    {user && <>
+                      <Menu>
                         <Menu.Item ><Link to="/email" >Dashboard</Link></Menu.Item>
                         <Menu.Item ><Link to="/master">Master</Link></Menu.Item>
                         <Menu.Item ><Link to="/">Home</Link></Menu.Item>
-                        </>
-                    }
+                        </Menu>
+                   
                     
                     {/* {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/email" >Dashboard</Link></Menu.Item>} */}
                     {/* {pathname !== "/login" && <Menu.Item className={!user && 'disabled'}><Link to="/">Pricing</Link></Menu.Item>} */}
                     {/* {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>} */}
                     
-                </Menu>
+                {/* </Menu> */}
                 
             </HeaderContent>
+             }
             {
                     (pathname === "/login" && !user) &&
                     <Link to="/register" className="header-button-wrapper">

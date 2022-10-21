@@ -12,9 +12,13 @@ export const HeaderStyled = styled.header`
         align-items:center;
         min-width:228px;
         max-width:228px;
+        &+ .header-button-wrapper{
+            margin-left:auto;
+        }
     }
     @media (max-width:767px){
         padding-right:0;
+        // border-bottom: 1px solid #00000024;
         .header-logo{
             min-width:auto;
             max-width:50%;
@@ -33,7 +37,7 @@ export const HeaderStyled = styled.header`
                 width:50%;
                 span{
                     height:100%;
-                    display:inline-flex;
+                    display:flex;
                 }
             }
         }
@@ -113,13 +117,14 @@ export const HeaderButton = styled.a`
     flex-shrink: 0;
     padding-left:15px;
     padding-right:15px;
+    
+    display:flex;
+    align-items:center;
+    justify-content:center;
    @media(min-width:768px){
     padding-left:30px;
     padding-right:30px;
    }
-    display:flex;
-    align-items:center;
-    justify-content:center;
     ${props => props.blue && `
         color:#FFF;
         background:var(--blue);
