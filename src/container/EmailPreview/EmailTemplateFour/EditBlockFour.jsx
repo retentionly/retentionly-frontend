@@ -20,19 +20,19 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { preview, subjectLine, socialMediaBenefit, social, mainText } = template4;
 
     const handleSubjectLine = (e) => {
-        dispatch(setTemplate3({
+        dispatch(setTemplate4({
             ...template4,
             subjectLine: e
         }));
     }
     const handlePreview = (e) => {
-        dispatch(setTemplate3({
+        dispatch(setTemplate4({
             ...template4,
             subjectLine: e
         }))
     }
     const handleMainText = (e) => {
-        dispatch(setTemplate3({
+        dispatch(setTemplate4({
             ...template4,
             mainText: e
 
