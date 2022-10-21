@@ -24,7 +24,7 @@ export default function Header() {
 
     return (
         <HeaderStyled>
-            <Box>
+            <Box className="header-logo">
                 <img src={logo} alt="" />
             </Box>
             <HeaderContent>
@@ -34,9 +34,11 @@ export default function Header() {
                     {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>}
                     <Menu.Item className={!user && 'disabled'}><Link to="/">Home</Link></Menu.Item>
                 </Menu>
-                {
+                
+            </HeaderContent>
+            {
                     (pathname === "/login" && !user) &&
-                    <Link to="/register" >
+                    <Link to="/register" className="header-button-wrapper">
                         <HeaderButton blue as={"span"}>
                             Create An Account
                         </HeaderButton>
@@ -44,7 +46,7 @@ export default function Header() {
                 }
                 {
                     (pathname === "/register" && !user) &&
-                    <Link to="/login">
+                    <Link to="/login" className="header-button-wrapper">
                         <HeaderButton blue as={"span"}>
                             Login
                         </HeaderButton>
@@ -52,13 +54,12 @@ export default function Header() {
                 }
                 {
                     user &&
-                    <LogoutBtn path={pathname}>
+                    <LogoutBtn path={pathname} className="header-button-wrapper">
                         <HeaderButton blue as={"div"}>
                             Logout
                         </HeaderButton>
                     </LogoutBtn>
                 }
-            </HeaderContent>
             {/* <HeraderButtonGroup spacingX="10px">
                 <HeaderButton blue as={"span"}>
                     Log in

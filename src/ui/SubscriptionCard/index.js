@@ -20,7 +20,7 @@ const Badge = styled(Text)`
 const SubscriptionCard = ({ category, price, text, badge, color,bg, ...rest }) => {
 
     return (
-        <Box maxW='sm' boxShadow='lg' h='100%' color={'#fff'} px="18px" bg={bg} py="30px" position={"relative"} mt={"50px"} {...rest}>
+        <Box  boxShadow='lg' h='100%' color={'#fff'} px="18px" bg={bg} py="30px" position={"relative"} mt={"50px"} {...rest}>
             {badge && <Badge {...Text25} bg>{badge}</Badge>}
             <Text {...Text25} minH="30px">
                 {category}

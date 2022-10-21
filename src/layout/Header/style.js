@@ -4,9 +4,48 @@ import styled from "@emotion/styled";
 export const HeaderStyled = styled.header`
     background: #F6C5C5;
     display:flex;
-    img {
-        height: 60px;
+    align-items:center;
+    padding-right:30px;
+    .header-logo{
+        background:#fff;
+        display:flex;
+        align-items:center;
+        min-width:228px;
+        max-width:228px;
     }
+    @media (max-width:768px){
+        padding-right:0;
+        .header-logo{
+            max-width:50%;
+            width:50%;
+            justify-content:center;
+        }
+        flex-wrap:wrap;
+        order:1;
+        .header-button{
+            height:100%;
+            &-wrapper{
+                order:2;
+                height:60px;
+                margin-left:auto;
+                width:50%;
+                span{
+                    height:100%;
+                }
+            }
+        }
+        .header-content{
+            width:100%;
+            order:3;
+            justify-content:center;
+        }
+    }
+    .header-button{
+        &-wrapper{
+            flex-shrink:0;
+        }
+    }
+
 `
 
 export const HeaderContent = styled(Box)`
@@ -16,15 +55,22 @@ export const HeaderContent = styled(Box)`
     justify-content:space-between;
     padding: 10px 26px;
 `
+HeaderContent.defaultProps ={
+    className:"header-content"
+}
 
 export const Menu = styled.ul`
     display:flex;
     align-items:center;
+    justify-content:space-between;
     list-style: none;
     .disabled {
         pointer-events: none;
     }
 `
+Menu.defaultProps ={
+    className:"header-menu"
+}
 
 Menu.Item = styled.li`
     margin:0;
@@ -61,7 +107,11 @@ export const HeaderButton = styled.a`
     padding-left:30px;
     padding-right:30px;
     font-size:15px;
-    
+    flex-shrink: 0;
+   
+    display:flex;
+    align-items:center;
+    justify-content:center;
     ${props => props.blue && `
         color:#FFF;
         background:var(--blue);
@@ -73,3 +123,8 @@ export const HeaderButton = styled.a`
         border:1px solid var(--blue);
     `}
 `
+
+HeaderButton.defaultProps = {
+    className:"header-button"
+}
+

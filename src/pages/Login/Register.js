@@ -117,7 +117,7 @@ const Register = () => {
         <PageWrapper>
 
             <Container maxW={1000}>
-                <SectionTitle title="Create an account 🥳" text="You’re so close to getting more out of your donors." mb="80px" />
+                <SectionTitle title="Create an account 🥳" text="You’re so close to getting more out of your donors." mb={["40px",{lg:"80px"}]} />
                 <Box maxW={500} mb="60px" mx="auto">
                     {/* <form onSubmit={formik.handleSubmit}>
 

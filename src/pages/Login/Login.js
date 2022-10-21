@@ -93,8 +93,8 @@ const Login = () => {
         <PageWrapper>
             <Container maxW={800}>
                 <SectionTitle title="Welcome Back! 🤗" text="We’re so happy to have you back. 
-That’s how we want you to feel about your donors." mb="80px" />
-                <Box maxW={450} mb="60px" mx="auto">
+That’s how we want you to feel about your donors." mb={["40px",{lg:"80px"}]} />
+                <Box maxW={450} mb={["30px",{lg:"60px"}]} mx="auto">
                     {/* <form onSubmit={formik.handleSubmit}>
                         <Input placeholder="Email :" onChange={formik.handleChange} value={formik.values.email} attrs={{
                             id: 'email', name: "email",

@@ -3,7 +3,7 @@ import React from 'react'
 import useLogout from '../../hooks/useLogout'
 import Loader from '../../ui/Loaders/Loading'
 
-const LogoutBtn = ({ children, path, rest }) => {
+const LogoutBtn = ({ children, path, ...rest }) => {
    
     const [logOut, isLoading] = useLogout()
 

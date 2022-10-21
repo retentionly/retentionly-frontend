@@ -54,8 +54,8 @@ const Membership = () => {
       <PageWrapper>
         <Container>
 
-          <SectionTitle title='Get more out of your donors 📈' text='Select a package to get the most out of your donors.' mb="80px" />
-          <SimpleGrid columns={3} spacing={"17px"} >
+          <SectionTitle title='Get more out of your donors 📈' text='Select a package to get the most out of your donors.' mb={[{md:"80px"}]} />
+          <SimpleGrid columns={[1,1,1,1,1,1,2,3]} rowGap={["60px",null,null,null,null,null,"30px","0px"]} spacing={"17px"} >
 
             {
               subscribeCardData.map((el, i) =>

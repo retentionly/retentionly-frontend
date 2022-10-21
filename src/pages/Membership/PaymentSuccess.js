@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Text, useMediaQuery } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,9 +13,10 @@ import { Text30 } from '../../theme/text'
 import Loader from '../../ui/Loaders/Loading'
 import { PageWrapper } from '../../ui/PageWrapper'
 import SectionTitle from '../../ui/SectionTitle'
-import { SecureText } from './style'
+import { SecureText, TextStyled } from './style'
 
 const PaymentSuccess = () => {
+    const [isTablet] = useMediaQuery('(min-width: 768px)')
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, loading] = useAuthState(auth)
@@ -33,18 +34,18 @@ const PaymentSuccess = () => {
     if (isLoading || loading) {
         return <Loader />
     }
-
+    
     return (
         <PageWrapper center="true">
             <Container>
-                <SectionTitle title="Congratulations 🏆" mb="30px" />
+                {isTablet ? <><SectionTitle title="Congratulations 🏆" mb="30px" />
                 <Box maxW={800} mx="auto" mb="60px" textAlign="center">
-                    <Text {...Text30} mb="30px">
+                    <TextStyled mb="30px">
                         You Have Subscribed To <b>{data?.payment?.category}</b> Plan For <b>£{data?.payment?.amount}</b> Per Month.
-                    </Text>
-                    <Text {...Text30} mb="25px">
+                    </TextStyled>
+                    <TextStyled mb="25px">
                         Your Transaction ID: <small>{data?.payment?.transactionId}</small>
-                    </Text>
+                    </TextStyled>
                     <Flex justifyContent="center" alignItems="center">
                         <SecureText {...Text30} mb="10px" >
                             Payment authenticated and secured by <img src={logo} alt="" />
@@ -58,7 +59,23 @@ const PaymentSuccess = () => {
                             <Button as={Link} to="/" btnProps={{ width: "100%" }}>Continue</Button>
                         </Box>
                     </Flex>
-                </Box>
+                </Box></>:<><SectionTitle title="Congratulations 🏆" mb="30px" text={<>You Have Subscribed To <b>{data?.payment?.category}</b> Plan For <b>£{data?.payment?.amount}</b> Per Month.</>}/>
+                <TextStyled>
+                        Your Transaction ID: <small>{data?.payment?.transactionId}</small>
+                    </TextStyled>
+                    <Flex justifyContent="center" alignItems="center">
+                        <SecureText mb="10px" >
+                            Payment authenticated and secured by <img src={logo} alt="" />
+                        </SecureText>
+                        {/* <Box maxW="60px" ml="10px">
+                            <img src={logo} alt="" />
+                        </Box> */}
+                    </Flex>
+                    <TextStyled mb="25px" fontWeight={700}>
+                            Please Use Desktop To Continue Editing your email templates
+                        </TextStyled>
+                </>}
+                
             </Container>
         </PageWrapper>
     )
