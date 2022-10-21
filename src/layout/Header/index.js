@@ -29,10 +29,18 @@ export default function Header() {
             </Box>
             <HeaderContent>
                 <Menu>
-                    {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/email" >Dashboard</Link></Menu.Item>}
+                    
+                    {user && <>
+                        <Menu.Item ><Link to="/email" >Dashboard</Link></Menu.Item>
+                        <Menu.Item ><Link to="/master">Master</Link></Menu.Item>
+                        <Menu.Item ><Link to="/">Home</Link></Menu.Item>
+                        </>
+                    }
+                    
+                    {/* {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/email" >Dashboard</Link></Menu.Item>} */}
                     {/* {pathname !== "/login" && <Menu.Item className={!user && 'disabled'}><Link to="/">Pricing</Link></Menu.Item>} */}
-                    {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>}
-                    <Menu.Item className={!user && 'disabled'}><Link to="/">Home</Link></Menu.Item>
+                    {/* {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>} */}
+                    
                 </Menu>
                 
             </HeaderContent>
