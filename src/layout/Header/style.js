@@ -13,12 +13,14 @@ export const HeaderStyled = styled.header`
         min-width:228px;
         max-width:228px;
     }
-    @media (max-width:768px){
+    @media (max-width:767px){
         padding-right:0;
         .header-logo{
+            min-width:auto;
             max-width:50%;
             width:50%;
             justify-content:center;
+            height:60px;
         }
         flex-wrap:wrap;
         order:1;
@@ -31,6 +33,7 @@ export const HeaderStyled = styled.header`
                 width:50%;
                 span{
                     height:100%;
+                    display:inline-flex;
                 }
             }
         }
@@ -42,7 +45,9 @@ export const HeaderStyled = styled.header`
     }
     .header-button{
         &-wrapper{
-            flex-shrink:0;
+            @media (min-width:768px){
+                flex-shrink:0;
+            }
         }
     }
 
@@ -104,11 +109,14 @@ export const HeaderButton = styled.a`
     --blue:#000;
     padding-top:6px;
     padding-bottom:6px;
-    padding-left:30px;
-    padding-right:30px;
     font-size:15px;
     flex-shrink: 0;
-   
+    padding-left:15px;
+    padding-right:15px;
+   @media(min-width:768px){
+    padding-left:30px;
+    padding-right:30px;
+   }
     display:flex;
     align-items:center;
     justify-content:center;
