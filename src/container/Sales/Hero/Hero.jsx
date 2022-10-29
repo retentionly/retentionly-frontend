@@ -1,11 +1,11 @@
 import heroImage from "../../../assets/png/hero.png";
-import { PageWrapper } from "../../../ui/PageWrapper";
 import SectionTitle from "../../../ui/SectionTitle";
+import Container from "../Global/Container";
 import HeroStyled from "./style";
 
 export default function HeroSection() {
     return (
-        <PageWrapper>
+        <Container>
             <HeroStyled>
                 <HeroStyled.Item>
                    <SectionTitle title="Automate your donor retention process" text="Less workload. More donations. New donors." className="hero-text"/>
@@ -15,6 +15,6 @@ export default function HeroSection() {
                     <img src={heroImage} alt="" />
                 </HeroStyled.Item>
             </HeroStyled>
-        </PageWrapper>
+        </Container>
     )
 }
