@@ -33,6 +33,7 @@ import Master from "./pages/Master";
 import Membership from "./pages/Membership";
 import PaymentSuccess from "./pages/Membership/PaymentSuccess";
 import NotFound from "./pages/NotFound";
+import Sales from "./pages/Sales";
 import UserDashboard from "./pages/UserDashboard";
 import { RequireAdmin, RequireAuth, RequireConfirmedUser, RequirePayment } from "./routes/middleware";
 import { NewUserRoute, OldUserRoute } from "./routes/PrivateRoutes";
@@ -95,28 +96,27 @@ function App() {
 
           {/* Routes For New User Who Isnt completed their template confirmation and event scheduling */}
           <Route element={<NewUserRoute />}>
-            <Route path="/" element={<Layout />}>
-              <Route element={<RequirePayment />}>
-                <Route index element={<Goals />} />
-                <Route path="dashboard" element={<UserDashboard />} />
-                {/* <Route path="email/:id" element={<EmailDashboard />} /> */}
-                <Route path="master" element={<Master />} />
-                {/* <Route path="emails" element={<Emails />} /> */}
-                <Route path="email">
-                  <Route index element={<Emails/>}/>
-                  <Route path="1" element={<EmailTemplateOne />} />
-                  <Route path="2" element={<EmailTemplateTwo />} />
-                  <Route path="3" element={<EmailTemplateThree />} />
-                  <Route path="4" element={<EmailTemplateFour />} />
-                  <Route path="5" element={<EmailTemplateFive />} />
-                </Route>
-                <Route path="email-final" element={<EmailFinal />} />
-                <Route path="success" element={<PaymentSuccess />} />
-                <Route path="appointment" element={<Appointment />} />
+            <Route element={<RequirePayment />}>
+              <Route path="/goals" element={<Goals />} />
+              <Route path="/dashboard" element={<UserDashboard />} />
+              {/* <Route path="email/:id" element={<EmailDashboard />} /> */}
+              <Route path="/master" element={<Master />} />
+              {/* <Route path="emails" element={<Emails />} /> */}
+              <Route path="/email">
+                <Route index element={<Emails />} />
+                <Route path="1" element={<EmailTemplateOne />} />
+                <Route path="2" element={<EmailTemplateTwo />} />
+                <Route path="3" element={<EmailTemplateThree />} />
+                <Route path="4" element={<EmailTemplateFour />} />
+                <Route path="5" element={<EmailTemplateFive />} />
               </Route>
+              <Route path="/email-final" element={<EmailFinal />} />
+              <Route path="/success" element={<PaymentSuccess />} />
+              <Route path="/appointment" element={<Appointment />} />
             </Route>
             <Route path="/membership" element={<Membership />} />
           </Route>
+          {/* New User Routes End*/}
 
           {/* Routes For Old user who has confirmed their template and scheduled event */}
           <Route element={<OldUserRoute />}>
@@ -127,6 +127,7 @@ function App() {
               </Route>
             </Route>
           </Route>
+          {/* Old User Routes End */}
 
           {/* Admin Routes */}
           <Route element={<AdminRoute />}>
@@ -140,10 +141,12 @@ function App() {
               </Route>
             </Route>
           </Route>
+          {/* Admin Routes End */}
 
         </Route>
 
         <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Sales />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

@@ -42,12 +42,14 @@ const Register = () => {
 
     useEffect(() => {
         if (user) {
+            console.log('user', user)
             setTimeout(() => {
                 setIsUserLoading(false)
                 navigate("/membership")
             }, 2000)
         }
         if (emailError) {
+            console.log(emailError)
             dispatch(revertAllAdmin())
             dispatch(revertAllAuth())
             dispatch(revertAllMaster())
