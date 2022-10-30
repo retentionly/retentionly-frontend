@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@chakra-ui/react"
+import { Box} from "@chakra-ui/react"
 import styled from "@emotion/styled"
 // import { Text30,Text65 } from "../../theme/text"
 

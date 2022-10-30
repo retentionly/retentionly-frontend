@@ -7,7 +7,7 @@ import auth from '../../../firebase.init'
 
 const RequireEvent = () => {
     const location = useLocation();
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const { event } = useSelector(state => state.event);
 
     if (loading || event === undefined) {

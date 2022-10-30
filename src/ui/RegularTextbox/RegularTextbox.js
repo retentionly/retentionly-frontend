@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React from 'react'
-import { Text20, Text30 } from '../../theme/text'
+import { Text20 } from '../../theme/text'
 
 const TextBoxStyled = styled(Box)`
 margin-bottom: 20px;
