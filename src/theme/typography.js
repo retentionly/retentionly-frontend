@@ -1,11 +1,17 @@
 export const text_20 = `
-  font-size:20px;
   line-height:1.18;
+  font-size:16px;
+    @media (min-width:768px){
+        font-size:20px;
+    }
 `
 
 export const text_30 = `
-    font-size:30px;
+    font-size:24px;
     line-height:1.18;
+    @media (min-width:768px){
+        font-size:30px;
+    }
 `
 
 export const text_22 = `
@@ -14,6 +20,12 @@ export const text_22 = `
 `
 
 export const text_53 = `
-    font-size:53px;
     line-height:1.18;
+    font-size:38px;
+    @media (min-width:768px){
+        font-size:48px;
+    }
+    @media (min-width:1200px){
+        font-size:53px;
+    }
 `

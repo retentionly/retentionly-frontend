@@ -1,6 +1,7 @@
 import HeroSection from "../../container/Sales/Hero/Hero"
-import Services from "../../container/Sales/Services"
+import CtaSection from "../../container/Sales/Cta/Cta"
 import Stats from "../../container/Sales/Stats"
+import FaqSection from "../../container/Sales/Faq"
 import { SalesContainer } from "./style"
 
 export default function SalesPage (){
@@ -8,7 +9,8 @@ export default function SalesPage (){
         <SalesContainer>
             <HeroSection/>
             <Stats/>
-            <Services/>
+            <CtaSection/>
+            <FaqSection/>
         </SalesContainer>
     )
 }
