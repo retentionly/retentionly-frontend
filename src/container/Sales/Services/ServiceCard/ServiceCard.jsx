@@ -20,7 +20,7 @@ const ServiceCard = ({ media, title, desc, rtl }) => {
                         </ServiceCardStyled.Text>
                         <ServiceCardStyled.Media image={bg} rtl={rtl}>
                             <video width="250" height="250" autoPlay>
-                                <source src={movie} type="video/mp4"/>
+                                <source src={movie} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                             {/* <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="" className='service-image' /> */}

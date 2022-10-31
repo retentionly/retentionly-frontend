@@ -2,7 +2,7 @@ import React from 'react'
 import icon1 from "../../../assets/png/stat1.webp"
 import icon2 from "../../../assets/png/stat2.webp"
 import icon3 from "../../../assets/png/stat3.webp"
-import {ReactComponent as ArrowIcon} from "../../../assets/svg/arrow-up.svg"
+import { ReactComponent as ArrowIcon } from "../../../assets/svg/arrow-up.svg"
 import Container from '../Global/Container'
 import Typography from '../Global/Typography/Typography'
 import StatSlider from './Slider/StatSlider'
@@ -88,7 +88,7 @@ const Stats = () => {
     return (
         <Container>
             <StatsStyled>
-                <Typography as="h1">We'll let the results do the talking.</Typography>
+                <Typography align="center" as="h1">We'll let the results do the talking.</Typography>
                 <StatsContainer>
                     <StatSlider data={data}></StatSlider>
                 </StatsContainer>

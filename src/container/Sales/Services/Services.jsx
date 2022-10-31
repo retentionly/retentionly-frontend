@@ -1,8 +1,9 @@
 
 import React from 'react'
+import Button from '../Global/Button'
 import Container from '../Global/Container'
 import ServiceCard from './ServiceCard/ServiceCard'
-import { SeriviceCardContainer } from './style'
+import { SeriviceCardContainer, ServiceStyled } from './style'
 
 const data = [
     {
@@ -21,12 +22,16 @@ const data = [
 
 const Services = () => {
     return (
-        <Container>
-            <SeriviceCardContainer>
-                <ServiceCard rtl={true}/>
-                <ServiceCard/>
-            </SeriviceCardContainer>
-        </Container>
+        <ServiceStyled>
+            <Container>
+                <SeriviceCardContainer>
+                    <ServiceCard rtl={true} />
+                    <ServiceCard />
+
+                </SeriviceCardContainer>
+                <Button className="cta-button">Book A Demo</Button>
+            </Container>
+        </ServiceStyled>
     )
 }
 

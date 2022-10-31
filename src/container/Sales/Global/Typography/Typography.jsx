@@ -1,10 +1,12 @@
 import styled from '@emotion/styled'
 import React from 'react'
-import { text_30 } from '../../../../theme/typography'
 import Underline from "../../../../assets/png/hero-underline-1.png"
 import Underline2 from "../../../../assets/png/hero-underline.png"
+import { text_30 } from '../../../../theme/typography'
+
 const TypographyStyled = styled.p`
 ${({variant}) => variant ? variant: text_30};
+text-align: ${({align}) => align ? align : 'left'};
 .underline-shape{
   background-image:url(${Underline});
   display: inline-block;
