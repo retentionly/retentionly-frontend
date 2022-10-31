@@ -14,36 +14,36 @@ const StatSlider = ({ data }) => {
     slidesToScroll: 5,
     autoplay: false,
     autoplaySpeed: 2000,
-    responsive:[
+    responsive: [
       {
-      breakpoint: 991,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3
-      }
-    },
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      },
       {
-      breakpoint: 575,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    },
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
       {
-      breakpoint: 400,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
       }
-    }
-  ]
+    ]
   };
 
   return (
     <SliderItemStyled as={Slider} {...settings}>
-        {
-          data.map((item, index) => <SliderItem data={item} key={index}/>)
-        }
+      {
+        data.map((item, index) => <SliderItem data={item} key={index} />)
+      }
     </SliderItemStyled>
   )
 }

@@ -1,3 +1,4 @@
+import { RegulerTestimonial } from "../../components/Testimonial"
 import Brands from "../../container/Sales/Brands"
 import CtaSection from "../../container/Sales/Cta/Cta"
 import FaqSection from "../../container/Sales/Faq"
@@ -14,9 +15,10 @@ export default function SalesPage() {
             <Stats />
             <Services />
             <Brands />
+            <RegulerTestimonial />
             <CtaSection />
             <FaqSection />
-            <Footer/>
+            <Footer />
         </SalesContainer>
     )
 }
