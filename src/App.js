@@ -22,6 +22,7 @@ import UserMaster from "./pages/Admin/UserMaster";
 import UserTemplates from "./pages/Admin/UserTemplates";
 import Preview from "./pages/Admin/UserTemplates/Preview";
 import Appointment from "./pages/Appointment";
+import BookDemo from "./pages/BookDemo";
 import EmailFinal from "./pages/EmailFinal";
 import Emails from "./pages/Emails/Emails";
 import EventConfirmedDashboard from "./pages/EventConfirmedDashboard";
@@ -142,11 +143,11 @@ function App() {
             </Route>
           </Route>
           {/* Admin Routes End */}
-
         </Route>
 
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Sales />} />
+        <Route path="/book-a-demo" element={<BookDemo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
