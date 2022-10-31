@@ -15,13 +15,25 @@ ${({variant}) => variant ? variant: text_30};
   background-repeat: no-repeat;
 }
 .underline-shape-v2{
-  background-image:url(${Underline2});
   display: inline-block;
   padding-bottom: 1%;
-  background-position-x: 40%;
-  background-size: 116%;
-  background-position-y: 41%;
-  background-repeat: no-repeat;
+  position:relative;
+  z-index:1;
+  &:before{
+    content: "";
+    position: absolute;
+    background-image:url(${Underline2});
+    background-position-x: 40%;
+    -webkit-background-size: 116%;
+    background-size: 100%;
+    background-position-y: 40%;
+    background-repeat: no-repeat;
+    z-index: -1;
+    width: 160%;
+    left: -27%;
+    top: 0;
+    height: 110%;
+  }
 }
 `
 
