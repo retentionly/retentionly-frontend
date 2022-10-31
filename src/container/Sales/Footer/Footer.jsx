@@ -1,40 +1,54 @@
 import React from 'react'
 import mailIcon from "../../../assets/png/envelope.png"
+import instagramIcon from "../../../assets/png/instagram.png"
+import linkedinIcon from "../../../assets/png/linkedin.png"
 import logo from "../../../assets/png/logo3.png"
+import twitterIcon from "../../../assets/png/twitter.png"
+import { text_22 } from '../../../theme/typography'
+import Button from '../Global/Button'
 import Container from '../Global/Container'
-import { CtaFormContainer, FooterContentMain, FooterStyled } from './style'
+import Typography from '../Global/Typography/Typography'
+import { CtaForm, CtaFormContainer, CtaInfo, CtaInfoContainer, CtaInfoIcon, FooterContentMain, FooterCopyright, FooterLogo, FooterStyled, FormInput } from './style'
 
 const Footer = () => {
     return (
         <FooterStyled>
             <Container>
-                <div>
+                <FooterLogo>
                     <img src={logo} alt="" />
-                </div>
+                </FooterLogo>
                 <FooterContentMain>
                     <CtaFormContainer>
-                        <div>
-                            <button>Book A Demo</button>
-                            <input type="text" />
-                        </div>
-                        <p>Remember it's free to book a demo and there's no pressure to buy.</p>
+                        <CtaForm>
+                            <Button>Book A Demo</Button>
+                            <FormInput type="text" placeholder='Enter Email Address' />
+                        </CtaForm>
+                        <Typography variant={text_22}>Remember it's free to book a demo <br /> and there's no pressure to buy.</Typography>
                     </CtaFormContainer>
-                    <div>
-                        <div>
-                            <img src={mailIcon} alt="" />
-                            <p>For all inquiries email us at
-                                hello@retentionaly.co.uk</p>
-                        </div>
-                        <div>
-                            <img src={mailIcon} alt="" />
-                            <p>For all inquiries email us at
-                                hello@retentionaly.co.uk</p>
-                        </div>
-                    </div>
+                    <CtaInfoContainer>
+                        <CtaInfo>
+                            <CtaInfoIcon>
+                                <img src={mailIcon} alt="" />
+                            </CtaInfoIcon>
+                            <Typography variant={text_22} align="right">For all inquiries email us at <br />
+                                hello@retentionaly.co.uk</Typography>
+                        </CtaInfo>
+                        <CtaInfo>
+                            <CtaInfoIcon>
+                                <img src={twitterIcon} alt="" />
+                                <img src={linkedinIcon} alt="" />
+                                <img src={instagramIcon} alt="" />
+                            </CtaInfoIcon>
+                            <Typography variant={text_22} align="right">Keep connected <br />
+                                on socials!</Typography>
+                        </CtaInfo>
+                    </CtaInfoContainer>
                 </FooterContentMain>
-                <div>
-                    <p>© 2021. All rights reserved.</p>
-                </div>
+                <FooterCopyright>
+                    <Typography align="center">© Copyright 2022. CerealBox Limited. <br />
+                        All Rights Reserved. Our Privacy Policy.
+                    </Typography>
+                </FooterCopyright>
             </Container>
         </FooterStyled>
     )
