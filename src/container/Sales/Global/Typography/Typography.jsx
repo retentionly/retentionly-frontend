@@ -6,7 +6,7 @@ import { text_30 } from '../../../../theme/typography'
 
 const TypographyStyled = styled.p`
 ${({variant}) => variant ? variant: text_30};
-text-align: ${({align}) => align ? align : 'left'};
+text-align: ${({align}) => align ? align : ""};
 .underline-shape{
   background-image:url(${Underline});
   display: inline-block;
