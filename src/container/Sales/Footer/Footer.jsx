@@ -35,9 +35,15 @@ const Footer = () => {
                         </CtaInfo>
                         <CtaInfo>
                             <CtaInfoIcon>
-                                <img src={twitterIcon} alt="" />
-                                <img src={linkedinIcon} alt="" />
-                                <img src={instagramIcon} alt="" />
+                                <a href="https://facebook.com">
+                                    <img src={twitterIcon} alt="" />
+                                </a>
+                                <a href="https://facebook.com">
+                                    <img src={linkedinIcon} alt="" />
+                                </a>
+                                <a href="https://facebook.com">
+                                    <img src={instagramIcon} alt="" />
+                                </a>
                             </CtaInfoIcon>
                             <Typography variant={text_22} align="right">Keep connected <br />
                                 on socials!</Typography>

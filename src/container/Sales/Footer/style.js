@@ -69,5 +69,6 @@ export const FooterCopyright = styled.div`
 text-align: center;
 p {
     font-size: 12px;
+    font-weight: 500;
 }
 `
