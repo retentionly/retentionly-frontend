@@ -5,7 +5,11 @@ padding-bottom: 50px;
 .pricing-cards {
     display: flex;
     column-gap: 40px;
-    margin: 40px 0;
+    margin: 40px 0 60px;
+}
+.pricing-footer {
+    font-weight: 600;
+    text-align: center;
 }
 `
 
