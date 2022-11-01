@@ -19,6 +19,16 @@ export const text_22 = `
     line-height:1.18;
 `
 
+export const text_35 = `
+font-size: 35px;
+line-height: 1.18;
+`
+
+export const text_45 = `
+font-size: 45px;
+line-height: 1.18;
+`
+
 export const text_53 = `
     line-height:1.18;
     font-size:38px;
