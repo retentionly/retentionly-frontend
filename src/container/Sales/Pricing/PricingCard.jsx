@@ -1,18 +1,18 @@
 import React from 'react'
-import { text_22, text_35 } from '../../../theme/typography'
+import { text_20, text_22, text_35 } from '../../../theme/typography'
 import Button from '../Global/Button'
 import Typography from '../Global/Typography'
 import { CardStyled } from './style'
 
-const PricingCard = ({ data }) => {
-    const { title, description, price } = data;
+const PricingCard = ({ title, description, price }) => {
+
     return (
         <CardStyled>
             <div className="card-title">
                 <Typography as="h3" variant={text_22}>
                     {title}
                 </Typography>
-                <Typography variant={text_22}>
+                <Typography variant={text_20}>
                     {description}
                 </Typography>
             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { text_22, text_30 } from '../../../theme/typography'
 import Container from '../Global/Container'
 import Typography from '../Global/Typography'
-import PricingCard from './PricingCard'
+import PricingDetails from './PricingDetails'
 import { PricingStyled } from './style'
 
 const data = [
@@ -10,16 +10,32 @@ const data = [
         title: 'Small',
         description: 'This is perfect if you’re a small charity with only a few supporters.',
         price: '£40/month',
+        perks: [
+            '1 donor journey',
+            'Message up to 1,000 donors per month',
+            'Email support'
+        ]
     },
     {
         title: 'Medium',
         description: "If you're a charity with less than 5,000 supporters: this is for you.",
         price: '£200/month',
+        perks: [
+            '1 donor journey',
+            'Message up to 5,000  donors per month',
+            'Email support'
+        ]
     },
     {
         title: 'Large',
         description: 'This is for charities with up to 10,000 donors.',
         price: '£400/month',
+        perks: [
+            '1 donor journey',
+            'Message up to 10,000 donors per month',
+            '1:1 support',
+            'Unlimited edits'
+        ]
     },
 ]
 
@@ -37,7 +53,7 @@ const Pricing = () => {
                 </div>
                 <div className="pricing-cards">
                     {
-                        data.map((item) => <PricingCard data={item}/>)
+                        data.map((item) => <PricingDetails data={item} />)
                     }
                 </div>
             </Container>

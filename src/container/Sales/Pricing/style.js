@@ -9,9 +9,35 @@ padding-bottom: 50px;
 }
 `
 
+export const PricingDetailsStyled = styled.div`
+
+.card-perks {
+    margin-top: 20px;
+}
+
+.perks {
+    display: flex;
+    margin-bottom: 10px;
+    font-weight: 500;
+
+    .icon {
+        width: 30px;
+        margin-right: 10px;
+
+        img {
+            min-width: 30px;
+        }
+    }
+
+
+}
+`
+
 export const CardStyled = styled.div`
 max-width: 300px;
 min-width: 300px;
+min-height: 350px;
+max-height: 350px;
 
 border: 4px solid #000;
 padding: 20px;
