@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Button from '../Global/Button'
+import BookButton from '../Global/Button/Button'
 import Container from '../Global/Container'
 import ServiceCard from './ServiceCard/ServiceCard'
 import { SeriviceCardContainer, ServiceStyled } from './style'
@@ -22,13 +22,13 @@ const data = [
 
 const Services = () => {
     return (
-        <ServiceStyled id='why-retentionly'>
+        <ServiceStyled id=''>
             <Container>
                 <SeriviceCardContainer>
                     <ServiceCard rtl={true} />
                     <ServiceCard />
                 </SeriviceCardContainer>
-                <Button className="cta-button">Book A Demo</Button>
+                <BookButton to="/book-a-demo" className="cta-button">Book A Demo</BookButton>
             </Container>
         </ServiceStyled>
     )

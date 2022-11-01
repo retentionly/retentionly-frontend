@@ -5,10 +5,10 @@ import linkedinIcon from "../../../assets/png/linkedin.png"
 import logo from "../../../assets/png/logo3.png"
 import twitterIcon from "../../../assets/png/twitter.png"
 import { text_22 } from '../../../theme/typography'
-import Button from '../Global/Button'
+import BookButton from '../Global/Button/Button'
 import Container from '../Global/Container'
 import Typography from '../Global/Typography/Typography'
-import { CtaForm, CtaFormContainer, CtaInfo, CtaInfoContainer, CtaInfoIcon, FooterContentMain, FooterCopyright, FooterLogo, FooterStyled, FormInput } from './style'
+import { CtaForm, CtaFormContainer, CtaInfo, CtaInfoContainer, CtaInfoIcon, FooterContentMain, FooterCopyright, FooterLogo, FooterStyled } from './style'
 
 const Footer = () => {
     return (
@@ -20,8 +20,7 @@ const Footer = () => {
                 <FooterContentMain>
                     <CtaFormContainer>
                         <CtaForm>
-                            <Button>Book A Demo</Button>
-                            <FormInput type="text" placeholder='Enter Email Address' />
+                        <BookButton to="/book-a-demo">Book A Demo</BookButton>
                         </CtaForm>
                         <Typography variant={text_22}>Remember it's free to book a demo <br /> and there's no pressure to buy.</Typography>
                     </CtaFormContainer>

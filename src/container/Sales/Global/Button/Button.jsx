@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const Button = styled.a`
     display:inline-block;
@@ -13,7 +14,7 @@ const Button = styled.a`
     }
 `
 function BookButton({children,...rest}) {
-    return ( <Button {...rest}>{children}</Button> );
+    return ( <Button as={Link} {...rest}>{children}</Button> );
 }
 
 export default BookButton;
