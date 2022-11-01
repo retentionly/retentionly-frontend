@@ -3,6 +3,7 @@ import React from 'react'
 import { RegulerTestimonial } from '../../components/Testimonial'
 import Brands from '../../container/BookDemo/Brands'
 import DemoHero from '../../container/BookDemo/DemoHero'
+import FaqSection from "../../container/Sales/Faq"
 import Footer from '../../container/Sales/Footer'
 
 const BookDemoContainer = styled.div``
@@ -13,6 +14,7 @@ const BookDemo = () => {
             <DemoHero />
             <Brands />
             <RegulerTestimonial />
+            <FaqSection />
             <Footer />
         </BookDemoContainer>
     )

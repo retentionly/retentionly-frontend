@@ -1,4 +1,4 @@
-import { text_22, text_30} from "../../../theme/typography";
+import { text_22, text_30 } from "../../../theme/typography";
 import Container from "../Global/Container";
 import Typography from "../Global/Typography";
 import FaqSingle from "./FaqSingle";
@@ -9,7 +9,7 @@ function FaqSection() {
             <Container>
                 <div className="section-title">
                     <Typography as="h2" variant={text_30} className="faq-title">
-                        <span className="underline-shape-v2">The Benefits</span>
+                        <span className="underline-shape-v2">FAQs</span>
                     </Typography>
                     <Typography as="p" variant={text_22} className="faq-text">
                         Take your fundraising income to the next level by using Retentionly.
