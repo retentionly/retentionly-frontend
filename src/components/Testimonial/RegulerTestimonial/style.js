@@ -14,6 +14,9 @@ export const SliderStyled = styled.div`
 `
 export const SliderButtonContainer = styled.div``
 export const SliderArrowButton = styled.button`
+@media (max-width: 767px) {
+    width: 180px;
+}
 `
 
 export const TestimonialCardStyled = styled.div`

@@ -15,7 +15,6 @@ import { useGetUserQuery } from "./features/user/userApi";
 import { setTemplateLength, setUser } from "./features/user/userSlice";
 import auth from "./firebase.init";
 import Layout from "./layout";
-import Header from "./layout/Header";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserDetail from "./pages/Admin/UserDetail";
 import UserMaster from "./pages/Admin/UserMaster";
@@ -91,10 +90,9 @@ function App() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route element={<RequireAuth />}>
-
           {/* Routes For New User Who Isnt completed their template confirmation and event scheduling */}
           <Route element={<NewUserRoute />}>
             <Route element={<RequirePayment />}>

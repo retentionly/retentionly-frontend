@@ -41,7 +41,7 @@ const data = [
 
 const Pricing = () => {
     return (
-        <PricingStyled>
+        <PricingStyled id='pricing'>
             <Container>
                 <div className="section-title">
                     <Typography as="h2" variant={text_30} className="faq-title" align="center">

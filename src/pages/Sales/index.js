@@ -8,10 +8,13 @@ import HeroSection from "../../container/Sales/Hero/Hero"
 import Pricing from "../../container/Sales/Pricing"
 import Services from "../../container/Sales/Services/Services"
 import Stats from "../../container/Sales/Stats"
+import { HeaderSecondary } from "../../layout/Header"
 import { SalesContainer } from "./style"
 
 export default function SalesPage() {
     return (
+        <>
+        <HeaderSecondary/>
         <SalesContainer>
             <HeroSection />
             <Stats />
@@ -24,5 +27,6 @@ export default function SalesPage() {
             <FaqSection />
             <Footer />
         </SalesContainer>
+        </>
     )
 }

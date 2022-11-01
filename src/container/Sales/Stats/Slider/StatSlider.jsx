@@ -9,6 +9,7 @@ const StatSlider = ({ data }) => {
   const settings = {
     dots: true,
     infinite: true,
+    arrows: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 5,

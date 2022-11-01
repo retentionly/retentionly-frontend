@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
-import { text_20, text_53 } from "../../../theme/typography"
 import Underline from "../../../assets/png/hero-underline-1.png"
+import { text_20, text_53 } from "../../../theme/typography"
+
 const HeroStyled = styled.div`
 display: flex;
 align-items: center;
@@ -27,27 +28,36 @@ HeroStyled.Item = styled.div`
 width: 100%;
 
 &.hero-image{
-    @media(max-width:991px){
-        max-width:300px;
-    }
+    display: block;
+    
     @media(max-width:575px){
-        display:none;
+        display: none;
     }
+
+    @media(max-width:991px){
+        display: none;
+    }
+
 }
 @media (min-width: 992px) {
     width: 50%;  
 }
 
 &.hero-text {
-    @media (min-width: 576px) {
-        text-align: center;
-    }
+    text-align: center;
+    .underline-shape {
+        display: block;
+       }
+    // @media (min-width: 576px) {
+    //     text-align: center;
+    // }
     @media (min-width: 992px) {
         text-align: left;
     }
     h2{
         ${text_53};
         margin-bottom:23px;
+        text-align: left;
     }
     p{
         ${text_20};

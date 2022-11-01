@@ -3,25 +3,28 @@ import styled from "@emotion/styled";
 
 export const HeaderStyled = styled.header`
     background: #F6C5C5;
+    position: sticky;
+    top: 0;
+    z-index: 999;
     display:flex;
     align-items:center;
-    padding-right:30px;
+    padding: 0; 
     .header-logo{
         background:#fff;
         display:flex;
         align-items:center;
-        min-width:228px;
+        min-width:180px;
         max-width:228px;
         &+ .header-button-wrapper{
             margin-left:auto;
         }
     }
     @media (max-width:767px){
-        padding-right:0;
+        padding: 10px; 
         // border-bottom: 1px solid #00000024;
         .header-logo{
             min-width:auto;
-            max-width:50%;
+            max-width:30%;
             width:50%;
             justify-content:center;
             height:60px;
@@ -34,7 +37,7 @@ export const HeaderStyled = styled.header`
                 order:2;
                 height:60px;
                 margin-left:auto;
-                width:50%;
+               
                 span{
                     height:100%;
                     display:flex;
@@ -48,13 +51,65 @@ export const HeaderStyled = styled.header`
         }
     }
     .header-button{
+        padding: 0;
+        width: 150px;
+        margin-left: auto;
+        margin-right: 0;
+
         &-wrapper{
             @media (min-width:768px){
                 flex-shrink:0;
+                width:50%;
             }
+        }
+        @media (min-width:767px){
+            padding: 10px;
+            width: auto;
+            margin-right: 0;
+        }
+    }
+    
+    .secondary-content {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: none;
+        @media (min-width: 992px) {
+            display: flex;
         }
     }
 
+    .secondary-header-link {
+        font-size: 22px;
+        font-weight: 600;
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        span {
+        font-size: 22px;
+        margin-right: 0;
+        }
+
+        &.login-btn , &.demo-btn {
+           button {
+            font-weight: 600;
+           }
+        }
+    }
+
+    .mobile-menu-demo {
+        margin-left: auto;
+        display: none;
+        @media (max-width: 991px) {
+            display: block;
+        }
+
+        .demo {
+            width: 180px;
+        }
+    }
 `
 
 export const HeaderContent = styled(Box)`
@@ -63,9 +118,22 @@ export const HeaderContent = styled(Box)`
     align-items:center;
     justify-content:space-between;
     padding: 10px 26px;
+
+    &.secondary-content {
+        justify-content: flex-start;
+        ul {
+            width: 100%;
+            justify-content: flex-start;
+
+            .login {
+                margin-left: auto;
+            }
+        }
+    }
 `
-HeaderContent.defaultProps ={
-    className:"header-content"
+
+HeaderContent.defaultProps = {
+    className: "header-content"
 }
 
 export const Menu = styled.ul`
@@ -77,8 +145,8 @@ export const Menu = styled.ul`
         pointer-events: none;
     }
 `
-Menu.defaultProps ={
-    className:"header-menu"
+Menu.defaultProps = {
+    className: "header-menu"
 }
 
 Menu.Item = styled.li`
@@ -90,7 +158,14 @@ Menu.Item = styled.li`
         font-weight: 500;
         padding:0 15px;
         color:#000;
+
+        &.demo-btn {
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+        }
     }
+
 `
 
 export const HeraderButtonGroup = styled.div`
@@ -114,6 +189,7 @@ export const HeaderButton = styled.a`
     padding-top:6px;
     padding-bottom:6px;
     font-size:15px;
+    font-weight:500;
     flex-shrink: 0;
     padding-left:15px;
     padding-right:15px;
@@ -138,6 +214,6 @@ export const HeaderButton = styled.a`
 `
 
 HeaderButton.defaultProps = {
-    className:"header-button"
+    className: "header-button"
 }
 

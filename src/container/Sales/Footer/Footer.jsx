@@ -30,7 +30,7 @@ const Footer = () => {
                             <CtaInfoIcon>
                                 <img src={mailIcon} alt="" />
                             </CtaInfoIcon>
-                            <Typography variant={text_22} align="right">For all inquiries email us at <br />
+                            <Typography variant={text_22}>For all inquiries email us at <br />
                                 hello@retentionaly.co.uk</Typography>
                         </CtaInfo>
                         <CtaInfo>
@@ -45,7 +45,7 @@ const Footer = () => {
                                     <img src={instagramIcon} alt="" />
                                 </a>
                             </CtaInfoIcon>
-                            <Typography variant={text_22} align="right">Keep connected <br />
+                            <Typography variant={text_22}>Keep connected <br />
                                 on socials!</Typography>
                         </CtaInfo>
                     </CtaInfoContainer>

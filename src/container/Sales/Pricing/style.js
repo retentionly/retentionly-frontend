@@ -4,7 +4,9 @@ export const PricingStyled = styled.div`
 padding-bottom: 50px;
 .pricing-cards {
     display: flex;
-    column-gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 30px;
     margin: 40px 0 60px;
 }
 .pricing-footer {
@@ -14,6 +16,10 @@ padding-bottom: 50px;
 `
 
 export const PricingDetailsStyled = styled.div`
+max-width: 300px;
+min-width: 100%;
+min-height: 350px;
+margin-bottom: 30px;
 
 .card-perks {
     margin-top: 20px;
@@ -32,16 +38,15 @@ export const PricingDetailsStyled = styled.div`
             min-width: 30px;
         }
     }
-
-
+}
+@media (min-width: 992px) {
+    max-width: 300px;
+min-width: 300px;
 }
 `
 
 export const CardStyled = styled.div`
-max-width: 300px;
-min-width: 300px;
 min-height: 350px;
-max-height: 350px;
 
 border: 4px solid #000;
 padding: 20px;

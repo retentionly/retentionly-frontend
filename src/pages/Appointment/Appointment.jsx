@@ -92,7 +92,7 @@ export default function Appointment() {
           <SectionTitle title="Get ready to go live 🏁 " text="The final step before we go live is to book a call with our team. 
 That way we can connect your database with the email series."/>
           <InlineWidget
-            url={"https://calendly.com/retentionly/30min"}
+            url={"https://calendly.com/retentionly/demo"}
             // pageSettings={pageSettings.current}
             // prefill={prefill.current}
             pageSettings={pageSettings}

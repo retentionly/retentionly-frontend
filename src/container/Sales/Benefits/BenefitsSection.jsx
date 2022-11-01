@@ -18,7 +18,7 @@ const BenefitsSection = () => {
                     </Typography>
                 </div>
                 <BenefitsContainer>
-                    <div>
+                    <div className='benefit-section-image'>
                         <img src={benefit} alt="" />
                     </div>
                     <div>

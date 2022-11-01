@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const StatsStyled = styled.div`
 margin-top: 50px;
+margin-bottom: 50px;
 text-align: center;
 `
 

@@ -22,12 +22,11 @@ const data = [
 
 const Services = () => {
     return (
-        <ServiceStyled>
+        <ServiceStyled id='why-retentionly'>
             <Container>
                 <SeriviceCardContainer>
                     <ServiceCard rtl={true} />
                     <ServiceCard />
-
                 </SeriviceCardContainer>
                 <Button className="cta-button">Book A Demo</Button>
             </Container>

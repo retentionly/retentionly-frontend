@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
+import { HeaderMain } from "./Header";
 
 export default function Layout() {
-    
+
     // const navigate = useNavigate();
     // const { path } = useSelector(state => state.user);
 
@@ -17,6 +18,7 @@ export default function Layout() {
 
     return (
         <>
+            
             <Outlet />
         </>
     )
