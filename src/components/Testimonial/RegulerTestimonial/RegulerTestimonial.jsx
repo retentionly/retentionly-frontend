@@ -45,14 +45,6 @@ const RegulerTestimonial = ({ data }) => {
                     <TestimonialCard />
                     <TestimonialCard />
                 </SliderStyled>
-                {/* <SliderButtonContainer>
-                    <SliderArrowButton>
-                        prev
-                    </SliderArrowButton>
-                    <SliderArrowButton>
-                        next
-                    </SliderArrowButton>
-                </SliderButtonContainer> */}
             </Container>
         </TestimonialStyled>
     )

@@ -23,13 +23,24 @@ padding: 20px;
 `
 
 export const TestimonialMedia = styled.div`
+display: none;
 width: 50%;
 padding: 0 20px;
+
+@media (min-width: 992px){
+    display: block;
+}
 `
 
 const TestimonialContent = styled.div`
-width: 50%;
+width: 100%;
 padding: 0 30px;
+text-align: center;
+
+@media (min-width: 992px){
+    text-align: left;
+    width: 50%;
+}
 `
 
 TestimonialContent.Heading = styled.div`
@@ -46,7 +57,13 @@ margin-bottom: 20px;
 TestimonialContent.Icon = styled.div`
 img {
     width: 100px;
+    margin: auto;
+    
+    @media (min-width: 992px){
+        margin: unset;
+    }
 }
+
 `
 
 export default TestimonialContent;
