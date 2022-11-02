@@ -34,30 +34,16 @@ export const CtaFormContainer = styled.div`
 p {
     font-weight: 500;
     margin-top: 20px;
-}
-`
 
-export const CtaForm = styled.div`
-display: flex;
-align-items: stretch;
-height: 50px;
-a {
-    margin: 0;
-    @media (max-width: 767px) {
-        font-size: 14px;
-        width: 150px;
+    br {
+        display: none;
+        @media (min-width: 768px) {
+            display: block;
+        }
     }
 }
 `
 
-export const FormInput = styled.input`
-padding: 0 10px;
-font-size: 20px;
-
-@media (max-width: 767px) {
-    width: 150px;
-}
-`
 
 export const CtaInfoContainer = styled.div`
 `

@@ -30,6 +30,10 @@ ul {
 
     @media (max-width: 992px){
         margin-top : 30px;
+
+        li {
+            font-size: 18px;
+        }
     }
 }
 

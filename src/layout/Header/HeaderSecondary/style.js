@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
-export const HeaderStyled = styled.header`
+export const HeaderSecondaryStyled = styled.header`
     background: #F6C5C5;
     position: sticky;
     top: 0;
@@ -15,9 +15,7 @@ export const HeaderStyled = styled.header`
         align-items:center;
         min-width:180px;
         max-width:228px;
-        &+ .header-button-wrapper{
-            margin-left:auto;
-        }
+      
     }
     @media (max-width:767px){
         padding: 10px; 
@@ -99,20 +97,7 @@ export const HeaderStyled = styled.header`
         }
     }
 
-    .mobile-menu-demo {
-        margin-left: auto;
-        display: none;
-        @media (max-width: 991px) {
-            display: block;
-        }
-
-        .demo {
-            width: 180px;
-            a {
-                background: #000
-            }
-        }
-    }
+    
 `
 
 export const HeaderContent = styled(Box)`
@@ -135,9 +120,6 @@ export const HeaderContent = styled(Box)`
     }
 `
 
-HeaderContent.defaultProps = {
-    className: "header-content"
-}
 
 export const Menu = styled.ul`
     display:flex;
@@ -147,11 +129,26 @@ export const Menu = styled.ul`
     .disabled {
         pointer-events: none;
     }
-`
-Menu.defaultProps = {
-    className: "header-menu"
-}
+    &.mobile-menu-demo {
+        margin-left: auto;
+        display: none;
+        @media (max-width: 991px) {
+            display: block;
+        }
 
+       
+    }
+    .demo {
+        background: #000;
+        padding: 5px;
+        a {
+            background: #000;
+            color: #fff;
+            margin: 0;
+            font-size: 22px;
+        }
+    }
+`
 Menu.Item = styled.li`
     margin:0;
     color:#000;

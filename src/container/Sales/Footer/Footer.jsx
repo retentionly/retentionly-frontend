@@ -8,7 +8,7 @@ import { text_22 } from '../../../theme/typography'
 import BookButton from '../Global/Button/Button'
 import Container from '../Global/Container'
 import Typography from '../Global/Typography/Typography'
-import { CtaForm, CtaFormContainer, CtaInfo, CtaInfoContainer, CtaInfoIcon, FooterContentMain, FooterCopyright, FooterLogo, FooterStyled } from './style'
+import { CtaFormContainer, CtaInfo, CtaInfoContainer, CtaInfoIcon, FooterContentMain, FooterCopyright, FooterLogo, FooterStyled } from './style'
 
 const Footer = () => {
     return (
@@ -19,9 +19,7 @@ const Footer = () => {
                 </FooterLogo>
                 <FooterContentMain>
                     <CtaFormContainer>
-                        <CtaForm>
-                        <BookButton to="/book-a-demo">Book A Demo</BookButton>
-                        </CtaForm>
+                    <BookButton to="/book-a-demo">Book A Demo</BookButton>
                         <Typography variant={text_22}>Remember it's free to book a demo <br /> and there's no pressure to buy.</Typography>
                     </CtaFormContainer>
                     <CtaInfoContainer>

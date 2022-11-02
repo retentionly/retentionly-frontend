@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/png/logo3.png";
-import LogoutBtn from "../../components/LogoutBtn";
-import auth from "../../firebase.init";
-import { HeaderButton, HeaderContent, HeaderStyled, Menu } from "./style";
+import LogoutBtn from "../../../components/LogoutBtn";
+import auth from "../../../firebase.init";
+import logo from "../../../assets/png/logo3.png";
+import { HeaderButton, HeaderContent, HeaderStyled, Menu } from "../style";
 
 const HeaderMain = () => {
     const [user, loading, error] = useAuthState(auth);

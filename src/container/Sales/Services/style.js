@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const ServiceStyled = styled.div`
 
-padding-bottom: 100px;
+padding-bottom: 50px;
 text-align:center;
 .cta-title{
     margin-bottom:30px;
@@ -46,22 +46,36 @@ background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
 height: 200px;
-width: 100%;
+width: 200px;
 display: flex;
 align-items: center;
 justify-content: center;
 
-.service-image {
-    width: 150px;
+.service-image,
+iframe {
+    width: 120px;
+    height: 120px;
+}
+
+@media (min-width: 568px) {
+    height: 300px;
+    width: 300px;
+
+    .service-image,
+    iframe {
+        width: 150px;
+        height: 150px;
+    }
 }
 
 @media (min-width: 992px) {
     height: 400px;
     width: 600px;
 
-
-    .service-image {
+    .service-image,
+    iframe {
         width: 250px;
+        height: 250px;
     }
 }
 `

@@ -18,12 +18,8 @@ const ServiceCard = ({ media, title, desc, rtl }) => {
                             <Typography variant={text_22}>We know it's hard to keep your donors. Most donors give once and never come back. But there is a way to make them stick around. But it takes a lot of time, effort and energy - until now.  </Typography>
                         </ServiceCardStyled.Text>
                         <ServiceCardStyled.Media image={bg} rtl={rtl} className="service-media">
-                            <iframe width="250" height="250" src="https://www.youtube.com/embed/8lj276fuZwA?list=RD-rBNVZEoMd4" title="Tearful Emotional Track 2022 | Ab yad Na Aao Rehne Do | A R Huzaifi | Nasheed Club | Anasheed Studio" frameborder="0" allow="accelerometer; autoplay; clipboard-write;  encrypted-media; gyroscope; picture-in-picture" allowfullscreen contextMenu='0'></iframe>
-                            {/* <video width="250" height="250" autoPlay>
-                                <source src={movie} type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video> */}
-                            {/* <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="" className='service-image' /> */}
+                            <iframe src="https://www.youtube.com/embed/91BUM3WhCfo" title="Dolby Presents: The World Of Sound | Demo | Dolby Atmos | Dolby" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                           
                         </ServiceCardStyled.Media>
                     </>
                     : <>

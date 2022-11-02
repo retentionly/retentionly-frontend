@@ -7,7 +7,7 @@ padding-bottom: 50px;
     justify-content: center;
     flex-wrap: wrap;
     column-gap: 30px;
-    margin: 40px 0 60px;
+    margin: 40px 0 20px;
 }
 .pricing-footer {
     font-weight: 600;

@@ -7,8 +7,8 @@ display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: column-reverse;
-padding-top:50px;
-padding-bottom:50px;
+padding-top:20px;
+
 @media (min-width: 992px) {
     flex-direction: row;
 }
@@ -44,15 +44,16 @@ width: 100%;
 }
 
 &.hero-text {
+    max-width: 350px;
     text-align: center;
+
     .underline-shape {
         display: block;
        }
-    // @media (min-width: 576px) {
-    //     text-align: center;
-    // }
+ 
     @media (min-width: 992px) {
         text-align: left;
+        max-width: 100%;
     }
     h2{
         ${text_53};
@@ -61,6 +62,7 @@ width: 100%;
     }
     p{
         ${text_20};
+        text-align: left;
     }
 }
 

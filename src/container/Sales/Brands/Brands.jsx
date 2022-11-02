@@ -30,7 +30,7 @@ const Brands = () => {
     return (
         <BrandStyled>
             <Container>
-                <Typography align="center" as="h1">
+                <Typography align="center" as="h1" className="brand-section-title">
                     We've helped them keep their donors. <br />
                     Now can we help you?
                 </Typography>

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 const CtaStyled = styled.div`
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     text-align:center;
     .cta-title{
         margin-bottom:30px;

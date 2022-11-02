@@ -1,6 +1,6 @@
-import React from 'react'
-import Typography from '../../Global/Typography/Typography'
-import { StatItem } from '../style'
+import React from 'react';
+import Typography from '../../Global/Typography/Typography';
+import { StatItem } from '../style';
 
 const SliderItem = ({ data }) => {
     const {icon,prefix,title,text,postfix} = data;

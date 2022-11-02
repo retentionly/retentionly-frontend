@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 export const StatsStyled = styled.div`
-margin-top: 50px;
-margin-bottom: 50px;
+padding-top: 40px;
+padding-bottom: 50px;
 text-align: center;
 `
 
@@ -20,7 +20,11 @@ export const SliderItemStyled = styled.div`
 
 .slick-dots{
     position:static;
-    margin-top:30px;
+    margin-top:10px;
+
+    @media (min-width: 767px){
+        margin-top:30px;
+    }
     li{
         margin:0;
         button{
@@ -35,22 +39,38 @@ export const SliderItemStyled = styled.div`
 export const StatItem = styled.div`
 .stat-icon {
     margin: 0 auto 10px;
+
+    @media (max-width: 992px) {
+        width: 40px;
+    }
 }
 .stat-item-title {
     font-weight: 500 !important;
     margin-bottom: 10px;
-    font-size:40px;
+    font-size:20px;
     @media (min-width:768px){
+        font-size: 30px;
+    }
+    @media (min-width:992px){
         font-size: 60px;
     }
+
     span{
         display:inline-block;
         .arrow-icon{
             transform: rotate(90deg);
-            width: 48px;
-            height: 36px;
+            width: 16px;
+            height: 14px;
             position:relative;
             display:inline-block;
+            @media (min-width:768px){
+                width: 24px;
+            height: 18px;
+            }
+            @media (min-width:992px){
+                width: 48px;
+            height: 36px;
+            }
            svg{
             position:absolute;
             vector:non-scaling-stroke;
@@ -78,7 +98,15 @@ export const StatItem = styled.div`
 }
 
 .stat-item-text {
-    font-size: 16px;
+    font-size: 10px;
+
+    @media (min-width:768px){
+        font-size: 14px;
+    }
+
+    @media (min-width:992px){
+        font-size: 16px;
+    }
 }
 span{
     color: #9F7B7C;
