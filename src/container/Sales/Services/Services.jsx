@@ -25,8 +25,9 @@ const Services = () => {
         <ServiceStyled id=''>
             <Container>
                 <SeriviceCardContainer>
-                    <ServiceCard rtl={true} />
-                    <ServiceCard />
+                    {
+                        data.map(item => <ServiceCard {...item} />)
+                    }
                 </SeriviceCardContainer>
                 <BookButton to="/book-a-demo" className="cta-button">Book A Demo</BookButton>
             </Container>

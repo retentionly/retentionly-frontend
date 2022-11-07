@@ -58,7 +58,7 @@ const Pricing = () => {
                 </div>
                 <div className='pricing-footer'>
                     <Typography variant={text_22}>
-                        If you have more than 10,000 supports then we will create a custom bundle for you. Please book a demo call to learn more.
+                        If you have more than 10,000 supporters then we will create a custom bundle for you. Please book a demo call to learn more.
                     </Typography>
                 </div>
             </Container>

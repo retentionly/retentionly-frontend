@@ -33,7 +33,7 @@ const HeaderSecondary = () => {
                             </Menu.Item>
 
                             <Menu.Item className="demo">
-                            <BookButton to="/book-a-demo" >Book Free Demo</BookButton>
+                            <BookButton to="/book-a-demo" >Book Demo</BookButton>
                             </Menu.Item>
                         </>
                     }
