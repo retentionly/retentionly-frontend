@@ -1,10 +1,10 @@
-import { Box, Container, Flex, Text, useMediaQuery } from '@chakra-ui/react'
+import { Box, Container, Flex, useMediaQuery } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 // import logo from "../../assets/png/brand.png"
-import logo from "../../assets/png/logo3.png";
+import logo from "../../assets/png/logo3.png"
 import Button from '../../components/Common/Button'
 import { useGetPaymentStatusQuery } from '../../features/auth/authApi'
 import { setAmount, setCategory, setEmail, setShipping, setTransactionId } from '../../features/payment/paymentSlice'
@@ -56,7 +56,7 @@ const PaymentSuccess = () => {
                     </Flex>
                     <Flex mx="-15px" justifyContent="center">
                         <Box px="15px" width="100%" cursor="pointer">
-                            <Button as={Link} to="/" btnProps={{ width: "100%" }}>Continue</Button>
+                            <Button as={Link} to="/goals" btnProps={{ width: "100%" }}>Continue</Button>
                         </Box>
                     </Flex>
                 </Box></>:<><SectionTitle title="Congratulations 🏆" mb="30px" text={<>You Have Subscribed To <b>{data?.payment?.category}</b> Plan For <b>£{data?.payment?.amount}</b> Per Month.</>}/>

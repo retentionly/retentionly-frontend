@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../../assets/png/logo3.png";
 import LogoutBtn from "../../../components/LogoutBtn";
 import auth from "../../../firebase.init";
-import logo from "../../../assets/png/logo3.png";
 import { HeaderButton, HeaderContent, HeaderStyled, Menu } from "../style";
 
 const HeaderMain = () => {
@@ -23,13 +23,6 @@ const HeaderMain = () => {
                         <Menu.Item ><Link to="/master">Master</Link></Menu.Item>
                         <Menu.Item ><Link to="/">Home</Link></Menu.Item>
                     </Menu>
-
-
-                    {/* {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/email" >Dashboard</Link></Menu.Item>} */}
-                    {/* {pathname !== "/login" && <Menu.Item className={!user && 'disabled'}><Link to="/">Pricing</Link></Menu.Item>} */}
-                    {/* {pathname !== "/register" && <Menu.Item className={!user && 'disabled'}><Link to="/master">Master</Link></Menu.Item>} */}
-
-                    {/* </Menu> */}
 
                 </HeaderContent>
             }

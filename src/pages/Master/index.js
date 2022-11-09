@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useUploadFile } from 'react-firebase-hooks/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import RequiredText from '../../components/RequiredText/RequiredText';
 import UploadImageSingle from "../../components/UploadImage/UploadImageSingle";
 import { useEditMasterMutation, useGetMasterQuery } from '../../features/master/masterApi';
 import { setLogo } from '../../features/master/masterSlice';
@@ -138,6 +139,7 @@ const Master = () => {
     if (loading || isMasterLoading) {
         return <Loader />
     }
+
     return (
         <PageWrapper>
             <LoaderBox visibility={tempLoading} position="fixed" inset="0" display="flex" flexDirection="column" justifyContent="center" alignItems="center" minH="100vh" minW="100%" bg="#fff" zIndex="9999">
@@ -153,9 +155,7 @@ So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                             <Text color="#000000" {...Text30} mb="10px">
                                 Upload Your Logo:
                             </Text>
-                            <Text color="#000000" mb="10px">
-                                (Required)
-                            </Text>
+                            
                             <Box mb="10px">
                                 {
                                     sizeError ? <Text color="red" fontWeight="semibold">{sizeError}</Text> : null

@@ -1,6 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React from 'react'
+import RequiredText from '../../components/RequiredText/RequiredText'
 import { Text20 } from '../../theme/text'
 
 const TextBoxStyled = styled(Box)`
@@ -20,6 +21,7 @@ const RegularTextbox = ({ title, placeholder, state, handleChange }) => {
         <TextBoxStyled>
             <Text {...Text20} bg="black" p="10px" textAlign="center">{title}</Text>
             <input type="text" value={state} onChange={handleChange} placeholder={placeholder} />
+            <RequiredText m="5px 0"/>
         </TextBoxStyled>
     )
 }

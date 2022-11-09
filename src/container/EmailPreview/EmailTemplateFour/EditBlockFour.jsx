@@ -3,8 +3,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from '../../../components/Editor/ListEditor';
 import EditBlock from '../../../components/EditorBlock';
+import RequiredText from '../../../components/RequiredText/RequiredText';
 import UploadImage from '../../../components/UploadImage/UploadImage';
-import { setTemplate3, setTemplate4 } from '../../../features/templates/templatesSlice';
+import { setTemplate4 } from '../../../features/templates/templatesSlice';
 import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text20, Text30 } from '../../../theme/text';
 import RegularTextbox from '../../../ui/RegularTextbox/RegularTextbox';
@@ -86,6 +87,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
+                    <RequiredText/>
                 </Box>
 
                 <Box className="subject-line">
@@ -103,6 +105,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 
@@ -121,6 +124,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 
@@ -151,7 +155,9 @@ up to date with
                         Instagram page.
                     </Text>
                     <RegularTextbox title="Facebook" handleChange={handleFacebookLink} placeholder="Insert Facebook Link" />
+                    
                     <RegularTextbox title="Instagram" handleChange={handleInstagramLink} placeholder="Insert Instagram Link" />
+
                 </Box>
 
             </EditBlockStyled>

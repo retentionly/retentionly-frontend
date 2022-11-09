@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from '../../../components/Editor/ListEditor';
 import EditBlock from '../../../components/EditorBlock';
+import RequiredText from '../../../components/RequiredText/RequiredText';
 import UploadImage from '../../../components/UploadImage/UploadImage';
 import { setTemplate5 } from '../../../features/templates/templatesSlice';
 import { useGetTemplateQuery } from '../../../features/user/userApi';
@@ -18,14 +19,12 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { preview, subjectLine, serviceDesc, impactStat, mainGoalSummary, donationDoes, mainText } = template5;
 
 
-    const handleAddImpact = (e) => {
-
+    const handleAddorRemoveImpact = (e) => {
         dispatch(setTemplate5({
             ...template5,
             impactStat: e
         }))
     }
-
 
     const handlePreview = (e) => {
         dispatch(setTemplate5({
@@ -33,13 +32,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
             preview: e
         }))
     }
-    // const handleSubjectLine = (e) => {
-    //     dispatch(setTemplate2({
-    //         ...template2,
-    //         subjectLine: e
-    //     }))
-    // }
-
+ 
     const handleSubjectLine = (e) => {
         dispatch(setTemplate5({
             ...template5,
@@ -85,6 +78,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
+                    <RequiredText/>
                 </Box>
                 {
                     !tempLoading &&
@@ -101,6 +95,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     children: [{ text: "" }]
                                 }
                             ]}
+                            required={true}
                         />
                     </Box>
                 }
@@ -119,7 +114,9 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     type: "paragaph",
                                     children: [{ text: "" }]
                                 }
-                            ]} />
+                            ]} 
+                            required={true}
+                            />
                     </Box>
                 }
 
@@ -136,6 +133,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 
@@ -146,13 +144,14 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         placeholder={
                             `E.g. "Feed 1,000 people`}
                         mb="30px"
-                        handleAddImpact={handleAddImpact}
+                        handleAddImpact={handleAddorRemoveImpact}
+                        handleRemoveImpact={handleAddorRemoveImpact}
                         // toggleTask={toggleTask}
                         // removeTask={removeTask}
                         item={impactStat}
+                        // required={!Boolean(impactStat.length)}
                     />
                 </Box>
-
 
                 <Box className="donation-does">
                     <EditBlock title={"Explain what their donation does:"}
@@ -165,7 +164,9 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
-                        ]} />
+                        ]} 
+                        required={true}
+                        />
                 </Box>
 
 
@@ -182,7 +183,9 @@ so we can give every child a breakfast".`}
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
-                        ]} />
+                        ]} 
+                        required={true}
+                        />
                 </Box>
 
 

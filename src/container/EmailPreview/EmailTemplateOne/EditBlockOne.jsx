@@ -2,6 +2,7 @@ import { Box, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import EditBlock from '../../../components/EditorBlock'
+import RequiredText from '../../../components/RequiredText/RequiredText'
 import UploadImage from '../../../components/UploadImage/UploadImage'
 import { setTemplate1 } from '../../../features/templates/templatesSlice'
 import { useGetTemplateQuery } from '../../../features/user/userApi'
@@ -67,6 +68,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} />
+                    <RequiredText/>
                 </Box>
 
                 <Box className="subject-line">
@@ -77,6 +79,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleSubjectLine}
                         value={template1?.subjectLine}
+                        required={true}
                     />
                 </Box>
 
@@ -90,6 +93,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                             mb="30px"
                             onChange={handlePreview}
                             value={template1?.preview}
+                            required={true}
                         />
                     </Box>
                 }
@@ -102,6 +106,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleServiceDesc}
                         value={template1?.serviceDesc}
+                        required={true}
                     />
                 </Box>
 
@@ -114,6 +119,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleBeneficiaryDesc}
                         value={template1?.beneficiaryDesc}
+                        required={true}
                     />
                 </Box>
 

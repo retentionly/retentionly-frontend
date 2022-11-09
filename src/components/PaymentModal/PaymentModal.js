@@ -10,6 +10,8 @@ function PaymentModal({ active, details }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [clientSecret, setClientSecret] = useState("");
 
+    console.log(details);
+
     useEffect(() => {
         if (details.amount > 1) {
 

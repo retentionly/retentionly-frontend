@@ -2,6 +2,7 @@ import { Box, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import EditBlock from '../../../components/EditorBlock'
+import RequiredText from '../../../components/RequiredText/RequiredText'
 import UploadImage from '../../../components/UploadImage/UploadImage'
 import { setTemplate3 } from '../../../features/templates/templatesSlice'
 import { useGetTemplateQuery } from '../../../features/user/userApi'
@@ -74,6 +75,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
+                    <RequiredText/>
                 </Box>
            
                     <Box className="subject-line">
@@ -89,6 +91,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     children: [{ text: "" }]
                                 }
                             ]}
+                            required={true}
                         />
                     </Box>
            
@@ -106,6 +109,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     children: [{ text: "" }]
                                 }
                             ]}
+                            required={true}
                         />
                     </Box>
                 
@@ -123,6 +127,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 
@@ -141,6 +146,7 @@ everyday before school".`}
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 
@@ -161,6 +167,7 @@ a dramatic effect on his grades".`}
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 
@@ -180,6 +187,7 @@ school. Fuelled properly, his grades started to improve. `}
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={true}
                     />
                 </Box>
 

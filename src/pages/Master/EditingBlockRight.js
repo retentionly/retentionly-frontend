@@ -46,6 +46,7 @@ const EditingBlockRight = () => {
                     mb="30px"
                     onChange={handleGreetings}
                     value={greeting}
+                    required={true}
                 />
             }
 
@@ -59,6 +60,7 @@ const EditingBlockRight = () => {
                     mb="30px"
                     onChange={handleSalutation}
                     value={salutations}
+                    required={true}
                 />
             }
             {
@@ -71,6 +73,7 @@ const EditingBlockRight = () => {
                     mb="30px"
                     onChange={handleSender}
                     value={sender}
+                    required={true}
                 />
             }
             {
@@ -82,6 +85,7 @@ const EditingBlockRight = () => {
                     inputPlaceholder={`E.g. "www.thebreakfastclub.org.uk/donate”`}
                     onChange={handleUrl}
                     value={url}
+                    required={true}
                 />
             }
         </>

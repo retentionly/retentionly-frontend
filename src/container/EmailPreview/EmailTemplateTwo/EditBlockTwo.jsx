@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from "../../../components/Editor/ListEditor";
 import EditBlock from '../../../components/EditorBlock';
+import RequiredText from '../../../components/RequiredText/RequiredText';
 import UploadImage from '../../../components/UploadImage/UploadImage';
 import { setTemplate2 } from '../../../features/templates/templatesSlice';
 import { Text30 } from '../../../theme/text';
@@ -76,6 +77,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
+                    <RequiredText/>
                 </Box>
 
                 <Box className="subject-line">
@@ -86,6 +88,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleSubjectLine}
                         value={subjectLine}
+                        required={true}
                     />
                 </Box>
 
@@ -97,6 +100,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handlePreview}
                         value={preview}
+                        required={true}
                     />
                 </Box>
 
@@ -125,6 +129,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleDonationFor}
                         value={donationFor}
+                        required={true}
                     />
                 </Box>
 
@@ -138,6 +143,7 @@ so we can give every child a breakfast".`}
                         mb="30px"
                         onChange={handleDonationGoesFor}
                         value={donationGoesFor}
+                        required={true}
                     />
                 </Box>
 
