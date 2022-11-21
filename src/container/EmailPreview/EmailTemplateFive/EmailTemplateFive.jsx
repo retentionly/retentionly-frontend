@@ -4,16 +4,16 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateFive from '../../../components/EmailPreviews/PreviewBodyFive/PreviewTemplateFive'
-import { setImage, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
+import { getPlainText } from '../../../utils/getPlainText'
 import EmailNavigation from '../navigation'
 import { LoaderBox, PreviewFrame } from '../style'
 import EditBlockFive from './EditBlockFive'
@@ -22,28 +22,19 @@ const storage = getStorage(app);
 
 const EmailTemplateFive = () => {
 
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(setSubjectLine([
-    //         {
-    //             type: "paragaph",
-    //             children: [{ text: "" }]
-    //         }
-    //     ]));
-    //     dispatch(setPreview([
-    //         {
-    //             type: "paragaph",
-    //             children: [{ text: "" }]
-    //         }
-    //     ]));
-    //     dispatch(setImage(''))
-    // }, [])
-
     /* LOCAL STATES */
     const [tempLoading, setTempLoading] = useState(false);
     const [images, setImages] = useState('');
     const [sizeError, setSizeError] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
+    const [imageError, setImageError] = useState(false);
+    const [subjectLineError, setSubjectLineError] = useState(false);
+    const [previewError, setPreviewError] = useState(false);
+    const [serviceDescError, setServiceDescError] = useState(false);
+    const [impactStatError, setImpactStatError] = useState(false);
+    const [mainGoalSummaryError, setMainGoalSummaryError] = useState(false);
+    const [donationDoesError, setDonationDoesError] = useState(false);
+    const [error, setError] = useState(false);
 
     /* REDUX STATES */
     const { template } = useSelector(state => state);
@@ -51,7 +42,7 @@ const EmailTemplateFive = () => {
 
     /* HOOKS */
     const [user, loading] = useAuthState(auth)
-    const [uploadFile, uploading, snapshot, error] = useUploadFile();
+    const [uploadFile, uploading, snapshot] = useUploadFile();
     const navigate = useNavigate();
 
     /* REDUX QUERY */
@@ -67,7 +58,13 @@ const EmailTemplateFive = () => {
     }
 
     const {
-        image
+        image,
+        preview,
+        subjectLine,
+        serviceDesc,
+        impactStat,
+        mainGoalSummary,
+        donationDoes
     } = template5;
 
     /* FUNCTIONS */
@@ -101,6 +98,72 @@ const EmailTemplateFive = () => {
 
     }, []);
 
+
+    const handleImageError = (value) => {
+        if (value) {
+            setImageError(false)
+        } else {
+            setImageError(true)
+        }
+    }
+    const handleSubjectLineError = (value) => {
+        if (value) {
+            setSubjectLineError(false)
+        } else {
+            setSubjectLineError(true)
+        }
+    }
+    const handlePreviewError = (value) => {
+        if (value) {
+            setPreviewError(false)
+        } else {
+            setPreviewError(true)
+        }
+    }
+
+    const handleMainGoalSummaryError = (value) => {
+        if (value) {
+            setMainGoalSummaryError(false)
+        } else {
+            setMainGoalSummaryError(true)
+        }
+    }
+
+    const handleServiceDescError = (value) => {
+        if (value) {
+            setServiceDescError(false)
+        } else {
+            setServiceDescError(true)
+        }
+    }
+    const handleDonationDoesError = (value) => {
+        if (value) {
+            setDonationDoesError(false)
+        } else {
+            setDonationDoesError(true)
+        }
+    }
+
+    const handleImpactStatError = (value) => {
+        if (value < 1) {
+            setImpactStatError(true)
+        } else {
+            setImpactStatError(false)
+        }
+    }
+
+    useEffect(() => {
+        if (template5) {
+            handleImageError(image || images?.src)
+            handleSubjectLineError(getPlainText(subjectLine))
+            handlePreviewError(getPlainText(preview))
+            handleMainGoalSummaryError(getPlainText(mainGoalSummary))
+            handleServiceDescError(getPlainText(serviceDesc))
+            handleImpactStatError(impactStat)
+            handleDonationDoesError(getPlainText(donationDoes))
+        }
+    })
+
     useEffect(() => {
         if (editTemplateSuccess) {
             setTimeout(() => {
@@ -114,26 +177,31 @@ const EmailTemplateFive = () => {
 
     /* HANDLERS */
     const handleSubmit = async () => {
-        setTempLoading(true);
-        if (selectedFile) {
-            const result = await uploadFile(storageRef, selectedFile, metadata);
-            const url = await getDownloadURL(result.ref);
-            if (url) {
+        if (imageError || subjectLineError || previewError || mainGoalSummaryError || serviceDescError || impactStatError || donationDoesError) {
+            setError(true)
+        } else {
+            setError(false)
+            setTempLoading(true);
+            if (selectedFile) {
+                const result = await uploadFile(storageRef, selectedFile, metadata);
+                const url = await getDownloadURL(result.ref);
+                if (url) {
+                    editTemplate({
+                        id: uniqueId,
+                        data: {
+                            ...template5,
+                            image: url,
+                        }
+                    })
+                }
+            } else {
                 editTemplate({
                     id: uniqueId,
                     data: {
-                        ...template5,
-                        image: url,
+                        ...template5
                     }
                 })
             }
-        } else {
-            editTemplate({
-                id: uniqueId,
-                data: {
-                    ...template5
-                }
-            })
         }
     }
 
@@ -158,7 +226,25 @@ const EmailTemplateFive = () => {
                             </PreviewFrame>
                         </Box>
                         <Box flex='1' maxW="420px">
-                            <EditBlockFive id={uniqueId} onDrop={onDrop} tempLoading={tempLoading} />
+                            <EditBlockFive
+                                id={uniqueId}
+                                onDrop={onDrop}
+                                tempLoading={tempLoading}
+                                imageError={imageError}
+                                subjectLineError={subjectLineError}
+                                previewError={previewError}
+                                mainGoalSummaryError={mainGoalSummaryError}
+                                serviceDescError={serviceDescError}
+                                impactStatError={impactStatError}
+                                donationDoesError={donationDoesError}
+                                handleSubjectLineError={handleSubjectLineError}
+                                handlePreviewError={handlePreviewError}
+                                handleMainGoalSummaryError={handleMainGoalSummaryError}
+                                handleServiceDescError={handleServiceDescError}
+                                handleImpactStatError={handleImpactStatError}
+                                handleDonationDoesError={handleDonationDoesError}
+                                error={error}
+                            />
                         </Box>
                     </Flex>
                 </Box>

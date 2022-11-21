@@ -8,9 +8,30 @@ import UploadImage from '../../../components/UploadImage/UploadImage';
 import { setTemplate5 } from '../../../features/templates/templatesSlice';
 import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text30 } from '../../../theme/text';
+import { getPlainText } from '../../../utils/getPlainText';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
 
-const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
+const EditBlockFive = ({
+    id,
+    onDrop,
+    image,
+    sizeError,
+    tempLoading,
+    imageError,
+    subjectLineError,
+    previewError,
+    mainGoalSummaryError,
+    serviceDescError,
+    impactStatError,
+    donationDoesError,
+    handleSubjectLineError,
+    handlePreviewError,
+    handleMainGoalSummaryError,
+    handleServiceDescError,
+    handleImpactStatError,
+    handleDonationDoesError,
+    error
+}) => {
     const dispatch = useDispatch();
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
@@ -24,16 +45,19 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
             ...template5,
             impactStat: e
         }))
+        handleImpactStatError(impactStat)
     }
 
     const handlePreview = (e) => {
+        handlePreviewError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             preview: e
         }))
     }
- 
+
     const handleSubjectLine = (e) => {
+        handleSubjectLineError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             subjectLine: e
@@ -41,18 +65,21 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
     }
 
     const handleServiceDesc = (e) => {
+        handleServiceDescError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             serviceDesc: e
         }));
     }
     const handleMainGoalSummary = (e) => {
+        handleMainGoalSummaryError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             mainGoalSummary: e
         }));
     }
     const handleDonationDoes = (e) => {
+        handleDonationDoesError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             donationDoes: e
@@ -78,7 +105,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
-                    <RequiredText/>
+                    {(error && imageError) && <RequiredText />}
                 </Box>
                 {
                     !tempLoading &&
@@ -95,7 +122,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     children: [{ text: "" }]
                                 }
                             ]}
-                            required={true}
+                            required={error && subjectLineError}
                         />
                     </Box>
                 }
@@ -114,9 +141,9 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     type: "paragaph",
                                     children: [{ text: "" }]
                                 }
-                            ]} 
-                            required={true}
-                            />
+                            ]}
+                            required={error && previewError}
+                        />
                     </Box>
                 }
 
@@ -133,7 +160,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && serviceDescError}
                     />
                 </Box>
 
@@ -149,7 +176,8 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         // toggleTask={toggleTask}
                         // removeTask={removeTask}
                         item={impactStat}
-                        // required={!Boolean(impactStat.length)}
+                        required={error && impactStatError}
+                    // required={!Boolean(impactStat.length)}
                     />
                 </Box>
 
@@ -164,9 +192,9 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
-                        ]} 
-                        required={true}
-                        />
+                        ]}
+                        required={error && donationDoesError}
+                    />
                 </Box>
 
 
@@ -183,11 +211,10 @@ so we can give every child a breakfast".`}
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
-                        ]} 
-                        required={true}
-                        />
+                        ]}
+                        required={error && mainGoalSummaryError}
+                    />
                 </Box>
-
 
             </EditBlockStyled>
 

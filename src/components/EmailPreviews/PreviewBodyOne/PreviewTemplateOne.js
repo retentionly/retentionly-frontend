@@ -13,8 +13,6 @@ const PreviewTemplateOne = ({ images }) => {
     const { template1 } = useSelector(state => state.templates);
     const { image, beneficiaryDesc, mainText, serviceDesc } = template1;
 
-
-
     return (
         <>
             <PreviewHead logo={logo} images={images} image={image}/>

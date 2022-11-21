@@ -16,12 +16,12 @@ input {
 }
 `
 
-const RegularTextbox = ({ title, placeholder, state, handleChange }) => {
+const RegularTextbox = ({ title, placeholder, state, handleChange, required }) => {
     return (
         <TextBoxStyled>
             <Text {...Text20} bg="black" p="10px" textAlign="center">{title}</Text>
             <input type="text" value={state} onChange={handleChange} placeholder={placeholder} />
-            <RequiredText m="5px 0"/>
+            {required && <RequiredText m="5px 0"/>}
         </TextBoxStyled>
     )
 }

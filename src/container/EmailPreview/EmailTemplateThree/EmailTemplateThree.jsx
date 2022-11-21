@@ -4,16 +4,16 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateThree from '../../../components/EmailPreviews/PreviewBodyThree'
-import { setImage, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
+import { getPlainText } from '../../../utils/getPlainText'
 import EmailNavigation from '../navigation'
 import { LoaderBox, PreviewFrame } from '../style'
 import EditBlockThree from './EditBlockThree'
@@ -21,27 +21,20 @@ import EditBlockThree from './EditBlockThree'
 const storage = getStorage(app);
 
 const EmailTemplateThree = () => {
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(setSubjectLine([
-    //         {
-    //             type: "paragaph",
-    //             children: [{ text: "" }]
-    //         }
-    //     ]));
-    //     dispatch(setPreview([
-    //         {
-    //             type: "paragaph",
-    //             children: [{ text: "" }]
-    //         }
-    //     ]));
-    //     dispatch(setImage(''))
-    // }, [])
+
     /* LOCAL STATES */
     const [tempLoading, setTempLoading] = useState(false);
     const [images, setImages] = useState('');
     const [sizeError, setSizeError] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
+    const [imageError, setImageError] = useState(false);
+    const [subjectLineError, setSubjectLineError] = useState(false);
+    const [previewError, setPreviewError] = useState(false);
+    const [beneficiaryNameError, setBeneficiaryNameError] = useState(false);
+    const [beneficiaryHelpedError, setBeneficiaryHelpedError] = useState(false);
+    const [beneficiaryBeforeError, setBeneficiaryBeforeError] = useState(false);
+    const [beneficiaryAfterError, setBeneficiaryAfterError] = useState(false);
+    const [error, setError] = useState(false);
 
     /* REDUX STATES */
     const { template } = useSelector(state => state);
@@ -49,7 +42,7 @@ const EmailTemplateThree = () => {
 
     /* HOOKS */
     const [user, loading] = useAuthState(auth)
-    const [uploadFile, uploading, snapshot, error] = useUploadFile();
+    const [uploadFile, uploading, snapshot] = useUploadFile();
     const navigate = useNavigate()
 
     /* REDUX QUERY */
@@ -65,9 +58,15 @@ const EmailTemplateThree = () => {
     }
 
     const {
-        image
+        image,
+        preview,
+        subjectLine,
+        beneficiaryName,
+        beneficiaryHelped,
+        beneficiaryBefore,
+        beneficiaryAfter
     } = template3;
-    
+
     /* FUNCTIONS */
     const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
 
@@ -99,6 +98,72 @@ const EmailTemplateThree = () => {
 
     }, []);
 
+
+    const handleImageError = (value) => {
+        if (value) {
+            setImageError(false)
+        } else {
+            setImageError(true)
+        }
+    }
+    const handleSubjectLineError = (value) => {
+        if (value) {
+            setSubjectLineError(false)
+        } else {
+            setSubjectLineError(true)
+        }
+    }
+    const handlePreviewError = (value) => {
+        if (value) {
+            setPreviewError(false)
+        } else {
+            setPreviewError(true)
+        }
+    }
+
+    const handleBeneficiaryNameError = (value) => {
+        if (value) {
+            setBeneficiaryNameError(false)
+        } else {
+            setBeneficiaryNameError(true)
+        }
+    }
+
+    const handleBeneficiaryHelpedError = (value) => {
+        if (value) {
+            setBeneficiaryHelpedError(false)
+        } else {
+            setBeneficiaryHelpedError(true)
+        }
+    }
+    const handleBeneficiaryAfterError = (value) => {
+        if (value) {
+            setBeneficiaryAfterError(false)
+        } else {
+            setBeneficiaryAfterError(true)
+        }
+    }
+    const handleBeneficiaryBeforeError = (value) => {
+        if (value) {
+            setBeneficiaryBeforeError(false)
+        } else {
+            setBeneficiaryBeforeError(true)
+        }
+    }
+
+    useEffect(() => {
+        if (template3) {
+            handleImageError(image || images?.src)
+            handleSubjectLineError(getPlainText(subjectLine))
+            handlePreviewError(getPlainText(preview))
+            handleBeneficiaryNameError(getPlainText(beneficiaryName))
+            handleBeneficiaryHelpedError(getPlainText(beneficiaryHelped))
+            handleBeneficiaryBeforeError(getPlainText(beneficiaryBefore))
+            handleBeneficiaryAfterError(getPlainText(beneficiaryAfter))
+        }
+    })
+
+
     useEffect(() => {
         if (editTemplateSuccess) {
             setTimeout(() => {
@@ -112,24 +177,29 @@ const EmailTemplateThree = () => {
 
     /* HANDLERS */
     const handleSubmit = async () => {
-        setTempLoading(true);
-        if (selectedFile) {
-            const result = await uploadFile(storageRef, selectedFile, metadata);
-            const url = await getDownloadURL(result.ref);
-            if (url) {
+        if (imageError || subjectLineError || previewError || beneficiaryNameError || beneficiaryHelpedError || beneficiaryBeforeError || beneficiaryAfterError) {
+            setError(true)
+        } else {
+            setError(false)
+            setTempLoading(true);
+            if (selectedFile) {
+                const result = await uploadFile(storageRef, selectedFile, metadata);
+                const url = await getDownloadURL(result.ref);
+                if (url) {
+                    editTemplate({
+                        id: uniqueId,
+                        data: {
+                            ...template3,
+                            image: url,
+                        }
+                    })
+                }
+            } else {
                 editTemplate({
                     id: uniqueId,
-                    data: {
-                        ...template3,
-                        image: url,
-                    }
+                    data: { ...template3 }
                 })
             }
-        } else {
-            editTemplate({
-                id: uniqueId,
-                data: { ...template3 }
-            })
         }
     }
 
@@ -154,7 +224,25 @@ const EmailTemplateThree = () => {
                             </PreviewFrame>
                         </Box>
                         <Box flex='1' maxW="420px">
-                            <EditBlockThree id={uniqueId} onDrop={onDrop} tempLoading={tempLoading} />
+                            <EditBlockThree
+                                id={uniqueId}
+                                onDrop={onDrop}
+                                tempLoading={tempLoading}
+                                imageError={imageError}
+                                subjectLineError={subjectLineError}
+                                previewError={previewError}
+                                beneficiaryNameError={beneficiaryNameError}
+                                beneficiaryHelpedError={beneficiaryHelpedError}
+                                beneficiaryBeforeError={beneficiaryBeforeError}
+                                beneficiaryAfterError={beneficiaryAfterError}
+                                handleSubjectLineError={handleSubjectLineError}
+                                handlePreviewError={handlePreviewError}
+                                handleBeneficiaryNameError={handleBeneficiaryNameError}
+                                handleBeneficiaryHelpedError={handleBeneficiaryHelpedError}
+                                handleBeneficiaryBeforeError={handleBeneficiaryBeforeError}
+                                handleBeneficiaryAfterError={handleBeneficiaryAfterError}
+                                error={error}
+                            />
                         </Box>
                     </Flex>
                 </Box>

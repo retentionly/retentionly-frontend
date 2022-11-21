@@ -7,9 +7,25 @@ import UploadImage from '../../../components/UploadImage/UploadImage'
 import { setTemplate1 } from '../../../features/templates/templatesSlice'
 import { useGetTemplateQuery } from '../../../features/user/userApi'
 import { Text30 } from '../../../theme/text'
+import { getPlainText } from '../../../utils/getPlainText'
 import { EditBlockStyled, MainTextBoxStyle } from '../style'
 
-const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
+const EditBlockOne = ({
+    id,
+    onDrop,
+    sizeError,
+    tempLoading,
+    error,
+    imageError,
+    subjectLineError,
+    previewError,
+    serviceDescError,
+    beneficiaryDescError,
+    handleSubjectLineError,
+    handlePreviewError,
+    handleServiceDescError,
+    handleBeneficiaryDescError,
+}) => {
 
     const dispatch = useDispatch();
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
@@ -21,6 +37,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
     const { preview, subjectLine, serviceDesc, beneficiaryDesc, mainText } = data || {};
 
     const handleSubjectLine = (e) => {
+        handleSubjectLineError(getPlainText(e))
         dispatch(setTemplate1({
             ...template1,
             subjectLine: e
@@ -28,6 +45,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
     }
 
     const handlePreview = (e) => {
+        handlePreviewError(getPlainText(e))
         dispatch(setTemplate1({
             ...template1,
             preview: e
@@ -35,6 +53,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
     }
 
     const handleServiceDesc = (e) => {
+        handleServiceDescError(getPlainText(e))
         dispatch(setTemplate1({
             ...template1,
             serviceDesc: e
@@ -42,6 +61,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
     }
 
     const handleBeneficiaryDesc = (e) => {
+        handleBeneficiaryDescError(getPlainText(e))
         dispatch(setTemplate1({
             ...template1,
             beneficiaryDesc: e
@@ -53,7 +73,6 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
             mainText: e
         }))
     }
-
 
     return (
         <>
@@ -68,7 +87,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} />
-                    <RequiredText/>
+                    {(error && imageError) && <RequiredText />}
                 </Box>
 
                 <Box className="subject-line">
@@ -79,7 +98,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleSubjectLine}
                         value={template1?.subjectLine}
-                        required={true}
+                        required={error && subjectLineError}
                     />
                 </Box>
 
@@ -93,7 +112,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                             mb="30px"
                             onChange={handlePreview}
                             value={template1?.preview}
-                            required={true}
+                            required={error && previewError}
                         />
                     </Box>
                 }
@@ -106,7 +125,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleServiceDesc}
                         value={template1?.serviceDesc}
-                        required={true}
+                        required={error && serviceDescError}
                     />
                 </Box>
 
@@ -119,7 +138,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleBeneficiaryDesc}
                         value={template1?.beneficiaryDesc}
-                        required={true}
+                        required={error && beneficiaryDescError}
                     />
                 </Box>
 
@@ -135,7 +154,7 @@ const EditBlockOne = ({ id, onDrop, images, sizeError, tempLoading }) => {
                     value={template1?.mainText}
                 />
             </MainTextBoxStyle>
-  
+
         </>
     )
 }

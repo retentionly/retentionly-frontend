@@ -88,7 +88,7 @@ const ListEditor = ({ title, text, placeholder, handleAddImpact,handleRemoveImpa
                 ))}
             </ul>
             <AddTaskForm addTask={addTask} placeholder={placeholder} />
-            <RequiredText />
+            {required && <RequiredText />}
         </Box>
     )
 }

@@ -9,9 +9,28 @@ import { setTemplate4 } from '../../../features/templates/templatesSlice';
 import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text20, Text30 } from '../../../theme/text';
 import RegularTextbox from '../../../ui/RegularTextbox/RegularTextbox';
+import { getPlainText } from '../../../utils/getPlainText';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
 
-const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
+const EditBlockFour = ({
+    id,
+    onDrop,
+    image,
+    sizeError,
+    tempLoading,
+    imageError,
+    subjectLineError,
+    previewError,
+    socialMediaBenefitError,
+    facebookLinkError,
+    instagramLinkError,
+    handleSubjectLineError,
+    handlePreviewError,
+    handleFacebookLinkError,
+    handleInstagramLinkError,
+    handleSocialMediaBenefitError,
+    error
+}) => {
     const dispatch = useDispatch();
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
@@ -21,15 +40,17 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { preview, subjectLine, socialMediaBenefit, social, mainText } = template4;
 
     const handleSubjectLine = (e) => {
+        handleSubjectLineError(getPlainText(e));
         dispatch(setTemplate4({
             ...template4,
             subjectLine: e
         }));
     }
     const handlePreview = (e) => {
+        handlePreviewError(getPlainText(e));
         dispatch(setTemplate4({
             ...template4,
-            subjectLine: e
+            preview: e
         }))
     }
     const handleMainText = (e) => {
@@ -45,12 +66,14 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
             ...template4,
             socialMediaBenefit: e
         }))
+        handleSocialMediaBenefitError(socialMediaBenefit)
     }
     const handleRemoveBenefit = (e) => {
         dispatch(setTemplate4({
             ...template4,
             socialMediaBenefit: e
         }))
+        handleSocialMediaBenefitError(socialMediaBenefit)
     }
 
     const handleFacebookLink = (e) => {
@@ -61,6 +84,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                 facebookLink: e.target.value
             }
         }));
+        handleFacebookLinkError(e.target.value)
     }
 
     const handleInstagramLink = (e) => {
@@ -71,6 +95,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                 instagramLink: e.target.value
             }
         }));
+        handleInstagramLinkError(e.target.value)
     }
 
     return (
@@ -87,7 +112,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
-                    <RequiredText/>
+                    {(error && imageError) && <RequiredText />}
                 </Box>
 
                 <Box className="subject-line">
@@ -105,7 +130,7 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && subjectLineError}
                     />
                 </Box>
 
@@ -118,13 +143,13 @@ const EditBlockFour = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         inputPlaceholder={`E.g. "provide breakfast to all children".`}
                         mb="30px"
                         onChange={handlePreview}
-                        value={preview ||[
+                        value={preview || [
                             {
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && previewError}
                     />
                 </Box>
 
@@ -142,9 +167,9 @@ up to date with
                         handleAddImpact={handleAddBenefit}
                         handleRemoveImpact={handleRemoveBenefit}
                         item={socialMediaBenefit}
+                        required={error && socialMediaBenefitError}
                     />
                 </Box>
-
 
                 <Box mb="30px">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>
@@ -154,12 +179,19 @@ up to date with
                         Share the URL for your Facebook and
                         Instagram page.
                     </Text>
-                    <RegularTextbox title="Facebook" handleChange={handleFacebookLink} placeholder="Insert Facebook Link" />
-                    
-                    <RegularTextbox title="Instagram" handleChange={handleInstagramLink} placeholder="Insert Instagram Link" />
-
+                    <RegularTextbox
+                        title="Facebook"
+                        handleChange={handleFacebookLink}
+                        placeholder="Insert Facebook Link"
+                        required={error && facebookLinkError}
+                    />
+                    <RegularTextbox
+                        title="Instagram"
+                        handleChange={handleInstagramLink}
+                        placeholder="Insert Instagram Link"
+                        required={error && instagramLinkError}
+                    />
                 </Box>
-
             </EditBlockStyled>
 
             <MainTextBoxStyle className="main-text">

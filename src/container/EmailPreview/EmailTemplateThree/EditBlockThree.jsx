@@ -7,9 +7,30 @@ import UploadImage from '../../../components/UploadImage/UploadImage'
 import { setTemplate3 } from '../../../features/templates/templatesSlice'
 import { useGetTemplateQuery } from '../../../features/user/userApi'
 import { Text30 } from '../../../theme/text'
+import { getPlainText } from '../../../utils/getPlainText'
 import { EditBlockStyled, MainTextBoxStyle } from '../style'
 
-const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
+const EditBlockThree = ({
+    id,
+    onDrop,
+    image,
+    sizeError,
+    tempLoading,
+    imageError,
+    subjectLineError,
+    previewError,
+    beneficiaryNameError,
+    beneficiaryHelpedError,
+    beneficiaryBeforeError,
+    beneficiaryAfterError,
+    handleSubjectLineError,
+    handlePreviewError,
+    handleBeneficiaryNameError,
+    handleBeneficiaryHelpedError,
+    handleBeneficiaryBeforeError,
+    handleBeneficiaryAfterError,
+    error
+}) => {
     const dispatch = useDispatch();
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
@@ -18,36 +39,42 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { preview, subjectLine, beneficiaryName, beneficiaryHelped, beneficiaryBefore, beneficiaryAfter, mainText } = data || {};
 
     const handleSubjectLine = (e) => {
+        handleSubjectLineError(getPlainText(e))
         dispatch(setTemplate3({
             ...template3,
             subjectLine: e
         }))
     }
     const handlePreview = (e) => {
+        handlePreviewError(getPlainText(e))
         dispatch(setTemplate3({
             ...template3,
             preview: e
         }))
     }
     const handleBeneficiaryName = (e) => {
+        handleBeneficiaryNameError(getPlainText(e))
         dispatch(setTemplate3({
             ...template3,
             beneficiaryName: e
         }))
     }
     const handleBeneficiaryHelped = (e) => {
+        handleBeneficiaryHelpedError(getPlainText(e))
         dispatch(setTemplate3({
             ...template3,
             beneficiaryHelped: e
         }))
     }
     const handleBeneficiaryBefore = (e) => {
+        handleBeneficiaryBeforeError(getPlainText(e))
         dispatch(setTemplate3({
             ...template3,
             beneficiaryBefore: e
         }))
     }
     const handleBeneficiaryAfter = (e) => {
+        handleBeneficiaryAfterError(getPlainText(e))
         dispatch(setTemplate3({
             ...template3,
             beneficiaryAfter: e
@@ -75,44 +102,44 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
-                    <RequiredText/>
+                    {(error && imageError) && <RequiredText />}
                 </Box>
-           
-                    <Box className="subject-line">
-                        <EditBlock
-                            title={"Subject Line:"}
-                            text={`Tell donors your main campaign message.`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handleSubjectLine}
-                            value={subjectLine || [
-                                {
-                                    type: "paragaph",
-                                    children: [{ text: "" }]
-                                }
-                            ]}
-                            required={true}
-                        />
-                    </Box>
-           
-                
-                    <Box className="preview">
-                        <EditBlock
-                            title={"Preview:"}
-                            text={`Tell donors your main campaign message.`}
-                            inputPlaceholder={`E.g. "provide breakfast to all children".`}
-                            mb="30px"
-                            onChange={handlePreview}
-                            value={preview || [
-                                {
-                                    type: "paragaph",
-                                    children: [{ text: "" }]
-                                }
-                            ]}
-                            required={true}
-                        />
-                    </Box>
-                
+
+                <Box className="subject-line">
+                    <EditBlock
+                        title={"Subject Line:"}
+                        text={`Tell donors your main campaign message.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handleSubjectLine}
+                        value={subjectLine || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                        required={error && subjectLineError}
+                    />
+                </Box>
+
+
+                <Box className="preview">
+                    <EditBlock
+                        title={"Preview:"}
+                        text={`Tell donors your main campaign message.`}
+                        inputPlaceholder={`E.g. "provide breakfast to all children".`}
+                        mb="30px"
+                        onChange={handlePreview}
+                        value={preview || [
+                            {
+                                type: "paragaph",
+                                children: [{ text: "" }]
+                            }
+                        ]}
+                        required={error && previewError}
+                    />
+                </Box>
+
 
                 <Box className="beneficiary-name">
                     <EditBlock
@@ -127,7 +154,7 @@ const EditBlockThree = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && beneficiaryNameError}
                     />
                 </Box>
 
@@ -146,7 +173,7 @@ everyday before school".`}
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && beneficiaryHelpedError}
                     />
                 </Box>
 
@@ -167,7 +194,7 @@ a dramatic effect on his grades".`}
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && beneficiaryBeforeError}
                     />
                 </Box>
 
@@ -187,7 +214,7 @@ school. Fuelled properly, his grades started to improve. `}
                                 children: [{ text: "" }]
                             }
                         ]}
-                        required={true}
+                        required={error && beneficiaryAfterError}
                     />
                 </Box>
 

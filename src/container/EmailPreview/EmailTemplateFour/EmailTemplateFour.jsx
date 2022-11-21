@@ -4,16 +4,16 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateFour from '../../../components/EmailPreviews/PreviewBodyFour'
-import { setImage, setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
+import { getPlainText } from '../../../utils/getPlainText'
 import EmailNavigation from '../navigation'
 import { LoaderBox, PreviewFrame } from '../style'
 import EditBlockFour from './EditBlockFour'
@@ -22,28 +22,18 @@ const storage = getStorage(app);
 
 const EmailTemplateFour = () => {
 
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setSubjectLine([
-  //     {
-  //       type: "paragaph",
-  //       children: [{ text: "" }]
-  //     }
-  //   ]));
-  //   dispatch(setPreview([
-  //     {
-  //       type: "paragaph",
-  //       children: [{ text: "" }]
-  //     }
-  //   ]));
-  //   dispatch(setImage(''))
-  // }, [])
-
   /* LOCAL STATES */
   const [tempLoading, setTempLoading] = useState(false);
   const [images, setImages] = useState('');
   const [sizeError, setSizeError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imageError, setImageError] = useState(false);
+  const [subjectLineError, setSubjectLineError] = useState(false);
+  const [previewError, setPreviewError] = useState(false);
+  const [socialMediaBenefitError, setSocialMediaBenefitError] = useState(false);
+  const [facebookLinkError, setFacebookLinkError] = useState(false);
+  const [instagramLinkError, setInstagramLinkError] = useState(false);
+  const [error, setError] = useState(false);
 
   /* REDUX STATES */
   const { template } = useSelector(state => state);
@@ -51,7 +41,7 @@ const EmailTemplateFour = () => {
 
   /* HOOKS */
   const [user, loading] = useAuthState(auth)
-  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const [uploadFile, uploading, snapshot] = useUploadFile();
   const navigate = useNavigate();
 
   /* REDUX QUERY */
@@ -67,7 +57,11 @@ const EmailTemplateFour = () => {
   }
 
   const {
-    image
+    image,
+    preview,
+    subjectLine,
+    socialMediaBenefit,
+    social
   } = template4;
 
   /* FUNCTIONS */
@@ -101,6 +95,65 @@ const EmailTemplateFour = () => {
 
   }, []);
 
+
+  const handleImageError = (value) => {
+    if (value) {
+      setImageError(false)
+    } else {
+      setImageError(true)
+    }
+  }
+  const handleSubjectLineError = (value) => {
+    if (value) {
+      setSubjectLineError(false)
+    } else {
+      setSubjectLineError(true)
+    }
+  }
+
+  const handlePreviewError = (value) => {
+    if (value) {
+      setPreviewError(false)
+    } else {
+      setPreviewError(true)
+    }
+  }
+
+  const handleSocialMediaBenefitError = (value) => {
+    if (value < 1) {
+      setSocialMediaBenefitError(true)
+    } else {
+      setSocialMediaBenefitError(false)
+    }
+  }
+
+  const handleFacebookLinkError = (value) => {
+    if (value) {
+      setFacebookLinkError(false)
+    } else {
+      setFacebookLinkError(true)
+    }
+  }
+  const handleInstagramLinkError = (value) => {
+
+    if (value) {
+      setInstagramLinkError(false)
+    } else {
+      setInstagramLinkError(true)
+    }
+  }
+
+  useEffect(() => {
+    if (template4) {
+      handleImageError(image || images?.src)
+      handleSubjectLineError(getPlainText(subjectLine))
+      handlePreviewError(getPlainText(preview))
+      handleSocialMediaBenefitError(socialMediaBenefit)
+      handleFacebookLinkError(social?.facebookLink)
+      handleInstagramLinkError(social?.instagramLink)
+    }
+  })
+
   useEffect(() => {
     if (editTemplateSuccess) {
       setTimeout(() => {
@@ -114,26 +167,31 @@ const EmailTemplateFour = () => {
 
   /* HANDLERS */
   const handleSubmit = async () => {
-    setTempLoading(true);
-    if (selectedFile) {
-      const result = await uploadFile(storageRef, selectedFile, metadata);
-      const url = await getDownloadURL(result.ref);
-      if (url) {
+    if (imageError || subjectLineError || previewError || socialMediaBenefitError || facebookLinkError || instagramLinkError) {
+      setError(true)
+    } else {
+      setError(false)
+      setTempLoading(true);
+      if (selectedFile) {
+        const result = await uploadFile(storageRef, selectedFile, metadata);
+        const url = await getDownloadURL(result.ref);
+        if (url) {
+          editTemplate({
+            id: uniqueId,
+            data: {
+              ...template4,
+              image: url,
+            }
+          })
+        }
+      } else {
         editTemplate({
           id: uniqueId,
           data: {
-            ...template4,
-            image: url,
+            ...template4
           }
         })
       }
-    } else {
-      editTemplate({
-        id: uniqueId,
-        data: {
-          ...template4
-        }
-      })
     }
   }
 
@@ -158,7 +216,24 @@ const EmailTemplateFour = () => {
               </PreviewFrame>
             </Box>
             <Box flex='1' maxW="420px">
-              <EditBlockFour onDrop={onDrop} id={uniqueId} tempLoading={tempLoading} />
+              <EditBlockFour
+                onDrop={onDrop}
+                id={uniqueId}
+                tempLoading={tempLoading}
+                imageError={imageError}
+                subjectLineError={subjectLineError}
+                previewError={previewError}
+                facebookLinkError={facebookLinkError}
+                instagramLinkError={instagramLinkError}
+                socialMediaBenefitError={socialMediaBenefitError}
+                handleImageError={handleImageError}
+                handleSubjectLineError={handleSubjectLineError}
+                handlePreviewError={handlePreviewError}
+                handleSocialMediaBenefitError={handleSocialMediaBenefitError}
+                handleFacebookLinkError={handleFacebookLinkError}
+                handleInstagramLinkError={handleInstagramLinkError}
+                error={error}
+              />
             </Box>
           </Flex>
         </Box>

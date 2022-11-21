@@ -4,16 +4,16 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateTwo from '../../../components/EmailPreviews/PreviewBodyTwo/PreviewTemplateTwo'
-import { setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
+import { getPlainText } from '../../../utils/getPlainText'
 import EmailNavigation from '../navigation'
 import { LoaderBox, PreviewFrame } from '../style'
 import EditBlockTwo from './EditBlockTwo'
@@ -22,27 +22,18 @@ const storage = getStorage(app);
 
 const EmailTemplateTwo = () => {
 
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setSubjectLine([
-  //     {
-  //       type: "paragaph",
-  //       children: [{ text: "" }]
-  //     }
-  //   ]));
-  //   dispatch(setPreview([
-  //     {
-  //       type: "paragaph",
-  //       children: [{ text: "" }]
-  //     }
-  //   ]));
-  // }, [])
-
   /* LOCAL STATES */
   const [tempLoading, setTempLoading] = useState(false);
   const [images, setImages] = useState('');
   const [sizeError, setSizeError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imageError, setImageError] = useState(false);
+  const [subjectLineError, setSubjectLineError] = useState(false);
+  const [previewError, setPreviewError] = useState(false);
+  const [impactStatError, setImpactStatError] = useState(false);
+  const [donationForError, setDonationForError] = useState(false);
+  const [donationGoesForError, setDonationGoesForError] = useState(false);
+  const [error, setError] = useState(false);
 
   /* REDUX STATES */
   const { template } = useSelector(state => state);
@@ -50,7 +41,7 @@ const EmailTemplateTwo = () => {
 
   /* HOOKS */
   const [user, loading] = useAuthState(auth)
-  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const [uploadFile, uploading, snapshot] = useUploadFile();
   const navigate = useNavigate()
 
   /* REDUX QUERY */
@@ -66,8 +57,14 @@ const EmailTemplateTwo = () => {
   }
 
   const {
-    image
+    image,
+    subjectLine,
+    preview,
+    impactStat,
+    donationFor,
+    donationGoesFor,
   } = template2;
+
 
   /* FUNCTIONS */
   const storageRef = ref(storage, `${user.email}/${template?.ref}.jpg`);
@@ -100,13 +97,63 @@ const EmailTemplateTwo = () => {
 
   }, []);
 
+  const handleImageError = (value) => {
+    if (value) {
+      setImageError(false)
+    } else {
+      setImageError(true)
+    }
+  }
+  const handleSubjectLineError = (value) => {
+    if (value) {
+      setSubjectLineError(false)
+    } else {
+      setSubjectLineError(true)
+    }
+  }
+  const handlePreviewError = (value) => {
+    if (value) {
+      setPreviewError(false)
+    } else {
+      setPreviewError(true)
+    }
+  }
+  const handleImpactStatError = (value) => {
+    if (value < 1) {
+      setImpactStatError(true)
+    } else {
+      setImpactStatError(false)
+    }
+  }
+
+  const handleDonationForError = (value) => {
+    if (value) {
+      setDonationForError(false)
+    } else {
+      setDonationForError(true)
+    }
+  }
+  const handleDonationGoesForError = (value) => {
+    if (value) {
+      setDonationGoesForError(false)
+    } else {
+      setDonationGoesForError(true)
+    }
+  }
+
+  useEffect(() => {
+    if (template2) {
+      handleImageError(image || images?.src)
+      handleSubjectLineError(getPlainText(subjectLine))
+      handlePreviewError(getPlainText(preview))
+      handleImpactStatError(impactStat)
+      handleDonationForError(getPlainText(donationFor))
+      handleDonationGoesForError(getPlainText(donationGoesFor))
+    }
+  })
+
   useEffect(() => {
     if (editTemplateSuccess) {
-      // if (data?.templates[data?.templates.length - 1].emailId == 2) {
-      //   navigate(`/email-final`)
-      // } else {
-      //   navigate(`/email/3`)
-      // }
       setTimeout(() => {
         setTempLoading(false)
       }, 2000)
@@ -118,26 +165,32 @@ const EmailTemplateTwo = () => {
 
   /* HANDLERS */
   const handleSubmit = async () => {
-    setTempLoading(true);
-    if (selectedFile) {
-      const result = await uploadFile(storageRef, selectedFile, metadata);
-      const url = await getDownloadURL(result.ref);
-      if (url) {
+    
+    if (imageError || subjectLineError || previewError || impactStatError || donationForError || donationGoesForError) {
+      setError(true)
+    } else {
+      setError(false)
+      setTempLoading(true);
+      if (selectedFile) {
+        const result = await uploadFile(storageRef, selectedFile, metadata);
+        const url = await getDownloadURL(result.ref);
+        if (url) {
+          editTemplate({
+            id: uniqueId,
+            data: {
+              ...template2,
+              image: url
+            }
+          })
+        }
+      } else {
         editTemplate({
           id: uniqueId,
           data: {
-            ...template2,
-            image: url
+            ...template2
           }
         })
       }
-    } else {
-      editTemplate({
-        id: uniqueId,
-        data: {
-          ...template2
-        }
-      })
     }
   }
 
@@ -164,7 +217,23 @@ const EmailTemplateTwo = () => {
               </PreviewFrame>
             </Box>
             <Box flex='1' maxW="420px">
-              <EditBlockTwo onDrop={onDrop} tempLoading={tempLoading} />
+              <EditBlockTwo
+                onDrop={onDrop}
+                tempLoading={tempLoading}
+                imageError={imageError}
+                subjectLineError={subjectLineError}
+                previewError={previewError}
+                impactStatError={impactStatError}
+                donationForError={donationForError}
+                donationGoesForError={donationGoesForError}
+                handleImageError={handleImageError}
+                handleSubjectLineError={handleSubjectLineError}
+                handlePreviewError={handlePreviewError}
+                handleImpactStatError={handleImpactStatError}
+                handleDonationForError={handleDonationForError}
+                handleDonationGoesForError={handleDonationGoesForError}
+                error={error}
+              />
             </Box>
           </Flex>
         </Box>

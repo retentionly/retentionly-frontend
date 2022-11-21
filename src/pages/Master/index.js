@@ -7,7 +7,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useUploadFile } from 'react-firebase-hooks/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import RequiredText from '../../components/RequiredText/RequiredText';
 import UploadImageSingle from "../../components/UploadImage/UploadImageSingle";
 import { useEditMasterMutation, useGetMasterQuery } from '../../features/master/masterApi';
 import { setLogo } from '../../features/master/masterSlice';
@@ -17,6 +16,7 @@ import Loader from '../../ui/Loaders/Loading';
 import Option from '../../ui/OptionButton';
 import { PageWrapper } from '../../ui/PageWrapper';
 import SectionTitle from '../../ui/SectionTitle';
+import { getPlainText } from '../../utils/getPlainText';
 import EditingBlockRight from "./EditingBlockRight";
 // import EditingBlockLeft from './EditingBlockLeft';
 
@@ -38,8 +38,15 @@ const Master = () => {
     const [tempLoading, setTempLoading] = useState(false);
     const [sizeError, setSizeError] = useState("")
     const { template } = useSelector((state) => state);
+    const [imageError, setImageError] = useState(false);
+    const [greetingError, setGreetingError] = useState(false);
+    const [salutationError, setSalutationError] = useState(false);
+    const [senderError, setSenderError] = useState(false);
+    const [urlError, setUrlError] = useState(false);
+    const [error, setError] = useState(false)
+    const [image, setImage] = useState({});
 
-    const [uploadFile, uploading, snapshot, error] = useUploadFile();
+    const [uploadFile, uploading, snapshot] = useUploadFile();
     const storageRef = ref(storage, `${user.email}/master.jpg`);
     const metadata = {
         contentType: 'image/jpeg',
@@ -51,14 +58,92 @@ const Master = () => {
 
     const [editMaster, { data: editMasterData, isLoading: editMasterLoading, isError: editMasterError, isSuccess: editMasterSuccess }] = useEditMasterMutation();
 
-    
     const { master: masterState } = useSelector((state) => state.templates);
 
     const { logo } = masterState;
 
+    const handleSubmit = async () => {
+        if (imageError || greetingError || salutationError || senderError || urlError) {
+            setError(true)
+        } else {
+            setError(false)
+            setTempLoading(true)
+            if (selectedFile) {
+                const result = await uploadFile(storageRef, selectedFile, metadata);
+                const logoUrl = await getDownloadURL(result.ref);
+                if (logoUrl) {
+                    dispatch(setLogo(logoUrl))
+                    editMaster({
+                        email: user?.email,
+                        data: {
+                            ...masterState,
+                            logo: logoUrl,
+                        }
+                    })
+                    setLoading(false)
+                }
+            } else {
+                editMaster({
+                    email: user?.email,
+                    data: {
+                        ...masterState
+                    }
+                })
+                setLoading(false)
+            }
+        }
+
+    }
+
+    const handleImageError = (value) => {
+        if (value) {
+            setImageError(false)
+        } else {
+            setImageError(true)
+        }
+    }
+    const handleGreetingError = (value) => {
+        if (value) {
+            setGreetingError(false)
+        } else {
+            setGreetingError(true)
+        }
+    }
+    const handleSalutationError = (value) => {
+        if (value) {
+            setSalutationError(false)
+        } else {
+            setSalutationError(true)
+        }
+    }
+    const handleSenderError = (value) => {
+        if (value) {
+            setSenderError(false)
+        } else {
+            setSenderError(true)
+        }
+    }
+    const handleUrlError = (value) => {
+        if (value) {
+            setUrlError(false)
+        } else {
+            setUrlError(true)
+        }
+    }
+
+    useEffect(() => {
+        if (masterState) {
+            handleImageError(logo || image?.src)
+            handleGreetingError(getPlainText(masterState.greeting))
+            handleSalutationError(getPlainText(masterState.salutations))
+            handleSenderError(getPlainText(masterState.sender))
+            handleUrlError(getPlainText(masterState.url))
+        }
+    })
+
     // DRAG AND DROP FUNCTION
 
-    const [image, setImage] = useState({});
+  
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
 
         acceptedFiles.map((file) => {
@@ -105,33 +190,12 @@ const Master = () => {
     }, [editMasterSuccess])
 
     // UPLOAD IMAGE AND GET URL FUNCTION
-    const handleSubmit = async () => {
-        setTempLoading(true)
-        if (selectedFile) {
-            const result = await uploadFile(storageRef, selectedFile, metadata);
-            const logoUrl = await getDownloadURL(result.ref);
-            if (logoUrl) {
-                dispatch(setLogo(logoUrl))
-                editMaster({
-                    email: user?.email,
-                    data: {
-                        ...masterState,
-                        logo: logoUrl,
-                    }
-                })
-                setLoading(false)
-            }
-        } else {
-            editMaster({
-                email: user?.email,
-                data: {
-                    ...masterState
-                }
-            })
-            setLoading(false)
-        }
+
+
+    const checkValidation = () => {
+        console.log(masterState)
     }
-  
+
     if (editMasterData?.success) {
         navigate('/email')
     }
@@ -142,6 +206,7 @@ const Master = () => {
 
     return (
         <PageWrapper>
+
             <LoaderBox visibility={tempLoading} position="fixed" inset="0" display="flex" flexDirection="column" justifyContent="center" alignItems="center" minH="100vh" minW="100%" bg="#fff" zIndex="9999">
                 <Text>Saving...</Text>
                 <Loader height={'100px'} />
@@ -155,22 +220,33 @@ So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                             <Text color="#000000" {...Text30} mb="10px">
                                 Upload Your Logo:
                             </Text>
-                            
+
                             <Box mb="10px">
                                 {
                                     sizeError ? <Text color="red" fontWeight="semibold">{sizeError}</Text> : null
                                 }
                             </Box>
-                            <UploadImageSingle onDrop={onDrop} accept={"image/*"} image={image} master={master} />
+                            <UploadImageSingle onDrop={onDrop} accept={"image/*"} image={image} master={master} imageError={imageError}/>
                         </Box>
                         <Box>
                         </Box>
                     </Box>
                     <Box flex='1' maxW="420px" >
-                        <EditingBlockRight />
+                        <EditingBlockRight
+                            greetingError={greetingError}
+                            salutationError={salutationError}
+                            senderError={senderError}
+                            urlError={urlError}
+                            handleGreetingError={handleGreetingError}
+                            handleSalutationError={handleSalutationError}
+                            handleSenderError={handleSenderError}
+                            handleUrlError={handleUrlError}
+                            error={error}
+                        />
                         <Flex mx="-15px" mt="30px">
                             <Box px="15px" width="50%" cursor={(image.src || logo) ? 'pointer' : 'not-allowed'} opacity={(image.src || logo) ? '1' : '.5'} pointerEvents={(image.src || logo) ? 'all' : 'none'}>
-                                <Option onClick={handleSubmit} btnProps={{ width: "100%" }}>Continue</Option>
+                                <Option onClick={() => handleSubmit()} btnProps={{ width: "100%" }}>Continue</Option>
+                                {/* <Option onClick={checkValidation} btnProps={{ width: "100%" }}>Continue</Option> */}
                             </Box>
                         </Flex>
                     </Box>

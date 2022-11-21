@@ -62,7 +62,6 @@ export const HeaderSecondaryStyled = styled.header`
         }
         @media (min-width:767px){
             padding: 10px;
-            width: auto;
             margin-right: 0;
         }
     }
