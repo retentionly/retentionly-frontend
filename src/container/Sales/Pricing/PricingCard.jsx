@@ -25,7 +25,7 @@ const PricingCard = ({ title, description, price }) => {
                 </Typography>
             </div>
             <div className='card-footer'>
-                <Button to="/book-a-demo">Get Started</Button>
+                <Button>Get Started</Button>
             </div>
         </CardStyled>
     )
