@@ -1,9 +1,9 @@
 import React from 'react';
-import brand1 from "../../../assets/png/stat1.webp";
-import brand2 from "../../../assets/png/stat2.webp";
-import brand3 from "../../../assets/png/stat3.webp";
+import brand1 from "../../../assets/png/hhugs.png";
+import brand2 from "../../../assets/png/myh.png";
 import brand4 from "../../../assets/png/stat4.png";
 import brand5 from "../../../assets/png/stat5.png";
+import brand3 from "../../../assets/png/tvc.png";
 import Container from '../Global/Container';
 import Typography from '../Global/Typography/Typography';
 import { BrandContainer, BrandStyled } from './style';
