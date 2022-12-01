@@ -1,5 +1,6 @@
 import React from 'react'
-import logo from "../../../assets/png/stat4.png"
+import icon from "../../../assets/png/Icon.png"
+import logo from "../../../assets/png/testimonial-logo.png"
 import Typography from '../../../container/Sales/Global/Typography/Typography'
 import { text_22 } from '../../../theme/typography'
 import TestimonialContent, { TestimonialCardStyled, TestimonialMedia } from './style'
@@ -11,7 +12,7 @@ const TestimonialCard = ({ data }) => {
   return (
     <TestimonialCardStyled>
       <TestimonialMedia>
-        <img src="https://www.babseacle.org/wp-content/uploads/2018/09/portrait-square-10.jpg" alt="testimonial" />
+        <img src={icon} alt="testimonial" />
       </TestimonialMedia>
       <TestimonialContent>
         <TestimonialContent.Heading>
@@ -23,7 +24,7 @@ const TestimonialCard = ({ data }) => {
               Retentionly has allowed us to finally steward our donors in an easy but effective way. I love Retentionly.
             </span>
             <span className='designation'>
-              - John Doe, CEO
+              - Azad Hussian, CEO
             </span>
           </Typography>
         </TestimonialContent.Text>

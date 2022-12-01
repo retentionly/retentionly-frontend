@@ -22,7 +22,6 @@ export const SliderArrowButton = styled.button`
 export const TestimonialCardStyled = styled.div`
 display: flex;
 justify-content: center;
-padding: 20px;
 `
 
 export const TestimonialMedia = styled.div`
@@ -37,7 +36,7 @@ padding: 0 20px;
 
 const TestimonialContent = styled.div`
 width: 100%;
-padding: 0 30px;
+padding: 0;
 text-align: center;
 
 @media (min-width: 992px){
