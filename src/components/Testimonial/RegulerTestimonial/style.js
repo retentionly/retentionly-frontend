@@ -37,7 +37,7 @@ padding: 0 20px;
 
 const TestimonialContent = styled.div`
 width: 100%;
-padding: 0;
+padding: 0 30px;
 text-align: center;
 
 @media (min-width: 992px){

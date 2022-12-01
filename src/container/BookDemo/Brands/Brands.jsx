@@ -1,5 +1,5 @@
 import React from 'react';
-import brand1 from "../../../assets/png/stat1.png";
+import brand1 from "../../../assets/png/stat1.webp";
 import brand2 from "../../../assets/png/stat2.webp";
 import brand3 from "../../../assets/png/stat3.webp";
 import brand4 from "../../../assets/png/stat4.png";

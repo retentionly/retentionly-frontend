@@ -1,7 +1,6 @@
 {
   "name": "email-frontend",
   "version": "0.1.0",
-  "homepage": "https://retentionly.co.uk/",
   "private": true,
   "engines": {
     "node": "16.16.0"
