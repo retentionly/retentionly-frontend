@@ -18,7 +18,6 @@ function FaqSection() {
 
                 <div className="faq-body">
                 <FaqSingle  title="Who is Retentionly for?" text="Any charity who has a supporter database of more than 50 people. Is that you? "/>
-                <FaqSingle  title="What results can I expect?" text="TBC"/>
 
                 <FaqSingle  title="Will it work for me?" text="Yes! We're built so we work for every charity. Especially if you currently have no retention activity in place. "/>
 
