@@ -1,8 +1,9 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useSelector } from 'react-redux';
+import RequiredText from '../RequiredText/RequiredText';
 import UploadIcon from './UploadIcon';
 
 
@@ -16,7 +17,7 @@ const ImageWrapper = styled.div`
 const UploadButton = styled.button`
     width:100%;
 `
-const UploadImageSingle = ({ onDrop, open, image }) => {
+const UploadImageSingle = ({ onDrop, open, image, imageError }) => {
     const { master } = useSelector((state) => state.templates);
 
     const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
@@ -36,6 +37,7 @@ const UploadImageSingle = ({ onDrop, open, image }) => {
                     <ImageWrapper className='' h="400px" w="400px" display="flex" justifyContent="center" alignItems="center" mb="20px">
                         {image?.src !== undefined ? <img src={image.src} alt="" /> : (master?.logo ? <img src={master?.logo} alt='' /> : <UploadIcon />)}
                     </ImageWrapper>
+                    {imageError && <RequiredText/>}
                     <UploadButton color='#000' type="button" onClick={open} className="btn">
                         {/* <ImagePreview images={image.src} master={master} /> */}
 

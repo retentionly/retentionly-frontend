@@ -3,13 +3,35 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from '../../../components/Editor/ListEditor';
 import EditBlock from '../../../components/EditorBlock';
+import RequiredText from '../../../components/RequiredText/RequiredText';
 import UploadImage from '../../../components/UploadImage/UploadImage';
 import { setTemplate5 } from '../../../features/templates/templatesSlice';
 import { useGetTemplateQuery } from '../../../features/user/userApi';
 import { Text30 } from '../../../theme/text';
+import { getPlainText } from '../../../utils/getPlainText';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
 
-const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
+const EditBlockFive = ({
+    id,
+    onDrop,
+    image,
+    sizeError,
+    tempLoading,
+    imageError,
+    subjectLineError,
+    previewError,
+    mainGoalSummaryError,
+    serviceDescError,
+    impactStatError,
+    donationDoesError,
+    handleSubjectLineError,
+    handlePreviewError,
+    handleMainGoalSummaryError,
+    handleServiceDescError,
+    handleImpactStatError,
+    handleDonationDoesError,
+    error
+}) => {
     const dispatch = useDispatch();
     const { data, isLoading, isError, refetch } = useGetTemplateQuery(id, {
         refetchOnMountOrArgChange: true,
@@ -18,29 +40,24 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
     const { preview, subjectLine, serviceDesc, impactStat, mainGoalSummary, donationDoes, mainText } = template5;
 
 
-    const handleAddImpact = (e) => {
-
+    const handleAddorRemoveImpact = (e) => {
         dispatch(setTemplate5({
             ...template5,
             impactStat: e
         }))
+        handleImpactStatError(impactStat)
     }
 
-
     const handlePreview = (e) => {
+        handlePreviewError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             preview: e
         }))
     }
-    // const handleSubjectLine = (e) => {
-    //     dispatch(setTemplate2({
-    //         ...template2,
-    //         subjectLine: e
-    //     }))
-    // }
 
     const handleSubjectLine = (e) => {
+        handleSubjectLineError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             subjectLine: e
@@ -48,18 +65,21 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
     }
 
     const handleServiceDesc = (e) => {
+        handleServiceDescError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             serviceDesc: e
         }));
     }
     const handleMainGoalSummary = (e) => {
+        handleMainGoalSummaryError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             mainGoalSummary: e
         }));
     }
     const handleDonationDoes = (e) => {
+        handleDonationDoesError(getPlainText(e));
         dispatch(setTemplate5({
             ...template5,
             donationDoes: e
@@ -85,6 +105,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
+                    {(error && imageError) && <RequiredText />}
                 </Box>
                 {
                     !tempLoading &&
@@ -101,6 +122,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     children: [{ text: "" }]
                                 }
                             ]}
+                            required={error && subjectLineError}
                         />
                     </Box>
                 }
@@ -119,7 +141,9 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                     type: "paragaph",
                                     children: [{ text: "" }]
                                 }
-                            ]} />
+                            ]}
+                            required={error && previewError}
+                        />
                     </Box>
                 }
 
@@ -136,6 +160,7 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 children: [{ text: "" }]
                             }
                         ]}
+                        required={error && serviceDescError}
                     />
                 </Box>
 
@@ -146,13 +171,15 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         placeholder={
                             `E.g. "Feed 1,000 people`}
                         mb="30px"
-                        handleAddImpact={handleAddImpact}
+                        handleAddImpact={handleAddorRemoveImpact}
+                        handleRemoveImpact={handleAddorRemoveImpact}
                         // toggleTask={toggleTask}
                         // removeTask={removeTask}
                         item={impactStat}
+                        required={error && impactStatError}
+                    // required={!Boolean(impactStat.length)}
                     />
                 </Box>
-
 
                 <Box className="donation-does">
                     <EditBlock title={"Explain what their donation does:"}
@@ -165,7 +192,9 @@ const EditBlockFive = ({ id, onDrop, image, sizeError, tempLoading }) => {
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
-                        ]} />
+                        ]}
+                        required={error && donationDoesError}
+                    />
                 </Box>
 
 
@@ -182,9 +211,10 @@ so we can give every child a breakfast".`}
                                 type: "paragaph",
                                 children: [{ text: "" }]
                             }
-                        ]} />
+                        ]}
+                        required={error && mainGoalSummaryError}
+                    />
                 </Box>
-
 
             </EditBlockStyled>
 

@@ -1,13 +1,15 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useSelector } from 'react-redux';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import Loader from '../../../ui/Loaders/Loading';
+// import { useSelector } from 'react-redux';
+import { Navigate, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import Layout from '../../../layout';
+import { HeaderMain } from '../../../layout/Header';
+import Loader from '../../../ui/Loaders/Loading';
 
 const RequireAuth = () => {
-  const [user, loading, error] = useAuthState(auth);
-  const { user: userState } = useSelector(state => state)
+  const [user, loading] = useAuthState(auth);
+  // const { user: userState } = useSelector(state => state)
   const location = useLocation();
 
   if (loading) {
@@ -16,7 +18,10 @@ const RequireAuth = () => {
 
   return (
     user
-      ? <Outlet />
+      ? <>
+        <HeaderMain />
+        <Layout />
+      </>
       : <Navigate to="/login" state={{ from: location }} replace />
   )
 };

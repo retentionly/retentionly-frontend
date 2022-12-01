@@ -15,6 +15,7 @@ import { revertAllPayment } from '../../features/payment/paymentSlice';
 import { revertAllTemplate } from '../../features/template/templateSlice';
 import { revertAllUser } from '../../features/user/userSlice';
 import auth from '../../firebase.init';
+import { HeaderSecondary } from '../../layout/Header';
 import { Text20 } from "../../theme/text";
 import Loader from '../../ui/Loaders/Loading';
 import { PageWrapper } from '../../ui/PageWrapper';
@@ -42,12 +43,14 @@ const Register = () => {
 
     useEffect(() => {
         if (user) {
+            console.log('user', user)
             setTimeout(() => {
                 setIsUserLoading(false)
                 navigate("/membership")
             }, 2000)
         }
         if (emailError) {
+            console.log(emailError)
             dispatch(revertAllAdmin())
             dispatch(revertAllAuth())
             dispatch(revertAllMaster())
@@ -114,136 +117,104 @@ const Register = () => {
     }
 
     return (
-        <PageWrapper>
+        <>
+            <HeaderSecondary />
+            <PageWrapper>
 
-            <Container maxW={1000}>
-                <SectionTitle title="Create an account 🥳" text="You’re so close to getting more out of your donors." mb={["40px",{lg:"80px"}]} />
-                <Box maxW={500} mb="60px" mx="auto">
-                    {/* <form onSubmit={formik.handleSubmit}>
+                <Container maxW={1000}>
+                    <SectionTitle title="Create an account 🥳" text="You’re so close to getting more out of your donors." mb={["40px", { lg: "80px" }]} />
+                    <Box maxW={500} mb="60px" mx="auto">
 
-                        <Input placeholder="Name :" onChange={formik.handleChange} value={formik.values.name} attrs={{
-                            id: 'name', name: "name",
-                            type: "text",
-                        }} />
+                        <Formik
+                            initialValues={{
+                                name: '',
+                                email: '',
+                                password: '',
+                                confirmPassword: ''
+                            }}
+                            validationSchema={SignupSchema}
+                            onSubmit={values => {
+                                // same shape as initial values
 
-                        <Input placeholder="Email :" onChange={formik.handleChange} value={formik.values.email} attrs={{
-                            id: 'email', name: "email",
-                            type: "email",
-                        }} />
+                                handleSubmit(values)
+                            }}
+                        >
+                            {({ errors, touched }) => (
+                                <Form>
 
-                        <Input placeholder="Password :" onChange={formik.handleChange}
-                            value={formik.values.password} attrs={{
-                                id: 'password', name: "password",
-                                type: "password",
-                            }} />
+                                    {/* Register Name Input Field */}
+                                    <InputContainer>
+                                        <InputDivStyled>
+                                            <InputStyled name="name" placeholder="Name:" />
+                                        </InputDivStyled>
+                                        {errors.name && touched.name ? (
+                                            <ErrorMessageBox>
+                                                <span>
+                                                    {errors.name}
+                                                </span>
+                                            </ErrorMessageBox>
+                                        ) : null}
+                                    </InputContainer>
 
-                        <Input placeholder="Confirm Password :" onChange={formik.handleChange} value={formik.values.confirmPassword} attrs={{
-                            id: 'conirmPassword', name: "confirmPassword",
-                            type: "password",
-                        }} />
-                        <Box maxW={550} mx="auto" mt="10px">
-                            <Text {...Text20}>
-                                Already Have An Account?{" "}
-                                <LinkText to="/login" as={Link}>
-                                    Login Here
-                                </LinkText>
-                            </Text>
-                        </Box>
-                        <Box maxW={450} mx="auto">
-                            <Button type="submit">
-                                Register
-                            </Button>
-                        </Box>
-                    </form> */}
-                    <Formik
-                        initialValues={{
-                            name: '',
-                            email: '',
-                            password: '',
-                            confirmPassword: ''
-                        }}
-                        validationSchema={SignupSchema}
-                        onSubmit={values => {
-                            // same shape as initial values
-                
-                            handleSubmit(values)
-                        }}
-                    >
-                        {({ errors, touched }) => (
-                            <Form>
+                                    {/* Register Email Input Field */}
+                                    <InputContainer>
+                                        <InputDivStyled>
+                                            <InputStyled name="email" type="email" placeholder="Email:" />
+                                        </InputDivStyled>
+                                        {errors.email && touched.email ? (
+                                            <ErrorMessageBox>
+                                                <span>
+                                                    {errors.email}
+                                                </span>
+                                            </ErrorMessageBox>
+                                        ) : null}
+                                    </InputContainer>
 
-                                {/* Register Name Input Field */}
-                                <InputContainer>
-                                    <InputDivStyled>
-                                        <InputStyled name="name" placeholder="Name:" />
-                                    </InputDivStyled>
-                                    {errors.name && touched.name ? (
-                                        <ErrorMessageBox>
-                                            <span>
-                                                {errors.name}
-                                            </span>
-                                        </ErrorMessageBox>
-                                    ) : null}
-                                </InputContainer>
+                                    {/* Register Password Input Field */}
+                                    <InputContainer>
+                                        <InputDivStyled>
+                                            <InputStyled name="password" type="password" placeholder="Password:" />
+                                        </InputDivStyled>
+                                        {errors.password && touched.password ? (
+                                            <ErrorMessageBox>
+                                                <span>{errors.password}</span>
+                                            </ErrorMessageBox>
+                                        ) : null}
+                                    </InputContainer>
 
-                                {/* Register Email Input Field */}
-                                <InputContainer>
-                                    <InputDivStyled>
-                                        <InputStyled name="email" type="email" placeholder="Email:" />
-                                    </InputDivStyled>
-                                    {errors.email && touched.email ? (
-                                        <ErrorMessageBox>
-                                            <span>
-                                                {errors.email}
-                                            </span>
-                                        </ErrorMessageBox>
-                                    ) : null}
-                                </InputContainer>
+                                    {/* Register Confirm Password Input Field */}
+                                    <InputContainer>
+                                        <InputDivStyled>
+                                            <InputStyled name="confirm" type="password" placeholder="Confirm Password:" />
+                                        </InputDivStyled>
+                                        {errors.confirm && touched.confirm ? (
+                                            <ErrorMessageBox>
+                                                <span>{errors.confirm}</span>
+                                            </ErrorMessageBox>
+                                        ) : null}
+                                    </InputContainer>
 
-                                {/* Register Password Input Field */}
-                                <InputContainer>
-                                    <InputDivStyled>
-                                        <InputStyled name="password" type="password" placeholder="Password:" />
-                                    </InputDivStyled>
-                                    {errors.password && touched.password ? (
-                                        <ErrorMessageBox>
-                                            <span>{errors.password}</span>
-                                        </ErrorMessageBox>
-                                    ) : null}
-                                </InputContainer>
-
-                               {/* Register Confirm Password Input Field */}
-                                <InputContainer>
-                                    <InputDivStyled>
-                                        <InputStyled name="confirm" type="password" placeholder="Confirm Password:" />
-                                    </InputDivStyled>
-                                    {errors.confirm && touched.confirm ? (
-                                        <ErrorMessageBox>
-                                            <span>{errors.confirm}</span>
-                                        </ErrorMessageBox>
-                                    ) : null}
-                                </InputContainer>
-
-                                <Box maxW={550} mx="auto" mt="10px">
-                                    <Text {...Text20}>
-                                        Already Have An Account?{" "}
-                                        <LinkText to="/login" as={Link}>
-                                            Login Here
-                                        </LinkText>
-                                    </Text>
-                                </Box>
-                                <Box maxW={450} mx="auto" mt="60px">
-                                    <Button type="submit">
-                                        Register
-                                    </Button>
-                                </Box>
-                            </Form>
-                        )}
-                    </Formik>
-                </Box>
-                <Toaster open={toasterOpen} message={errorMessage} status={'error'} />
-            </Container>
-        </PageWrapper>
+                                    <Box maxW={550} mx="auto" mt="10px">
+                                        <Text {...Text20}>
+                                            Already Have An Account?{" "}
+                                            <LinkText to="/login" as={Link}>
+                                                Login Here
+                                            </LinkText>
+                                        </Text>
+                                    </Box>
+                                    <Box maxW={450} mx="auto" mt="60px">
+                                        <Button type="submit">
+                                            Register
+                                        </Button>
+                                    </Box>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Box>
+                    <Toaster open={toasterOpen} message={errorMessage} status={'error'} />
+                </Container>
+            </PageWrapper>
+        </>
     )
 }
 

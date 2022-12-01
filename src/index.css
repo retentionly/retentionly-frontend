@@ -4,6 +4,7 @@
 
 html {
   font-family: "Avenir LT Std", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {

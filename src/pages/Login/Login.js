@@ -19,6 +19,7 @@ import { revertAllTemplate } from '../../features/template/templateSlice';
 import { useGetUserQuery } from '../../features/user/userApi';
 import { revertAllUser } from '../../features/user/userSlice';
 import auth from '../../firebase.init';
+import { HeaderSecondary } from '../../layout/Header';
 import { Text20 } from '../../theme/text';
 import Loader from '../../ui/Loaders/Loading';
 import { PageWrapper } from '../../ui/PageWrapper';
@@ -90,35 +91,14 @@ const Login = () => {
     }
 
     return (
+        <>
+        <HeaderSecondary/>
         <PageWrapper>
             <Container maxW={800}>
                 <SectionTitle title="Welcome Back! 🤗" text="We’re so happy to have you back. 
-That’s how we want you to feel about your donors." mb={["40px",{lg:"80px"}]} />
-                <Box maxW={450} mb={["30px",{lg:"60px"}]} mx="auto">
-                    {/* <form onSubmit={formik.handleSubmit}>
-                        <Input placeholder="Email :" onChange={formik.handleChange} value={formik.values.email} attrs={{
-                            id: 'email', name: "email",
-                            type: "email",
-                        }} />
-                        <Input placeholder="Password :" onChange={formik.handleChange} value={formik.values.password} attrs={{
-                            id: 'password', name: "password",
-                            type: "password",
-                        }} />
-                        <Box maxW={550} mx="auto" mt="10px">
-                            <Text {...Text20}>
-                                Don't Have An Account?{" "}
-                                <LinkText to="/register" as={Link}>
-                                    Register Here
-                                </LinkText>
-                            </Text>
-                        </Box>
-                        <Box maxW={450} mx="auto" mt="60px">
-                            <Button type="submit">
-                                Login
-                            </Button>
-                        </Box>
+That’s how we want you to feel about your donors." mb={["40px", { lg: "80px" }]} />
+                <Box maxW={450} mb={["30px", { lg: "60px" }]} mx="auto">
 
-                    </form> */}
                     <Formik
                         initialValues={{
                             email: '',
@@ -127,7 +107,7 @@ That’s how we want you to feel about your donors." mb={["40px",{lg:"80px"}]} /
                         validationSchema={SigninSchema}
                         onSubmit={values => {
                             // same shape as initial values
-    
+
                             handleSubmit(values)
                         }}
                     >
@@ -159,12 +139,12 @@ That’s how we want you to feel about your donors." mb={["40px",{lg:"80px"}]} /
                                         </ErrorMessageBox>
                                     ) : null}
                                 </InputContainer>
-                                
+
                                 <Box maxW={550} mx="auto" mt="10px">
                                     <Text {...Text20}>
-                                        Don't Have An Account?{" "}
-                                        <LinkText to="/register" as={Link}>
-                                            Register Here
+                                        Don't Have An Account?<br />
+                                        <LinkText to="/book-a-demo" as={Link}>
+                                            Book a free demo call to learn more
                                         </LinkText>
                                     </Text>
                                 </Box>
@@ -180,6 +160,7 @@ That’s how we want you to feel about your donors." mb={["40px",{lg:"80px"}]} /
             </Container >
             <Toaster open={toasterOpen} message={errorMessage} status={'error'} />
         </PageWrapper >
+        </>
     )
 }
 

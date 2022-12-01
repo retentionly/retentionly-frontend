@@ -3,12 +3,32 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListEditor from "../../../components/Editor/ListEditor";
 import EditBlock from '../../../components/EditorBlock';
+import RequiredText from '../../../components/RequiredText/RequiredText';
 import UploadImage from '../../../components/UploadImage/UploadImage';
 import { setTemplate2 } from '../../../features/templates/templatesSlice';
 import { Text30 } from '../../../theme/text';
+import { getPlainText } from '../../../utils/getPlainText';
 import { EditBlockStyled, MainTextBoxStyle } from '../style';
 
-const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
+const EditBlockTwo = ({
+    id,
+    onDrop,
+    image,
+    sizeError,
+    tempLoading,
+    error,
+    imageError,
+    subjectLineError,
+    previewError,
+    impactStatError,
+    donationForError,
+    donationGoesForError,
+    handleSubjectLineError,
+    handlePreviewError,
+    handleImpactStatError,
+    handleDonationForError,
+    handleDonationGoesForError
+}) => {
 
     const dispatch = useDispatch();
     const { template2 } = useSelector(state => state.templates);
@@ -19,6 +39,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
             ...template2,
             impactStat: e
         }))
+        handleImpactStatError(impactStat)
     }
 
     const handleRemoveImpact = (e) => {
@@ -26,10 +47,11 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
             ...template2,
             impactStat: e
         }))
+        handleImpactStatError(impactStat)
     }
 
-
     const handleSubjectLine = (e) => {
+        handleSubjectLineError(getPlainText(e))
         dispatch(setTemplate2({
             ...template2,
             subjectLine: e
@@ -37,6 +59,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
     }
 
     const handlePreview = (e) => {
+        handlePreviewError(getPlainText(e))
         dispatch(setTemplate2({
             ...template2,
             preview: e
@@ -44,18 +67,21 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
     }
 
     const handleMainText = (e) => {
+
         dispatch(setTemplate2({
             ...template2,
             mainText: e
         }))
     }
     const handleDonationFor = (e) => {
+        handleDonationForError(getPlainText(e))
         dispatch(setTemplate2({
             ...template2,
             donationFor: e
         }))
     }
     const handleDonationGoesFor = (e) => {
+        handleDonationGoesForError(getPlainText(e))
         dispatch(setTemplate2({
             ...template2,
             donationGoesFor: e
@@ -76,6 +102,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         }
                     </Box>
                     <UploadImage onDrop={onDrop} accept={"image/*"} image={image} />
+                    {(error && imageError) && <RequiredText />}
                 </Box>
 
                 <Box className="subject-line">
@@ -86,6 +113,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleSubjectLine}
                         value={subjectLine}
+                        required={error && subjectLineError}
                     />
                 </Box>
 
@@ -97,6 +125,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handlePreview}
                         value={preview}
+                        required={error && previewError}
                     />
                 </Box>
 
@@ -114,6 +143,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         // toggleTask={toggleTask}
                         // removeTask={removeTask}
                         item={impactStat}
+                        required={error && impactStatError}
                     />
                 </Box>
 
@@ -125,6 +155,7 @@ const EditBlockTwo = ({ id, onDrop, image, sizeError, tempLoading }) => {
                         mb="30px"
                         onChange={handleDonationFor}
                         value={donationFor}
+                        required={error && donationForError}
                     />
                 </Box>
 
@@ -138,6 +169,7 @@ so we can give every child a breakfast".`}
                         mb="30px"
                         onChange={handleDonationGoesFor}
                         value={donationGoesFor}
+                        required={error && donationGoesForError}
                     />
                 </Box>
 

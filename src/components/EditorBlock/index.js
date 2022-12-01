@@ -1,6 +1,7 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { Text20, Text30 } from "../../theme/text";
+import RequiredText from "../RequiredText/RequiredText";
 import TextEditor from "../SlateTextEditor";
 // import PlainText from "./Editor";
 
@@ -12,7 +13,7 @@ border: 2px solid #000;
 color: #000;
 `
 
-export default function EditBlock({ inputPlaceholder, title, text, onChange, value, social, ...rest }) {
+export default function EditBlock({ inputPlaceholder, title, text, onChange, value, social,required, ...rest }) {
 
     return (
         <Box {...rest}>
@@ -28,6 +29,7 @@ export default function EditBlock({ inputPlaceholder, title, text, onChange, val
                     : <input type="text" />
                 } */}
             </Box>
+            {required && <RequiredText />}
         </Box>
     )
 }

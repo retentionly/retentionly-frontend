@@ -4,16 +4,16 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUploadFile } from 'react-firebase-hooks/storage'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PreviewTemplateOne from '../../../components/EmailPreviews/PreviewBodyOne'
-import { setPreview, setSubjectLine } from '../../../features/template/templateSlice'
 import { useEditTemplateMutation, useGetTemplateQuery, useGetTemplatesQuery } from '../../../features/user/userApi'
 import auth, { app } from '../../../firebase.init'
 import { Text30 } from '../../../theme/text'
 import Loader from '../../../ui/Loaders/Loading'
 import { PageWrapper } from '../../../ui/PageWrapper'
 import SectionTitle from '../../../ui/SectionTitle'
+import { getPlainText } from '../../../utils/getPlainText'
 import EmailNavigation from '../navigation'
 import { LoaderBox, PreviewFrame } from '../style'
 import EditBlockOne from './EditBlockOne'
@@ -22,27 +22,17 @@ const storage = getStorage(app);
 
 const EmailTemplateOne = () => {
 
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(setSubjectLine([
-    //         {
-    //             type: "paragaph",
-    //             children: [{ text: "" }]
-    //         }
-    //     ]));
-    //     dispatch(setPreview([
-    //         {
-    //             type: "paragaph",
-    //             children: [{ text: "" }]
-    //         }
-    //     ]));
-    // }, [])
-
     /* LOCAL STATES */
     const [tempLoading, setTempLoading] = useState(false);
     const [images, setImages] = useState('');
     const [sizeError, setSizeError] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
+    const [imageError, setImageError] = useState(false);
+    const [subjectLineError, setSubjectLineError] = useState(false);
+    const [previewError, setPreviewError] = useState(false);
+    const [serviceDescError, setServiceDescError] = useState(false);
+    const [beneficiaryDescError, setBeneficiaryDescError] = useState(false);
+    const [error, setError] = useState(false);
 
     /* REDUX STATES */
     const { template } = useSelector(state => state);
@@ -50,7 +40,7 @@ const EmailTemplateOne = () => {
 
     /* HOOKS */
     const [user, loading] = useAuthState(auth)
-    const [uploadFile, uploading, snapshot, error] = useUploadFile();
+    const [uploadFile, uploading, snapshot] = useUploadFile();
     const navigate = useNavigate();
 
     /* REDUX QUERY */
@@ -67,7 +57,11 @@ const EmailTemplateOne = () => {
     }
 
     const {
-        image
+        image,
+        subjectLine,
+        preview,
+        serviceDesc,
+        beneficiaryDesc,
     } = template1;
 
     /* FUNCTIONS */
@@ -76,7 +70,7 @@ const EmailTemplateOne = () => {
     const { data: getTemplate, isLoading: isTemplateLoading, refetch } = useGetTemplateQuery(uniqueId, {
         refetchOnMountOrArgChange: true,
     });
-    console.log(image)
+
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
         acceptedFiles.map((file) => {
             setSelectedFile(file)
@@ -101,6 +95,52 @@ const EmailTemplateOne = () => {
 
     }, []);
 
+    const handleImageError = (value) => {
+        if (value) {
+            setImageError(false)
+        } else {
+            setImageError(true)
+        }
+    }
+    const handleSubjectLineError = (value) => {
+        if (value) {
+            setSubjectLineError(false)
+        } else {
+            setSubjectLineError(true)
+        }
+    }
+    const handlePreviewError = (value) => {
+        if (value) {
+            setPreviewError(false)
+        } else {
+            setPreviewError(true)
+        }
+    }
+    const handleServiceDescError = (value) => {
+        if (value) {
+            setServiceDescError(false)
+        } else {
+            setServiceDescError(true)
+        }
+    }
+    const handleBeneficiaryDescError = (value) => {
+        if (value) {
+            setBeneficiaryDescError(false)
+        } else {
+            setBeneficiaryDescError(true)
+        }
+    }
+
+    useEffect(() => {
+        if (template1) {
+            handleImageError(image || images?.src)
+            handleSubjectLineError(getPlainText(subjectLine))
+            handlePreviewError(getPlainText(preview))
+            handleServiceDescError(getPlainText(serviceDesc))
+            handleBeneficiaryDescError(getPlainText(beneficiaryDesc))
+        }
+    })
+
     useEffect(() => {
         if (editTemplateSuccess) {
             setTimeout(() => {
@@ -114,27 +154,31 @@ const EmailTemplateOne = () => {
 
     /* HANDLERS */
     const handleSubmit = async () => {
-        setTempLoading(true);
-
-        if (selectedFile) {
-            const result = await uploadFile(storageRef, selectedFile, metadata);
-            const url = await getDownloadURL(result.ref);
-            if (url) {
+        if (imageError || subjectLineError || previewError || serviceDescError || beneficiaryDescError) {
+            setError(true)
+        } else {
+            setError(false)
+            setTempLoading(true);
+            if (selectedFile) {
+                const result = await uploadFile(storageRef, selectedFile, metadata);
+                const url = await getDownloadURL(result.ref);
+                if (url) {
+                    editTemplate({
+                        id: uniqueId,
+                        data: {
+                            ...template1,
+                            image: url
+                        }
+                    })
+                }
+            } else {
                 editTemplate({
                     id: uniqueId,
                     data: {
                         ...template1,
-                        image: url
                     }
                 })
             }
-        } else {
-            editTemplate({
-                id: uniqueId,
-                data: {
-                    ...template1,
-                }
-            })
         }
     }
 
@@ -155,11 +199,27 @@ const EmailTemplateOne = () => {
                         <Box flex='1' maxW="550px">
                             <PreviewFrame>
                                 <Text py="30px" textAlign={"center"} color="#000" {...Text30}>Preview</Text>
-                                <PreviewTemplateOne images={images} image={image} />
+                                <PreviewTemplateOne images={images} image={image}/>
                             </PreviewFrame>
                         </Box>
                         <Box flex='1' maxW="420px">
-                            <EditBlockOne id={1} onDrop={onDrop} images={images} tempLoading={tempLoading} />
+                            <EditBlockOne
+                                id={1}
+                                onDrop={onDrop}
+                                images={images}
+                                tempLoading={tempLoading}
+                                imageError={imageError}
+                                subjectLineError={subjectLineError}
+                                previewError={previewError}
+                                serviceDescError={serviceDescError}
+                                beneficiaryDescError={beneficiaryDescError}
+                                handleImageError={handleImageError}
+                                handleSubjectLineError={handleSubjectLineError}
+                                handlePreviewError={handlePreviewError}
+                                handleServiceDescError={handleServiceDescError}
+                                handleBeneficiaryDescError={handleBeneficiaryDescError}
+                                error={error}
+                            />
                         </Box>
                     </Flex>
                 </Box>

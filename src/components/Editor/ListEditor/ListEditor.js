@@ -2,6 +2,7 @@ import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { Text20, Text30 } from '../../../theme/text';
+import RequiredText from '../../RequiredText/RequiredText';
 import { FormStyled } from '../style';
 
 const RemoveButton = styled(Button)`
@@ -46,7 +47,7 @@ const AddTaskForm = ({ addTask, placeholder }) => {
     );
 }
 
-const ListEditor = ({ title, text, placeholder, handleAddImpact,handleRemoveImpact, item, ...rest }) => {
+const ListEditor = ({ title, text, placeholder, handleAddImpact,handleRemoveImpact, item,required, ...rest }) => {
 
     // const dispatch = useDispatch()
     const [tasks, setTasks] = useState([...item]);
@@ -87,6 +88,7 @@ const ListEditor = ({ title, text, placeholder, handleAddImpact,handleRemoveImpa
                 ))}
             </ul>
             <AddTaskForm addTask={addTask} placeholder={placeholder} />
+            {required && <RequiredText />}
         </Box>
     )
 }

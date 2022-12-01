@@ -1,7 +1,6 @@
-import { Box, Heading, Text } from "@chakra-ui/react"
+import { Box} from "@chakra-ui/react"
 import styled from "@emotion/styled"
 // import { Text30,Text65 } from "../../theme/text"
-
 
 export const Title = styled.h2`
     line-height: 1.2461538461538462;
@@ -19,6 +18,7 @@ export const Paragraph = styled.p`
         font-size: 30px;
     }
 `
+
 export default function SectionTitle({title,icon,text,...rest}){
     return(
         <Box {...rest} textAlign="center">

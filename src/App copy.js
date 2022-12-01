@@ -1,22 +1,28 @@
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
 import './App.css';
-import Loader from "./components/Loaders/Loading";
-import { useGetAdminQuery } from "./features/admin/adminApi";
 // import PublicRoutes from "./components/PrivateRoutes";
+import { useCallback } from "react";
+import { hotjar } from 'react-hotjar';
+import EmailTemplateFive from "./container/EmailPreview/EmailTemplateFive";
+import EmailTemplateFour from "./container/EmailPreview/EmailTemplateFour";
+import EmailTemplateOne from "./container/EmailPreview/EmailTemplateOne";
+import EmailTemplateThree from "./container/EmailPreview/EmailTemplateThree";
+import EmailTemplateTwo from "./container/EmailPreview/EmailTemplateTwo";
 import { useGetUserQuery } from "./features/user/userApi";
-import { setEventConfirmed, setTemplateLength } from "./features/user/userSlice";
+import { setTemplateLength, setUser } from "./features/user/userSlice";
 import auth from "./firebase.init";
 import Layout from "./layout";
+import Header from "./layout/Header";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserDetail from "./pages/Admin/UserDetail";
 import UserMaster from "./pages/Admin/UserMaster";
 import UserTemplates from "./pages/Admin/UserTemplates";
-import EmailPreview from "./pages/Admin/UserTemplates/EmailPreview";
+import Preview from "./pages/Admin/UserTemplates/Preview";
 import Appointment from "./pages/Appointment";
-import EmailDashboard from "./pages/EmailDashboard";
+import EmailFinal from "./pages/EmailFinal";
 import Emails from "./pages/Emails/Emails";
 import EventConfirmedDashboard from "./pages/EventConfirmedDashboard";
 import FinalConfirmation from "./pages/FinalConfirmation";
@@ -26,151 +32,124 @@ import Register from "./pages/Login/Register";
 import Master from "./pages/Master";
 import Membership from "./pages/Membership";
 import PaymentSuccess from "./pages/Membership/PaymentSuccess";
+import NotFound from "./pages/NotFound";
 import UserDashboard from "./pages/UserDashboard";
-import RequireAuth from "./routes/middleware/RequireAuth/RequireAuth";
-import RequirePayment from "./routes/middleware/RequirePayment/RequirePayment";
-import PrivateRoutes from "./routes/PrivateRoutes";
+import { RequireAdmin, RequireAuth, RequireConfirmedUser, RequirePayment } from "./routes/middleware";
+import { NewUserRoute, OldUserRoute } from "./routes/PrivateRoutes";
+import AdminRoute from "./routes/PrivateRoutes/AdminRoute";
+import Loader from "./ui/Loaders/Loading";
+import trackPathForAnalytics from "./utils/trackPageForAnalytics";
 
 function App() {
 
-  const location = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { pathname, search } = useLocation();
   const [user, loading, error] = useAuthState(auth);
-  const from = location.state?.from?.pathname || '/';
 
-  const { data: adminData, isLoading: adminLoading, isError: adminError } = useGetAdminQuery(user?.email);
   const { data: userData, isLoading: userLoading, isError: userError } = useGetUserQuery(user?.email);
-  const { admin: adminState, user: userState, payment } = useSelector(state => state);
 
+  // HOTJAR INITIALIZE
+  useEffect(() => {
+    hotjar.initialize(3199799, 6)
+  }, [])
+
+  // Check if Hotjar has been initialized before calling its methods
+  if (hotjar.initialized()) {
+    hotjar.identify('USER_ID', { userProperty: 'value' });
+  }
+
+  // scroll to top when path changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }, [pathname]);
+
+  // if userData is true dispatch template length and user with userdata
   useEffect(() => {
     if (userData) {
       dispatch(setTemplateLength(userData?.templates?.length))
-      dispatch(setEventConfirmed(userData?.eventConfirmed))
+      dispatch(setUser(userData))
     }
-  }, [userData, user])
+  }, [userData])
 
-  if (loading || adminLoading || userLoading || userState === undefined || adminState === undefined) {
+  // GOOGLE ANALYTICS
+  const analytics = useCallback(() => {
+    trackPathForAnalytics({ path: pathname, search: search, title: pathname.split("/")[1] });
+  }, [pathname, search]);
+
+  useEffect(() => {
+    analytics();
+  }, [analytics]);
+
+  if (userLoading) {
     return <Loader />
   }
 
   return (
-    <Routes>
-      <Route element={<RequireAuth />}>
-        <Route element={<Layout />}>
-          <Route path="/" element={<PrivateRoutes condition={user && !adminState?.admin && !userState?.eventConfirmed} to="/user" />}>
-            <Route element={<RequirePayment />}>
-              <Route index element={<Goals />} />
-              <Route path="dashboard" element={<UserDashboard />} />
-              <Route path="email/:id" element={<EmailDashboard />} />
-              <Route path="master" element={<Master />} />
-              <Route path="emails" element={<Emails />} />
-              <Route path="success" element={<PaymentSuccess />} />
-              <Route path="appointment" element={<Appointment />} />
+    <>
+      <Header />
+      <Routes>
+        <Route element={<RequireAuth />}>
+
+          {/* Routes For New User Who Isnt completed their template confirmation and event scheduling */}
+          <Route element={<NewUserRoute />}>
+            <Route path="/" element={<Layout />}>
+              <Route element={<RequirePayment />}>
+                <Route index element={<Goals />} />
+                <Route path="dashboard" element={<UserDashboard />} />
+                {/* <Route path="email/:id" element={<EmailDashboard />} /> */}
+                <Route path="master" element={<Master />} />
+                {/* <Route path="emails" element={<Emails />} /> */}
+                <Route path="email">
+                  <Route index element={<Emails/>}/>
+                  <Route path="1" element={<EmailTemplateOne />} />
+                  <Route path="2" element={<EmailTemplateTwo />} />
+                  <Route path="3" element={<EmailTemplateThree />} />
+                  <Route path="4" element={<EmailTemplateFour />} />
+                  <Route path="5" element={<EmailTemplateFive />} />
+                </Route>
+                <Route path="email-final" element={<EmailFinal />} />
+                <Route path="success" element={<PaymentSuccess />} />
+                <Route path="appointment" element={<Appointment />} />
+              </Route>
             </Route>
             <Route path="/membership" element={<Membership />} />
           </Route>
-          <Route
-            path="final"
-            element={
-              <FinalConfirmation />
-            } />
-          <Route path="/user" element={
-            <PrivateRoutes
-              condition={user && !adminState?.admin && userState?.eventConfirmed}
-              to="/admin" />
-          }>
-            <Route index element={<EventConfirmedDashboard />} />
+
+          {/* Routes For Old user who has confirmed their template and scheduled event */}
+          <Route element={<OldUserRoute />}>
+            <Route path="/final" element={<FinalConfirmation />} />
+            <Route path="/user" element={<Layout />}>
+              <Route element={<RequireConfirmedUser />}>
+                <Route index element={<EventConfirmedDashboard />} />
+              </Route>
+            </Route>
           </Route>
-          <Route
-            path="/admin"
-            element={
-              <PrivateRoutes
-                condition={user && adminState?.admin}
-                to="/" />
-            }>
-            <Route index element={<Dashboard />} />
-            <Route path="/admin/user/:email" element={<UserDetail />} />
-            <Route path="/admin/master/:email" element={<UserMaster />} />
-            <Route path="/admin/templates/:email" element={<UserTemplates />} />
-            <Route path="/admin/template/:id" element={<EmailPreview />} />
+
+          {/* Admin Routes */}
+          <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<Layout />}>
+              <Route element={<RequireAdmin />}>
+                <Route index element={<Dashboard />} />
+                <Route path="/admin/user/:email" element={<UserDetail />} />
+                <Route path="/admin/master/:email" element={<UserMaster />} />
+                <Route path="/admin/templates/:email" element={<UserTemplates />} />
+                <Route path="/admin/template/:id" element={<Preview />} />
+              </Route>
+            </Route>
           </Route>
+
         </Route>
-      </Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Login />}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </>
   );
 }
 
 export default App;
-
-/* 
-<Routes>
-        <Route path="/" element={
-          <RequireAuth>
-            <Layout isLoading={isUserLoading}/>
-          </RequireAuth>
-        }>
-          <Route index element={
-            <Goals />} />
-          <Route path="dashboard" element={
-            <UserDashboard />
-          } />
-          <Route path="emails/:id" element={
-
-            <EmailDashboard />
-          } />
-          <Route path="master" element={
-
-            <Master />
-          } />
-          <Route path="emails" element={
-
-            <Emails />
-          } />
-          <Route path="membership" element={<Membership />} />
-          <Route path="membership/:email/:amount" element={<CheckoutPage />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-*/
-
-
-
-/* 
-
-
- // <Routes>
-    //   <Route element={<RequireAuth />}>
-    //     <Route element={<RequirePayment />}>
-    //       <Route path="/" element={<Layout />}>
-    //         <Route index element={<Goals />} />
-    //         <Route path="dashboard" element={<UserDashboard />} />
-    //         <Route path="email/:id" element={<EmailDashboard />} />
-    //         <Route path="master" element={<Master />} />
-    //         <Route path="emails" element={<Emails />} />
-    //         <Route path="success" element={<PaymentSuccess />} />
-    //         <Route path="appointment" element={<Appointment />} />
-    //         <Route path="final" element={<FinalConfirmation />} />
-    //       </Route>
-    //     </Route>
-    //     <Route path="membership" element={<Membership />} />
-    //     <Route element={<RequireEvent />}>
-    //       <Route path="/user" />
-    //     </Route>
-    //   </Route>
-    //   <Route element={<RequireAdmin />}>
-    //     <Route path="/admin" element={<Admin />}>
-    //       <Route index element={<Dashboard />} />
-    //       <Route path="/admin/user/:email" element={<UserDetail />} />
-    //       <Route path="/admin/master/:email" element={<UserMaster />} />
-    //       <Route path="/admin/templates/:email" element={<UserTemplates />} />
-    //       <Route path="/admin/template/:id" element={<Preview />} />
-    //     </Route>
-    //   </Route>
-    //   <Route path="/login" element={<Login />} />
-    //   <Route path="/register" element={<Register />} />
-    // </Routes>
-*/

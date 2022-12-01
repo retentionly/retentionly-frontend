@@ -3,7 +3,8 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../../../ui/Loaders/Loading';
 
 const RequirePayment = () => {
-    const { paymentStatus, eventCofirmed } = useSelector(state => state.user)
+    // const { paymentStatus, eventCofirmed } = useSelector(state => state.user)
+    const { paymentStatus } = useSelector(state => state.user)
     const location = useLocation()
 
     if (paymentStatus === undefined) {
