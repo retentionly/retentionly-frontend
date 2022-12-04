@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const ServiceStyled = styled.div`
-
+padding-top: 50px;
 padding-bottom: 50px;
 text-align:center;
 .cta-title{

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const BenefitStyled = styled.div`
-padding: 50px 0;
+padding-top: 50px;
 `
 
 export const BenefitsContainer = styled.div`

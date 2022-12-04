@@ -8,7 +8,7 @@ export const HeaderSecondaryStyled = styled.header`
     z-index: 999;
     display:flex;
     align-items:center;
-    padding: 0; 
+    padding: 0 14px 0 0; 
     .header-logo{
         background:#fff;
         display:flex;
@@ -57,7 +57,6 @@ export const HeaderSecondaryStyled = styled.header`
         &-wrapper{
             @media (min-width:768px){
                 flex-shrink:0;
-                width:50%;
             }
         }
         @media (min-width:767px){
@@ -140,6 +139,7 @@ export const Menu = styled.ul`
     .demo {
         background: #000;
         padding: 5px;
+        margin-right: 10px;
         a {
             background: #000;
             color: #fff;

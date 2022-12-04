@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const PricingStyled = styled.div`
+padding-top: 100px;
 padding-bottom: 50px;
 .pricing-cards {
     display: flex;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const FaqStyled = styled.div`
-    padding-top: 50px;
+    padding-top: 100px;
     padding-bottom: 50px;
     .section-title{
         text-align:center;

@@ -8,7 +8,7 @@ export const HeaderStyled = styled.header`
     z-index: 999;
     display:flex;
     align-items:center;
-    padding: 0; 
+    padding: 0 14px 0 0; 
     .header-logo{
         background:#fff;
         display:flex;
@@ -59,7 +59,7 @@ export const HeaderStyled = styled.header`
         &-wrapper{
             @media (min-width:768px){
                 flex-shrink:0;
-                width:50%;
+                width: 150px;
             }
         }
         @media (min-width:767px){
