@@ -51,11 +51,11 @@ function App() {
   const { data: userData, isLoading: userLoading, isError: userError } = useGetUserQuery(user?.email);
 
   useEffect(() => {
-    if (user && first) {
-      navigate('/goals')
+    if (userData && first) {
+      !userData.paymentStatus ? navigate("/membership") : userData.eventConfirmed ? navigate("/final") : navigate("/goals");
       setFirst(false)
     }
-  }, [user, first])
+  }, [userData, first])
 
   // HOTJAR INITIALIZE
   useEffect(() => {
