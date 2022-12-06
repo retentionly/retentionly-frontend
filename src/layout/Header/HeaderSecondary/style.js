@@ -133,8 +133,6 @@ export const Menu = styled.ul`
         @media (max-width: 991px) {
             display: block;
         }
-
-       
     }
     .demo {
         background: #000;

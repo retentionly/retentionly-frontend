@@ -6,7 +6,7 @@ import ServiceCardStyled from '../style'
 
 const ServiceCard = (item) => {
     const { media, title, text, rtl } = item
-    console.log(item)
+
     return (
         <ServiceCardStyled>
             {

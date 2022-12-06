@@ -191,11 +191,6 @@ const Master = () => {
 
     // UPLOAD IMAGE AND GET URL FUNCTION
 
-
-    const checkValidation = () => {
-        console.log(masterState)
-    }
-
     if (editMasterData?.success) {
         navigate('/email')
     }

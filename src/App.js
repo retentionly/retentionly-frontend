@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import './App.css';
 // import PublicRoutes from "./components/PrivateRoutes";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { hotjar } from 'react-hotjar';
 import EmailTemplateFive from "./container/EmailPreview/EmailTemplateFive";
 import EmailTemplateFour from "./container/EmailPreview/EmailTemplateFour";
@@ -42,12 +42,20 @@ import Loader from "./ui/Loaders/Loading";
 import trackPathForAnalytics from "./utils/trackPageForAnalytics";
 
 function App() {
-
+  const [first, setFirst] = useState(true);
   const dispatch = useDispatch();
   const { pathname, search } = useLocation();
+  const navigate = useNavigate();
   const [user, loading, error] = useAuthState(auth);
 
   const { data: userData, isLoading: userLoading, isError: userError } = useGetUserQuery(user?.email);
+
+  useEffect(() => {
+    if (user && first) {
+      navigate('/goals')
+      setFirst(false)
+    }
+  }, [user, first])
 
   // HOTJAR INITIALIZE
   useEffect(() => {
