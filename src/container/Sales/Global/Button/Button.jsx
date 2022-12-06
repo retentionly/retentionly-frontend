@@ -10,7 +10,7 @@ const Button = styled.a`
     margin: 20px auto 0;
 
     @media (min-width: 992px) {
-        margin: 20px auto 0;
+        margin: 20px 0 0;
     }
 `
 function BookButton({children,...rest}) {

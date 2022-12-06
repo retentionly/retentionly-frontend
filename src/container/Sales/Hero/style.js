@@ -29,6 +29,7 @@ width: 100%;
 
 &.hero-image{
     display: block;
+    width: 500px
     
     @media(max-width:575px){
         display: none;
@@ -45,6 +46,7 @@ width: 100%;
 
 &.hero-text {
     max-width: 350px;
+    width: 100%;
     text-align: center;
 
     .underline-shape {
@@ -53,7 +55,13 @@ width: 100%;
  
     @media (min-width: 992px) {
         text-align: left;
-        max-width: 100%;
+        max-width: 500px;
+        height: 484px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+        width: 100%;
     }
     h2{
         ${text_53};
