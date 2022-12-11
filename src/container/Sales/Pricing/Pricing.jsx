@@ -2,7 +2,8 @@ import React from 'react'
 import { text_22, text_30 } from '../../../theme/typography'
 import Container from '../Global/Container'
 import Typography from '../Global/Typography'
-import PricingDetails from './PricingDetails'
+import CardPrice from './CardPrice'
+import PricingCard from './PricingCard'
 import { PricingStyled } from './style'
 
 const data = [
@@ -51,10 +52,14 @@ const Pricing = () => {
                         This sounds great. But how much will it really cost you?
                     </Typography>
                 </div>
-                <div className="pricing-cards">
+                {/* <div className="pricing-cards">
                     {
                         data.map((item) => <PricingDetails data={item} />)
                     }
+                </div> */}
+                <div className="pricing-cards">
+                    <PricingCard/>
+                    <CardPrice/>
                 </div>
                 <div className='pricing-footer'>
                     <Typography variant={text_22}>
