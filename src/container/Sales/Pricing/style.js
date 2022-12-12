@@ -48,7 +48,7 @@ min-width: 300px;
 
 export const CardStyled = styled.div`
 border: 4px solid #000;
-padding: 20px;
+padding: 20px 30px;
 max-width: 600px;
 
 .slider-range {
@@ -86,7 +86,7 @@ max-width: 600px;
             font-size: 2rem;
         }
         p {
-            font-size: 26px;
+            font-size: 1.5rem;
         }
     }
 }
@@ -102,6 +102,8 @@ max-width: 600px;
 }
 
 .slider-container {
+    margin-top: 20px;
+
     input {
         -webkit-appearance: none;
         height: 3px;
@@ -123,58 +125,7 @@ max-width: 600px;
     }
 }
 
-.slider-container {
-    .slider {
-        height: 5px;
-        position: relative;
-        background: #ddd;
-        border-radius: 5px;
 
-        .progress {
-            height: 100%;
-            left: 25%;
-            right: 25%;
-            position: absolute;
-            border-radius: 5px;
-            background: #17A2B8;
-        }
-    }
-    .range-input {
-        position: relative;
-
-        input {
-            position: absolute;
-            width: 100%;
-            height: 5px;
-            top: -5px;
-            background: none;
-            pointer-events: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            height: 17px;
-            width: 17px;
-            border-radius: 50%;
-            background: #17A2B8;
-            pointer-events: auto;
-            -webkit-appearance: none;
-            box-shadow: 0 0 6px rgba(0,0,0,0.05);
-        }
-        input[type="range"]::-moz-range-thumb {
-            height: 17px;
-            width: 17px;
-            border: none;
-            border-radius: 50%;
-            background: #17A2B8;
-            pointer-events: auto;
-            -moz-appearance: none;
-            box-shadow: 0 0 6px rgba(0,0,0,0.05);
-        }
-
-    }
-}
 
 .card-perks {
     margin-top: 20px;
