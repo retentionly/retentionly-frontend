@@ -1,8 +1,9 @@
 import React from 'react'
+import safetySvg from "../../../assets/svg/safety.svg"
 import BookButton from '../Global/Button/Button'
 import { CardPriceStyled } from './style'
 
-const CardPrice = () => {
+const CardPrice = ({ price }) => {
     return (
         <>
             <CardPriceStyled>
@@ -10,13 +11,17 @@ const CardPrice = () => {
                     <h2>Total Price</h2>
                 </div>
                 <div className="card-price">
-                    <h2>£70</h2>
+                    <h2>£{price}</h2>
                 </div>
                 <div className='card-footer'>
                     <BookButton to="/book-a-demo" className="cta-button">Get Started</BookButton>
-                    <p>
-                        If you are not blown away by the results, we will refund you 100% of your money.
-                    </p>
+                    <div className='footer-text'>
+                        <img src={safetySvg} alt="" />
+                        <p>
+                            If you are not blown away by the results, we will refund you 100% of your money.
+                        </p>
+                    </div>
+
                 </div>
             </CardPriceStyled>
         </>

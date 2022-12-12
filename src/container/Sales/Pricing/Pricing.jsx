@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { text_22, text_30 } from '../../../theme/typography'
 import Container from '../Global/Container'
 import Typography from '../Global/Typography'
@@ -41,6 +41,7 @@ const data = [
 ]
 
 const Pricing = () => {
+    const [price, setPrice] = useState(0);
     return (
         <PricingStyled id='pricing'>
             <Container>
@@ -58,8 +59,8 @@ const Pricing = () => {
                     }
                 </div> */}
                 <div className="pricing-cards">
-                    <PricingCard/>
-                    <CardPrice/>
+                    <PricingCard price={price} setPrice={setPrice}/>
+                    <CardPrice price={price}/>
                 </div>
                 <div className='pricing-footer'>
                     <Typography variant={text_22}>

@@ -1,14 +1,20 @@
 import React from 'react';
 import tick from '../../../assets/png/pricing-tick.png';
 import { text_22 } from '../../../theme/typography';
+import BookButton from '../Global/Button/Button';
 import Typography from '../Global/Typography';
 import { CardStyled } from './style';
 
-const PricingCard = ({ title, description, price }) => {
-    const [sliderValue, setSliderValue] = React.useState(0)
+
+const PricingCard = ({ title, description, price, setPrice }) => {
+    // const [sliderValue, setSliderValue] = useState(0)
 
     const handleSliderChange = (e) => {
-        setSliderValue(e.target.value)
+        setPrice(e.target.value)
+    }
+
+    const getBackgroundSize = () => {
+        return { backgroundSize: `${(price * 100) / 10000}% 100%` }
     }
 
     const perks = [
@@ -26,11 +32,23 @@ const PricingCard = ({ title, description, price }) => {
                     <p>{description || 'We simply charge £1 per donor journey. So use the slider below and select how many new donors you want to reach out to. '}</p>
                 </div>
                 <div className="card-donor">
-                    <input className='slider-range' type="range" value={sliderValue} min={1} max={1000} onChange={handleSliderChange} />
-                    <div className="card-price-mobile">
-                        <h2>£70</h2>
+                    {/* <input className='slider-range' type="range" value={sliderValue} min={1} max={1000} onChange={handleSliderChange} /> */}
+                    <div className="slider-container">
+                        <input
+                            type="range"
+                            name='slider'
+                            min={1}
+                            max={10000}
+                            value={price}
+                            onChange={handleSliderChange}
+                            style={getBackgroundSize()} />
                     </div>
-                    <h3 className="donor-value">Number of new donors: {sliderValue}</h3>
+                    <h3 className="donor-value">Number of new donors: {price}</h3>
+                    <div className="card-price-mobile">
+                        <h2>£{price}</h2>
+                        <BookButton to="/book-a-demo" className="cta-button">Get Started</BookButton>
+                    </div>
+
                 </div>
                 <div className="card-perks">
                     <ul>

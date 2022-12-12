@@ -6,6 +6,7 @@ padding-bottom: 50px;
 .pricing-cards {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     column-gap: 30px;
     margin: 40px 0 20px;
 }
@@ -74,7 +75,7 @@ max-width: 600px;
 
 .card-title {
     h2 {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
     p {
         font-size: 1rem;
@@ -91,11 +92,87 @@ max-width: 600px;
 }
 .card-donor {
     .donor-value {
-        font-size: 14px;
+        margin-top: 20px;
+        font-size: 1.5rem;
 
         @media (min-width: 992px) {
-            font-size: 26px;
+            font-size: 1.75rem;
         }
+    }
+}
+
+.slider-container {
+    input {
+        -webkit-appearance: none;
+        height: 3px;
+        background: #ddd;
+        border-radius: 5px;
+        background-image: linear-gradient(#FFC3C4, #FFC3C4);
+        background-repeat: no-repeat;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 1rem;
+        height: 1rem;
+        background: #FFC3C4;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+.slider-container {
+    .slider {
+        height: 5px;
+        position: relative;
+        background: #ddd;
+        border-radius: 5px;
+
+        .progress {
+            height: 100%;
+            left: 25%;
+            right: 25%;
+            position: absolute;
+            border-radius: 5px;
+            background: #17A2B8;
+        }
+    }
+    .range-input {
+        position: relative;
+
+        input {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            top: -5px;
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            height: 17px;
+            width: 17px;
+            border-radius: 50%;
+            background: #17A2B8;
+            pointer-events: auto;
+            -webkit-appearance: none;
+            box-shadow: 0 0 6px rgba(0,0,0,0.05);
+        }
+        input[type="range"]::-moz-range-thumb {
+            height: 17px;
+            width: 17px;
+            border: none;
+            border-radius: 50%;
+            background: #17A2B8;
+            pointer-events: auto;
+            -moz-appearance: none;
+            box-shadow: 0 0 6px rgba(0,0,0,0.05);
+        }
+
     }
 }
 
@@ -127,6 +204,11 @@ max-width: 600px;
     h2 {
         font-size: 4rem;
     }
+
+    .cta-button {
+        width: 100%;
+    text-align: center;
+    }
 }
 
 `
@@ -139,7 +221,7 @@ display: none;
 }
 
 border: 4px solid #000;
-padding: 20px;
+padding: 40px;
 max-width: 600px;
 
 .card-title {
@@ -153,9 +235,17 @@ max-width: 600px;
         font-size: 4rem;
     }
 }
-.card-footer {
+.footer-text {
+    margin-top: 20px;
+    display: flex;
+
+    img {
+        width: 100px;
+        margin-left: -20px;
+    }
     p {
         font-size: 1rem;
+        font-weight: 600;
     }
 }
 `
