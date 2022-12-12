@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const PricingStyled = styled.div`
 padding-top: 100px;
-padding-bottom: 50px;
+padding-bottom: 100px;
 .pricing-cards {
     display: flex;
     justify-content: center;
@@ -13,6 +13,7 @@ padding-bottom: 50px;
 .pricing-footer {
     font-weight: 600;
     text-align: center;
+    margin-top: 50px;
 }
 `
 
@@ -78,6 +79,7 @@ max-width: 600px;
         font-size: 1.5rem;
     }
     p {
+        margin-top: 15px;
         font-size: 1rem;
     }
 
