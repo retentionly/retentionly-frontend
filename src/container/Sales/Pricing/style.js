@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const PricingStyled = styled.div`
 padding-top: 100px;
 padding-bottom: 100px;
+
 .pricing-cards {
     display: flex;
     justify-content: center;
