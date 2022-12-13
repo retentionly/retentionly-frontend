@@ -1,5 +1,5 @@
 import React from 'react'
-import safetySvg from "../../../assets/svg/safety.svg"
+import safetySvg from "../../../assets/png/safety.png"
 import BookButton from '../Global/Button/Button'
 import { CardPriceStyled } from './style'
 
