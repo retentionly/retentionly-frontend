@@ -253,6 +253,8 @@ So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                             urlError={urlError}
                             handleGreetingError={handleGreetingError}
                             handleSalutationError={handleSalutationError}
+                            handleCompanyEmailError={handleCompanyEmailError}
+                            handleCompanyNameError={handleCompanyNameError}
                             handleSenderError={handleSenderError}
                             handleUrlError={handleUrlError}
                             error={error}

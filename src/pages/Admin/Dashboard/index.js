@@ -27,7 +27,7 @@ const Dashboard = () => {
                 <Box maxW="600px" mx="auto">
                     {
                         data?.map((e) => {
-                            if (e.email === user?.email) {
+                            if (e.email === user?.email || e.role === 'admin') {
                                 return null
                             } else {
                                 return <Box key={e.uniqueID}>

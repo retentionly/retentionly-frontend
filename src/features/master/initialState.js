@@ -6,6 +6,18 @@ const initialState = {
       children: [{ text: "" }]
     }
   ],
+  companyName: [
+    {
+      type: "paragaph",
+      children: [{ text: "" }]
+    }
+  ],
+  companyEmail: [
+    {
+      type: "paragaph",
+      children: [{ text: "" }]
+    }
+  ],
   salutations: [
     {
       type: "paragaph",

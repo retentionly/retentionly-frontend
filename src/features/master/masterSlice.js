@@ -10,6 +10,12 @@ const masterSlice = createSlice({
         setLogo: (state, action) => {
             state.logo = action.payload
         },
+        setCompanyName: (state, action) => {
+            state.companyName = action.payload
+        },
+        setCompanyEmail: (state, action) => {
+            state.companyEmail = action.payload
+        },
         setGreeting: (state, action) => {
             state.greeting = action.payload
         },
@@ -24,6 +30,8 @@ const masterSlice = createSlice({
         },
         setMaster: (state, action) => {
             state.logo = action.payload.logo;
+            state.companyName = action.payload.companyName;
+            state.companyEmail = action.payload.companyEmail;
             state.greeting = action.payload.greeting;
             state.salutations = action.payload.salutations;
             state.sender = action.payload.sender;

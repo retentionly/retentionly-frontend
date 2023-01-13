@@ -38,12 +38,13 @@ const UserMaster = () => {
     const navigate = useNavigate();
 
     const { data, isLoading, isError } = useGetMasterQuery(email);
-    const { logo, greeting, salutations, sender, url } = data?.master || {}
+    const { logo,companyName, companyEmail, greeting, salutations, sender, url } = data?.master || {}
     
     if (isLoading) {
         return <Loader />
     }
 
+    console.log('url',url)
     const urlText = url[0]?.children[0]?.text;
     const link = urlText && (urlText?.includes("https://") ? urlText : `https://${urlText}`)
 
@@ -54,6 +55,8 @@ const UserMaster = () => {
     const greetingText = getPlainText(greeting);
     const salutationsText = getPlainText(salutations);
     const senderText = getPlainText(sender);
+    const companyNameText = getPlainText(companyName);
+    const companyEmailText = getPlainText(companyEmail);
 
     return (
         <PageWrapper>
@@ -103,6 +106,32 @@ const UserMaster = () => {
                                             <Button onClick={downloadImage} disabled={!logo} type="button">
                                                 download
                                             </Button>
+                                        </Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Td>
+                                            <TextStyled>
+                                                Company Name
+                                            </TextStyled>
+                                        </Td>
+                                        <Td>
+                                            <PreviewText data={companyName} placeholder={'Nothing Inserted'} />
+                                        </Td>
+                                        <Td>
+                                            <CopyText value={companyNameText} />
+                                        </Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Td>
+                                            <TextStyled>
+                                                Company Email
+                                            </TextStyled>
+                                        </Td>
+                                        <Td>
+                                            <PreviewText data={companyEmail} placeholder={'Nothing Inserted'} />
+                                        </Td>
+                                        <Td>
+                                            <CopyText value={companyEmailText} />
                                         </Td>
                                     </Tr>
                                     <Tr>

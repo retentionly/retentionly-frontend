@@ -22,8 +22,6 @@ const EditingBlockRight = ({
     const { master } = useSelector((state) => state.templates);
     const { greeting,companyEmail, companyName, salutations, sender, url } = master;
 
-    console.log(companyEmail,companyName);
-
     const handleGreetings = (e) => {
         handleGreetingError(e[0].children[0].text);
         dispatch(setMaster({

@@ -1,15 +1,19 @@
-import { Text } from "@chakra-ui/react"
-import styled from "@emotion/styled"
+import { Text } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
 
 export default function PreviewFooter({style}){
+    const master = useSelector(state => state.master);
+    const { companyName, companyEmail } = master;
+    const nameText = companyName[0]?.children[0]?.text;
+    const emailText = companyEmail[0]?.children[0]?.text;
+
     return(
         <PreviewFooterStyled {...style}>
             <Text>
-                Copyright © 2020, Al Isharah, All rights reserved.
+                Copyright © 2020, {nameText} , All rights reserved.
             </Text>
-            <Text>Our mailing address is:
-                info@alisharah.com
-            </Text>
+            <Text>Our mailing address is: {emailText} </Text>
             <Text>
                 Want to change how you receive these emails?
                 You can update your preferences or unsubscribe from this list.
