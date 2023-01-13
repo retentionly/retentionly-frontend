@@ -44,7 +44,6 @@ const UserMaster = () => {
         return <Loader />
     }
 
-    console.log('url',url)
     const urlText = url[0]?.children[0]?.text;
     const link = urlText && (urlText?.includes("https://") ? urlText : `https://${urlText}`)
 
@@ -61,10 +60,7 @@ const UserMaster = () => {
     return (
         <PageWrapper>
             <Container>
-                {/* <Flex justify={"space-between"} >
-                    <NavigationButton imageProps={{ w: "50px", mr: "10px" }} onClick={() => navigate(-1)}>
-                    </NavigationButton>
-                </Flex> */}
+               
                 <SectionTitle title="Master" text="These certains elements will be on all your donations. 
         So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                 <Flex color='white' justifyContent={"space-around"} alignItems="center">
