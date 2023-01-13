@@ -47,7 +47,6 @@ const Login = () => {
             .required('Required'),
     });
 
-
     // AUTHENTICATE USER FROM FIREBASE
     const [
         signInWithEmailAndPassword,
@@ -92,74 +91,74 @@ const Login = () => {
 
     return (
         <>
-        <HeaderSecondary/>
-        <PageWrapper>
-            <Container maxW={800}>
-                <SectionTitle title="Welcome Back! 🤗" text="We’re so happy to have you back. 
+            <HeaderSecondary />
+            <PageWrapper>
+                <Container maxW={800}>
+                    <SectionTitle title="Welcome Back! 🤗" text="We’re so happy to have you back. 
 That’s how we want you to feel about your donors." mb={["40px", { lg: "80px" }]} />
-                <Box maxW={450} mb={["30px", { lg: "60px" }]} mx="auto">
+                    <Box maxW={450} mb={["30px", { lg: "60px" }]} mx="auto">
 
-                    <Formik
-                        initialValues={{
-                            email: '',
-                            password: '',
-                        }}
-                        validationSchema={SigninSchema}
-                        onSubmit={values => {
-                            // same shape as initial values
+                        <Formik
+                            initialValues={{
+                                email: '',
+                                password: '',
+                            }}
+                            validationSchema={SigninSchema}
+                            onSubmit={values => {
+                                // same shape as initial values
 
-                            handleSubmit(values)
-                        }}
-                    >
-                        {({ errors, touched }) => (
-                            <Form>
+                                handleSubmit(values)
+                            }}
+                        >
+                            {({ errors, touched }) => (
+                                <Form>
 
-                                {/* Login Email Input Field */}
-                                <InputContainer>
-                                    <InputDivStyled>
-                                        <InputStyled name="email" type="email" placeholder="Email:" />
-                                    </InputDivStyled>
-                                    {errors.email && touched.email ? (
-                                        <ErrorMessageBox>
-                                            <span>
-                                                {errors.email}
-                                            </span>
-                                        </ErrorMessageBox>
-                                    ) : null}
-                                </InputContainer>
+                                    {/* Login Email Input Field */}
+                                    <InputContainer>
+                                        <InputDivStyled>
+                                            <InputStyled name="email" type="email" placeholder="Email:" />
+                                        </InputDivStyled>
+                                        {errors.email && touched.email ? (
+                                            <ErrorMessageBox>
+                                                <span>
+                                                    {errors.email}
+                                                </span>
+                                            </ErrorMessageBox>
+                                        ) : null}
+                                    </InputContainer>
 
-                                {/* Login Password Input Field */}
-                                <InputContainer>
-                                    <InputDivStyled>
-                                        <InputStyled name="password" type="password" placeholder="Password:" />
-                                    </InputDivStyled>
-                                    {errors.password && touched.password ? (
-                                        <ErrorMessageBox>
-                                            <span>{errors.password}</span>
-                                        </ErrorMessageBox>
-                                    ) : null}
-                                </InputContainer>
+                                    {/* Login Password Input Field */}
+                                    <InputContainer>
+                                        <InputDivStyled>
+                                            <InputStyled name="password" type="password" placeholder="Password:" />
+                                        </InputDivStyled>
+                                        {errors.password && touched.password ? (
+                                            <ErrorMessageBox>
+                                                <span>{errors.password}</span>
+                                            </ErrorMessageBox>
+                                        ) : null}
+                                    </InputContainer>
 
-                                <Box maxW={550} mx="auto" mt="10px">
-                                    <Text {...Text20}>
-                                        Don't Have An Account?<br />
-                                        <LinkText to="/book-a-demo" as={Link}>
-                                            Book a free demo call to learn more
-                                        </LinkText>
-                                    </Text>
-                                </Box>
-                                <Box maxW={450} mx="auto" mt="60px">
-                                    <Button type="submit">
-                                        Login
-                                    </Button>
-                                </Box>
-                            </Form>
-                        )}
-                    </Formik>
-                </Box>
-            </Container >
-            <Toaster open={toasterOpen} message={errorMessage} status={'error'} />
-        </PageWrapper >
+                                    <Box maxW={550} mx="auto" mt="10px">
+                                        <Text {...Text20}>
+                                            Don't Have An Account?<br />
+                                            <LinkText to="/book-a-demo" as={Link}>
+                                                Book a free demo call to learn more
+                                            </LinkText>
+                                        </Text>
+                                    </Box>
+                                    <Box maxW={450} mx="auto" mt="60px">
+                                        <Button type="submit">
+                                            Login
+                                        </Button>
+                                    </Box>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Box>
+                </Container >
+                <Toaster open={toasterOpen} message={errorMessage} status={'error'} />
+            </PageWrapper >
         </>
     )
 }

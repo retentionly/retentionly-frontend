@@ -5,7 +5,6 @@ const initialState = {
     user: undefined
 };
 
-
 export const revertAllAuth = createAction('REVERT_ALL')
 const authSlice = createSlice({
     name: "auth",

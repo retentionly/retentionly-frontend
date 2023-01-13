@@ -7,8 +7,12 @@ const EditingBlockRight = ({
     greetingError,
     salutationError,
     senderError,
+    companyEmailError,
+    companyNameError,
     urlError,
     handleGreetingError,
+    handleCompanyNameError,
+    handleCompanyEmailError,
     handleSalutationError,
     handleSenderError,
     handleUrlError
@@ -16,13 +20,31 @@ const EditingBlockRight = ({
     const dispatch = useDispatch();
 
     const { master } = useSelector((state) => state.templates);
-    const { greeting, salutations, sender, url } = master;
+    const { greeting,companyEmail, companyName, salutations, sender, url } = master;
+
+    console.log(companyEmail,companyName);
 
     const handleGreetings = (e) => {
         handleGreetingError(e[0].children[0].text);
         dispatch(setMaster({
             ...master,
             greeting: e
+        }));
+    }
+
+    const handleCompanyName = (e) => {
+        handleCompanyNameError(e[0].children[0].text);
+        dispatch(setMaster({
+            ...master,
+            companyName: e
+        }));
+    }
+
+    const handleCompanyEmail = (e) => {
+        handleCompanyEmailError(e[0].children[0].text);
+        dispatch(setMaster({
+            ...master,
+            companyEmail: e
         }));
     }
 
@@ -91,6 +113,30 @@ const EditingBlockRight = ({
                     onChange={handleSender}
                     value={sender}
                     required={error && senderError}
+                />
+            }
+            {
+                companyName &&
+                <EditBlock
+                    title={"Company Name:"}
+                    text="Write Your Company Name"
+                    inputPlaceholder={`E.g. "The Breakfast Club”.`}
+                    mb="30px"
+                    onChange={handleCompanyName}
+                    value={companyName}
+                    required={error && companyNameError}
+                />
+            }
+            {
+                companyEmail &&
+                <EditBlock
+                    title={"Company Email:"}
+                    text="Write Your Company Email Address"
+                    inputPlaceholder={`E.g. "company@email.com”.  `}
+                    mb="30px"
+                    onChange={handleCompanyEmail}
+                    value={companyEmail}
+                    required={error && companyEmailError}
                 />
             }
             {

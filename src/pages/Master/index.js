@@ -40,6 +40,8 @@ const Master = () => {
     const { template } = useSelector((state) => state);
     const [imageError, setImageError] = useState(false);
     const [greetingError, setGreetingError] = useState(false);
+    const [companyNameError, setCompanyNameError] = useState(false);
+    const [companyEmailError, setCompanyEmailError] = useState(false);
     const [salutationError, setSalutationError] = useState(false);
     const [senderError, setSenderError] = useState(false);
     const [urlError, setUrlError] = useState(false);
@@ -109,6 +111,20 @@ const Master = () => {
             setGreetingError(true)
         }
     }
+    const handleCompanyNameError = (value) => {
+        if (value) {
+            setCompanyNameError(false)
+        } else {
+            setCompanyNameError(true)
+        }
+    }
+    const handleCompanyEmailError = (value) => {
+        if (value) {
+            setCompanyEmailError(false)
+        } else {
+            setCompanyEmailError(true)
+        }
+    }
     const handleSalutationError = (value) => {
         if (value) {
             setSalutationError(false)
@@ -135,6 +151,8 @@ const Master = () => {
         if (masterState) {
             handleImageError(logo || image?.src)
             handleGreetingError(getPlainText(masterState.greeting))
+            handleCompanyNameError(getPlainText(masterState.companyName))
+            handleCompanyEmailError(getPlainText(masterState.companyEmail))
             handleSalutationError(getPlainText(masterState.salutations))
             handleSenderError(getPlainText(masterState.sender))
             handleUrlError(getPlainText(masterState.url))
@@ -143,7 +161,6 @@ const Master = () => {
 
     // DRAG AND DROP FUNCTION
 
-  
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
 
         acceptedFiles.map((file) => {
@@ -229,6 +246,8 @@ So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                     <Box flex='1' maxW="420px" >
                         <EditingBlockRight
                             greetingError={greetingError}
+                            companyEmailError={companyEmailError}
+                            companyNameError={companyNameError}
                             salutationError={salutationError}
                             senderError={senderError}
                             urlError={urlError}
