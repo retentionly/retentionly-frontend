@@ -22,13 +22,13 @@ const ServiceCard = (item) => {
                             </Typography>
                         </ServiceCardStyled.Text>
                         <ServiceCardStyled.Media image={bg} rtl={rtl} className="service-media">
-                            <iframe src="https://www.youtube.com/embed/91BUM3WhCfo" title="Dolby Presents: The World Of Sound | Demo | Dolby Atmos | Dolby" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                           
+                            <iframe width="364" height="647" src="https://www.youtube.com/embed/bOGyZZdMeWM" title="Why Retentionly?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
                         </ServiceCardStyled.Media>
                     </>
                     : <>
                         <ServiceCardStyled.Media image={bg} rtl={rtl} className="service-media">
-                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="" className='service-image' />
+                        <iframe width="980" height="551" src="https://www.youtube.com/embed/RGr2CPzH-mA?list=PLhgn2wgfAGYRNNufP0L86NXBX68YZGUco" title="How Retentionly works" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </ServiceCardStyled.Media>
                         <ServiceCardStyled.Text className="service-text">
                             <Typography variant={text_30} as="h1">
