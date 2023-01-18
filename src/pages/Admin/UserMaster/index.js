@@ -1,7 +1,7 @@
 import { Box, Button, Container, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useClipboard } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { saveAs } from 'file-saver'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PreviewText from '../../../components/Template/PreviewText'
 import { useGetMasterQuery } from '../../../features/master/masterApi'
@@ -36,6 +36,7 @@ white-space: nowrap;
 const UserMaster = () => {
     const { email } = useParams();
     const navigate = useNavigate();
+  
 
     const { data, isLoading, isError } = useGetMasterQuery(email);
     const { logo,companyName, companyEmail, greeting, salutations, sender, url } = data?.master || {}

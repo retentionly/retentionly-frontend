@@ -13,7 +13,7 @@ border: 2px solid #000;
 color: #000;
 `
 
-export default function EditBlock({ inputPlaceholder, title, text, onChange, value, social,required, ...rest }) {
+function EditBlock({ inputPlaceholder, title, text, onChange, value, social,required, ...rest }) {
 
     return (
         <Box {...rest}>
@@ -34,10 +34,4 @@ export default function EditBlock({ inputPlaceholder, title, text, onChange, val
     )
 }
 
-/* 
-{
-                    textArea
-                        ? <TextAreaStyled placeholder={inputPlaceholder} ></TextAreaStyled>
-                        : <TextEditor placeholder={inputPlaceholder} handleInputChange={onChange} value={value} />
-                }
-*/
+export default EditBlock;

@@ -19,7 +19,7 @@ const HOTKEYS = {
 const LIST_TYPES = ["numbered-list", "bulleted-list"]
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"]
 
-const TextEditor = ({ placeholder, value, handleInputChange }) => {
+const TextEditor = ({ placeholder, value, handleInputChange}) => {
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])

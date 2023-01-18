@@ -64,9 +64,35 @@ const Master = () => {
 
     const { logo } = masterState;
 
+    const scrollToView = useCallback((id) => {
+        const element = document.getElementById(id);
+        console.log(element)
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, []);
+
     const handleSubmit = async () => {
-        if (imageError || greetingError || salutationError || senderError || urlError) {
+        if (imageError || greetingError || salutationError || senderError || companyNameError || companyEmailError || urlError) {
             setError(true)
+
+            // scroll to view error
+            if (imageError) {
+                scrollToView('image')
+            } else if (greetingError) {
+                scrollToView('greeting')
+            }else if (salutationError) {
+                scrollToView('salutation')
+            }else if (senderError) {
+                scrollToView('sender')
+            }else if (companyNameError) {
+                scrollToView('companyName')
+            }else if (companyEmailError) {
+                scrollToView('companyEmail')
+            }else if (urlError) {
+                scrollToView('url')
+            }
+
         } else {
             setError(false)
             setTempLoading(true)
@@ -112,6 +138,7 @@ const Master = () => {
         }
     }
     const handleCompanyNameError = (value) => {
+        
         if (value) {
             setCompanyNameError(false)
         } else {
@@ -119,6 +146,7 @@ const Master = () => {
         }
     }
     const handleCompanyEmailError = (value) => {
+        
         if (value) {
             setCompanyEmailError(false)
         } else {
@@ -126,6 +154,7 @@ const Master = () => {
         }
     }
     const handleSalutationError = (value) => {
+        
         if (value) {
             setSalutationError(false)
         } else {
@@ -133,6 +162,7 @@ const Master = () => {
         }
     }
     const handleSenderError = (value) => {
+        
         if (value) {
             setSenderError(false)
         } else {
@@ -140,6 +170,7 @@ const Master = () => {
         }
     }
     const handleUrlError = (value) => {
+        
         if (value) {
             setUrlError(false)
         } else {
@@ -224,6 +255,7 @@ const Master = () => {
                 <Loader height={'100px'} />
             </LoaderBox>
             <Container>
+                {/* <h1 ref={myRef}>test</h1> */}
                 <SectionTitle title="The Basics 😌" text="These certains elements will be on all your emails. 
 So to make it easier, you can do in on go." mb="80px" maxW="730px" mx="auto" />
                 <Flex color='white' justifyContent={"space-between"}>

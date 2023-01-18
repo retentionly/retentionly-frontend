@@ -83,7 +83,6 @@ const data = [
         },
 ]
 
-
 const Stats = () => {
     return (
         <Container>

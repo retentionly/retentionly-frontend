@@ -15,12 +15,12 @@ const EditingBlockRight = ({
     handleCompanyEmailError,
     handleSalutationError,
     handleSenderError,
-    handleUrlError
+    handleUrlError,
 }) => {
     const dispatch = useDispatch();
 
     const { master } = useSelector((state) => state.templates);
-    const { greeting,companyEmail, companyName, salutations, sender, url } = master;
+    const { greeting, companyEmail, companyName, salutations, sender, url } = master;
 
     const handleGreetings = (e) => {
         handleGreetingError(e[0].children[0].text);
@@ -72,10 +72,10 @@ const EditingBlockRight = ({
 
     return (
         <>
-
             {
                 greeting &&
                 <EditBlock
+                    id="greeting"
                     textarea={true}
                     title={"Greeting:"}
                     text="Choose how you would like to greet your donors."
@@ -84,12 +84,13 @@ const EditingBlockRight = ({
                     onChange={handleGreetings}
                     value={greeting}
                     required={error && greetingError}
+
                 />
             }
-
             {
                 salutations &&
                 <EditBlock
+                    id="salutation"
                     title={"Salutations:"}
                     text="Choose how you would like to sign off 
                 your emails."
@@ -98,11 +99,13 @@ const EditingBlockRight = ({
                     onChange={handleSalutation}
                     value={salutations}
                     required={error && salutationError}
+
                 />
             }
             {
                 sender &&
                 <EditBlock
+                    id="sender"
                     title={"Sender:"}
                     text="Decide who the emails will be sent by. 
                 Is it the Head of Fundraising or the CEO or the Trustee, etc? "
@@ -116,6 +119,7 @@ const EditingBlockRight = ({
             {
                 companyName &&
                 <EditBlock
+                    id="companyName"
                     title={"Company Name:"}
                     text="Write Your Company Name"
                     inputPlaceholder={`E.g. "The Breakfast Club”.`}
@@ -128,6 +132,7 @@ const EditingBlockRight = ({
             {
                 companyEmail &&
                 <EditBlock
+                    id="companyEmail"
                     title={"Company Email:"}
                     text="Write Your Company Email Address"
                     inputPlaceholder={`E.g. "company@email.com”.  `}
@@ -140,6 +145,7 @@ const EditingBlockRight = ({
             {
                 url &&
                 <EditBlock
+                    id="url"
                     title={"URL:"}
                     text="Tell us where you want to send recipients so they can donate to your cause.
                 "
@@ -152,4 +158,4 @@ const EditingBlockRight = ({
         </>
     )
 }
-export default EditingBlockRight
+export default EditingBlockRight;

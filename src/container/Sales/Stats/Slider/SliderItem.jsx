@@ -5,7 +5,6 @@ import { StatItem } from '../style';
 const SliderItem = ({ data }) => {
     const {icon,prefix,title,text,postfix} = data;
     return (
-        
             <StatItem>
                 {
                     icon
