@@ -64,14 +64,14 @@ const Master = () => {
 
     const { logo } = masterState;
 
+    // scroll to view function
     const scrollToView = useCallback((id) => {
         const element = document.getElementById(id);
-        console.log(element)
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }, []);
-
+    
     const handleSubmit = async () => {
         if (imageError || greetingError || salutationError || senderError || companyNameError || companyEmailError || urlError) {
             setError(true)

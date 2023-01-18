@@ -9,10 +9,9 @@ import { PreviewBody } from '../style';
 const PreviewTemplateOne = ({ images }) => {
 
     const { user: userState, master } = useSelector((state) => state);
-    const { logo, salutations, greeting, sender, companyName, companyEmail } = master;
+    const { logo, salutations, greeting, sender } = master;
     const { template1 } = useSelector(state => state.templates);
     const { image, beneficiaryDesc, mainText, serviceDesc } = template1;
-    console.log(companyName);
     return (
         <>
             <PreviewHead logo={logo} images={images} image={image}/>

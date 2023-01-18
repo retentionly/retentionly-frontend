@@ -77,7 +77,7 @@ const EditBlockOne = ({
     return (
         <>
             <EditBlockStyled direction={"column"}>
-                <Box mb={3} className="upload">
+                <Box mb={3} className="upload" id="image">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>Upload Template Image:</Heading>
                     <Box mb="10px" >
                         {
@@ -99,6 +99,7 @@ const EditBlockOne = ({
                         onChange={handleSubjectLine}
                         value={template1?.subjectLine}
                         required={error && subjectLineError}
+                        id="subject-line"
                     />
                 </Box>
 
@@ -113,6 +114,7 @@ const EditBlockOne = ({
                             onChange={handlePreview}
                             value={template1?.preview}
                             required={error && previewError}
+                            id="preview"
                         />
                     </Box>
                 }
@@ -126,6 +128,8 @@ const EditBlockOne = ({
                         onChange={handleServiceDesc}
                         value={template1?.serviceDesc}
                         required={error && serviceDescError}
+                        id="serviceDesc"
+
                     />
                 </Box>
 
@@ -139,6 +143,7 @@ const EditBlockOne = ({
                         onChange={handleBeneficiaryDesc}
                         value={template1?.beneficiaryDesc}
                         required={error && beneficiaryDescError}
+                        id="beneficiary-description"
                     />
                 </Box>
 

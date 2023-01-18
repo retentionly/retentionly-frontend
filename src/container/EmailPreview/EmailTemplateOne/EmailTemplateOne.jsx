@@ -152,10 +152,29 @@ const EmailTemplateOne = () => {
         }
     }, [editTemplateSuccess, editTemplateLoading])
 
+    // scroll to view function
+    const scrollToView = useCallback((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, []);
+
     /* HANDLERS */
     const handleSubmit = async () => {
         if (imageError || subjectLineError || previewError || serviceDescError || beneficiaryDescError) {
             setError(true)
+            if(imageError) {
+                scrollToView('image')
+            } else if(subjectLineError) {
+                scrollToView('subject-line')
+            } else if(previewError) {
+                scrollToView('preview')
+            } else if(serviceDescError) {
+                scrollToView('serviceDesc')
+            } else if(beneficiaryDescError) {             
+                scrollToView('beneficiary-description')
+            }
         } else {
             setError(false)
             setTempLoading(true);

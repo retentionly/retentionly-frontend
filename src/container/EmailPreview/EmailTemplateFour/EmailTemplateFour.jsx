@@ -165,10 +165,29 @@ const EmailTemplateFour = () => {
     }
   }, [editTemplateSuccess, editTemplateLoading])
 
+  // scroll to view function
+  const scrollToView = useCallback((id) => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}, []);
+
   /* HANDLERS */
   const handleSubmit = async () => {
     if (imageError || subjectLineError || previewError || socialMediaBenefitError || facebookLinkError || instagramLinkError) {
       setError(true)
+      if(imageError) {
+        scrollToView('image')
+      } else if(subjectLineError) {
+        scrollToView('subjectLine')
+      } else if(previewError) {
+        scrollToView('preview')
+      } else if(socialMediaBenefitError) {
+        scrollToView('socialMediaBenefit')
+      } else if(facebookLinkError || instagramLinkError) {  
+        scrollToView('socialLink')
+      }
     } else {
       setError(false)
       setTempLoading(true);

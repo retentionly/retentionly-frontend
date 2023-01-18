@@ -91,7 +91,7 @@ const EditBlockTwo = ({
     return (
         <>
             <EditBlockStyled direction={"column"}>
-                <Box mb={3} className="upload">
+                <Box mb={3} className="upload" id="image">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>Upload Template Image:</Heading>
                     <Box mb="10px" >
                         {
@@ -114,6 +114,7 @@ const EditBlockTwo = ({
                         onChange={handleSubjectLine}
                         value={subjectLine}
                         required={error && subjectLineError}
+                        id="subject-line"
                     />
                 </Box>
 
@@ -126,6 +127,7 @@ const EditBlockTwo = ({
                         onChange={handlePreview}
                         value={preview}
                         required={error && previewError}
+                        id="preview"
                     />
                 </Box>
 
@@ -144,6 +146,7 @@ const EditBlockTwo = ({
                         // removeTask={removeTask}
                         item={impactStat}
                         required={error && impactStatError}
+                        id="impact-statistic"
                     />
                 </Box>
 
@@ -156,6 +159,7 @@ const EditBlockTwo = ({
                         onChange={handleDonationFor}
                         value={donationFor}
                         required={error && donationForError}
+                        id="donation-for"
                     />
                 </Box>
 
@@ -170,6 +174,7 @@ so we can give every child a breakfast".`}
                         onChange={handleDonationGoesFor}
                         value={donationGoesFor}
                         required={error && donationGoesForError}
+                        id="donation-goes-for"
                     />
                 </Box>
 

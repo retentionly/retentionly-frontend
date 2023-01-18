@@ -101,7 +101,7 @@ const EditBlockFour = ({
     return (
         <>
             <EditBlockStyled direction={"column"}>
-                <Box mb={3} className="upload">
+                <Box mb={3} className="upload" id="image">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>Upload Template Image:</Heading>
                     <Box mb="10px" >
                         {
@@ -131,6 +131,7 @@ const EditBlockFour = ({
                             }
                         ]}
                         required={error && subjectLineError}
+                        id="subjectLine"
                     />
                 </Box>
 
@@ -150,6 +151,7 @@ const EditBlockFour = ({
                             }
                         ]}
                         required={error && previewError}
+                        id="preview"
                     />
                 </Box>
 
@@ -168,10 +170,11 @@ up to date with
                         handleRemoveImpact={handleRemoveBenefit}
                         item={socialMediaBenefit}
                         required={error && socialMediaBenefitError}
+                        id="socialMediaBenefit"
                     />
                 </Box>
 
-                <Box mb="30px">
+                <Box mb="30px" id="socialLink">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>
                         Social Media Links
                     </Heading>

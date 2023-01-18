@@ -91,7 +91,7 @@ const EditBlockThree = ({
     return (
         <>
             <EditBlockStyled direction={"column"}>
-                <Box mb={3} className="upload">
+                <Box mb={3} className="upload" id="image">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>Upload Template Image:</Heading>
                     <Box mb="10px" >
                         {
@@ -119,6 +119,7 @@ const EditBlockThree = ({
                             }
                         ]}
                         required={error && subjectLineError}
+                        id="subjectLine"
                     />
                 </Box>
 
@@ -137,6 +138,7 @@ const EditBlockThree = ({
                             }
                         ]}
                         required={error && previewError}
+                        id="preview"
                     />
                 </Box>
 
@@ -155,6 +157,7 @@ const EditBlockThree = ({
                             }
                         ]}
                         required={error && beneficiaryNameError}
+                        id="beneficiaryName"
                     />
                 </Box>
 
@@ -174,6 +177,7 @@ everyday before school".`}
                             }
                         ]}
                         required={error && beneficiaryHelpedError}
+                        id="beneficiaryHelped"
                     />
                 </Box>
 
@@ -195,6 +199,7 @@ a dramatic effect on his grades".`}
                             }
                         ]}
                         required={error && beneficiaryBeforeError}
+                        id="beneficiaryBefore"
                     />
                 </Box>
 
@@ -215,6 +220,7 @@ school. Fuelled properly, his grades started to improve. `}
                             }
                         ]}
                         required={error && beneficiaryAfterError}
+                        id="beneficiaryAfter"
                     />
                 </Box>
 

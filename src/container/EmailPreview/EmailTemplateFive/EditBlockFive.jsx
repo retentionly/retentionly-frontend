@@ -95,7 +95,7 @@ const EditBlockFive = ({
     return (
         <>
             <EditBlockStyled direction={"column"}>
-                <Box mb={3} className="upload">
+                <Box mb={3} className="upload" id="image">
                     <Heading color="black" fontWeight={400} mb="14px" {...Text30}>Upload Template Image:</Heading>
                     <Box mb="10px" >
                         {
@@ -123,6 +123,7 @@ const EditBlockFive = ({
                                 }
                             ]}
                             required={error && subjectLineError}
+                            id="subjectLine"
                         />
                     </Box>
                 }
@@ -143,6 +144,7 @@ const EditBlockFive = ({
                                 }
                             ]}
                             required={error && previewError}
+                            id="preview"
                         />
                     </Box>
                 }
@@ -161,6 +163,7 @@ const EditBlockFive = ({
                             }
                         ]}
                         required={error && serviceDescError}
+                        id="serviceDesc"
                     />
                 </Box>
 
@@ -173,11 +176,9 @@ const EditBlockFive = ({
                         mb="30px"
                         handleAddImpact={handleAddorRemoveImpact}
                         handleRemoveImpact={handleAddorRemoveImpact}
-                        // toggleTask={toggleTask}
-                        // removeTask={removeTask}
                         item={impactStat}
                         required={error && impactStatError}
-                    // required={!Boolean(impactStat.length)}
+                        id="impactStat"
                     />
                 </Box>
 
@@ -194,6 +195,7 @@ const EditBlockFive = ({
                             }
                         ]}
                         required={error && donationDoesError}
+                        id="donationDoes"
                     />
                 </Box>
 
@@ -213,6 +215,7 @@ so we can give every child a breakfast".`}
                             }
                         ]}
                         required={error && mainGoalSummaryError}
+                        id="mainGoalSummary"
                     />
                 </Box>
 

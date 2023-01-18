@@ -175,10 +175,33 @@ const EmailTemplateFive = () => {
         }
     }, [editTemplateSuccess, editTemplateLoading])
 
+    // scroll to view function
+    const scrollToView = useCallback((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, []);
+
     /* HANDLERS */
     const handleSubmit = async () => {
         if (imageError || subjectLineError || previewError || mainGoalSummaryError || serviceDescError || impactStatError || donationDoesError) {
             setError(true)
+            if(imageError) {
+                scrollToView("image")
+            } else if(subjectLineError) {
+                scrollToView("subjectLine")
+            } else if(previewError) {
+                scrollToView("preview")
+            } else if(mainGoalSummaryError) {
+                scrollToView("mainGoalSummary")
+            } else if(serviceDescError) {
+                scrollToView("serviceDesc")
+            } else if(impactStatError) {
+                scrollToView("impactStat")
+            } else if(donationDoesError) {
+                scrollToView("donationDoes")
+            }
         } else {
             setError(false)
             setTempLoading(true);
