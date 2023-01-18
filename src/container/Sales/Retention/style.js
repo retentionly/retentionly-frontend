@@ -16,13 +16,9 @@ export const RetentionItem = styled.div`
 text-align: center;
 
 .retention-title {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 600;
     margin-bottom: 10px;
-
-    @media (min-width: 768px) {
-        font-size: 30px;
-    }
 
     @media (min-width: 992px) {
         font-size: 60px;
