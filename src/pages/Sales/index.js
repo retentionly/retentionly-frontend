@@ -8,7 +8,7 @@ import HeroSection from "../../container/Sales/Hero/Hero"
 import Pricing from "../../container/Sales/Pricing"
 import Retention from "../../container/Sales/Retention"
 import Services from "../../container/Sales/Services/Services"
-import Stats from "../../container/Sales/Stats"
+// import Stats from "../../container/Sales/Stats"
 import { HeaderSecondary } from "../../layout/Header"
 import { SalesContainer } from "./style"
 
@@ -19,7 +19,7 @@ export default function SalesPage() {
             <HeaderSecondary />
             <SalesContainer>
                 <HeroSection />
-                <Stats />
+                {/* <Stats /> */}
                 <Retention/>
                 <Services />
                 <Brands />
