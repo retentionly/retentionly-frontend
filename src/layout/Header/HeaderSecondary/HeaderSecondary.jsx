@@ -13,7 +13,7 @@ const HeaderSecondary = () => {
     return (
         <HeaderSecondaryStyled className="header-secondary">
             <Box className="header-logo">
-                <Link to="/"><img src={logo} alt="" /></Link>
+                <a href="https://retentionly.co.uk" className="secondary-header-link"><img src={logo} alt="" /></a>
             </Box>
 
             <HeaderContent className="secondary-content">
