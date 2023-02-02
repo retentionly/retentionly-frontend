@@ -7,8 +7,6 @@ import TestimonialContent, { TestimonialCardStyled, TestimonialMedia } from './s
 
 const TestimonialCard = ({ data }) => {
 
-  // const { media, heading, text, designation, icon } = data;
-
   return (
     <TestimonialCardStyled>
       <TestimonialMedia>
