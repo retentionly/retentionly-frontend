@@ -142,7 +142,7 @@ That’s how we want you to feel about your donors." mb={["40px", { lg: "80px" }
                                     <Box maxW={550} mx="auto" mt="10px">
                                         <Text {...Text20}>
                                             Don't Have An Account?<br />
-                                            <LinkText to="/book-a-demo" as={Link}>
+                                            <LinkText href="https://retentionly.co.uk/booking">
                                                 Book a free demo call to learn more
                                             </LinkText>
                                         </Text>
