@@ -53,6 +53,11 @@ const Pricing = () => {
                         This sounds great. But how much will it really cost you?
                     </Typography>
                 </div>
+                {/* <div className="pricing-cards">
+                    {
+                        data.map((item) => <PricingDetails data={item} />)
+                    }
+                </div> */}
                 <div className="pricing-cards">
                     <PricingCard price={price} setPrice={setPrice}/>
                     <CardPrice price={price}/>
