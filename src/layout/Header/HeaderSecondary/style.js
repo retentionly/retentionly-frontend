@@ -205,7 +205,7 @@ export const HeaderButton = styled.a`
         border:1px solid var(--blue);
     `}
 `
-const BookButton = styled.a`
+export const BookButton = styled.a`
     display:inline-block;
     background: #FFC3C4;
     padding: 10px 20px;
