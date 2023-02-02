@@ -9,6 +9,9 @@ export const HeaderSecondaryStyled = styled.header`
     display:flex;
     align-items:center;
     padding: 0 14px 0 0; 
+    .ml-auto{
+        margin-left: auto!important;
+    }
     .header-logo{
         background:#fff;
         display:flex;

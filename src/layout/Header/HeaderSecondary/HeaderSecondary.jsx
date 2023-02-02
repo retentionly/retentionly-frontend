@@ -18,22 +18,22 @@ const HeaderSecondary = () => {
 
             <HeaderContent className="secondary-content">
                 <Menu>
-                    <Menu.Item ><a href="#why-retentionly" className="secondary-header-link">Why Retentionly?</a></Menu.Item>
-                    <Menu.Item ><a href="#faq" className="secondary-header-link">How It Works</a></Menu.Item>
-                    <Menu.Item ><a href="#pricing" className="secondary-header-link">Pricing</a></Menu.Item>
+                    <Menu.Item ><a href="https://retentionly.co.uk/#why-retentionly" className="secondary-header-link">Why Retentionly?</a></Menu.Item>
+                    <Menu.Item ><a href="https://retentionly.co.uk/#faq" className="secondary-header-link">How It Works</a></Menu.Item>
+                    <Menu.Item ><a href="https://retentionly.co.uk/#pricing" className="secondary-header-link">Pricing</a></Menu.Item>
                     {
                         !user &&
                         <>
-                            <Menu.Item className="login">
+                            {/* <Menu.Item className="login">
                                 <Link to="/login" className="login-btn secondary-header-link">
                                     <button>
                                         Login
                                     </button>
                                 </Link>
-                            </Menu.Item>
+                            </Menu.Item> */}
 
-                            <Menu.Item className="demo">
-                            <BookButton to="/book-a-demo" >Book Demo</BookButton>
+                            <Menu.Item className="demo ml-auto">
+                            <BookButton to="https://retentionly.co.uk/booking" >Book Demo</BookButton>
                             </Menu.Item>
                         </>
                     }
@@ -42,7 +42,7 @@ const HeaderSecondary = () => {
 
             <Menu className="mobile-menu-demo">
                 <Menu.Item className="demo">
-                <BookButton to="/book-a-demo">Book Demo</BookButton>
+                <BookButton to="https://retentionly.co.uk/booking">Book Demo</BookButton>
                 </Menu.Item>
             </Menu>
 

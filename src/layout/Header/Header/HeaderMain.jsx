@@ -12,7 +12,7 @@ const HeaderMain = () => {
     return (
         <HeaderStyled>
             <Box className="header-logo">
-                <Link to="/"><img src={logo} alt="" /></Link>
+                <a href="https://retentionly.co.uk/"><img src={logo} alt="" /></a>
             </Box>
             {user &&
                 <HeaderContent>

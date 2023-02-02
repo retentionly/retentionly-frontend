@@ -21,7 +21,6 @@ import UserMaster from "./pages/Admin/UserMaster";
 import UserTemplates from "./pages/Admin/UserTemplates";
 import Preview from "./pages/Admin/UserTemplates/Preview";
 import Appointment from "./pages/Appointment";
-import BookDemo from "./pages/BookDemo";
 import EmailFinal from "./pages/EmailFinal";
 import Emails from "./pages/Emails/Emails";
 import EventConfirmedDashboard from "./pages/EventConfirmedDashboard";
@@ -33,7 +32,6 @@ import Master from "./pages/Master";
 import Membership from "./pages/Membership";
 import PaymentSuccess from "./pages/Membership/PaymentSuccess";
 import NotFound from "./pages/NotFound";
-import Sales from "./pages/Sales";
 import UserDashboard from "./pages/UserDashboard";
 import { RequireAdmin, RequireAuth, RequireConfirmedUser, RequirePayment } from "./routes/middleware";
 import { NewUserRoute, OldUserRoute } from "./routes/PrivateRoutes";
@@ -152,9 +150,7 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Sales />} />
-        <Route path="/book-a-demo" element={<BookDemo />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </>

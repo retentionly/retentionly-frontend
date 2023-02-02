@@ -120,9 +120,10 @@ export const HeaderContent = styled(Box)`
     align-items:center;
     justify-content:space-between;
     padding: 10px 26px;
-
+   
     &.secondary-content {
         justify-content: flex-start;
+        
         ul {
             width: 100%;
             justify-content: flex-start;
