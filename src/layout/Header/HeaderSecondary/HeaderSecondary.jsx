@@ -3,9 +3,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/png/logo3.png";
 import LogoutBtn from "../../../components/LogoutBtn";
-import BookButton from "../../../container/Sales/Global/Button/Button";
+// import BookButton from "../../../container/Sales/Global/Button/Button";
 import auth from "../../../firebase.init";
-import { HeaderButton, HeaderContent, HeaderSecondaryStyled, Menu } from "./style";
+import { HeaderButton, HeaderContent, HeaderSecondaryStyled, Menu ,BookButton} from "./style";
 
 const HeaderSecondary = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -33,7 +33,7 @@ const HeaderSecondary = () => {
                             </Menu.Item> */}
 
                             <Menu.Item className="demo ml-auto">
-                            <BookButton to="https://retentionly.co.uk/booking" >Book Demo</BookButton>
+                            <BookButton href="https://retentionly.co.uk/booking" >Book Demo</BookButton>
                             </Menu.Item>
                         </>
                     }
@@ -42,7 +42,7 @@ const HeaderSecondary = () => {
 
             <Menu className="mobile-menu-demo">
                 <Menu.Item className="demo">
-                <BookButton to="https://retentionly.co.uk/booking">Book Demo</BookButton>
+                <BookButton href="https://retentionly.co.uk/booking">Book Demo</BookButton>
                 </Menu.Item>
             </Menu>
 
